@@ -24,6 +24,7 @@ DJANGO_APPS = (
     'django.contrib.staticfiles',
 
     # Admin
+    'grappelli',
     'django.contrib.admin',
 )
 THIRD_PARTY_APPS = (
@@ -161,6 +162,7 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
                 'django.core.context_processors.request',
+                'django.core.context_processors.request',
             ],
         },
     },
@@ -226,5 +228,6 @@ AUTOSLUG_SLUGIFY_FUNCTION = 'slugify.slugify'
 
 # Location of root django.contrib.admin URL, use {% url 'admin:index' %}
 ADMIN_URL = r'^admin/'
+GRAPPELLI_ADMIN_TITLE = 'CCDB'
 
 # Your common stuff: Below this line define 3rd party library settings

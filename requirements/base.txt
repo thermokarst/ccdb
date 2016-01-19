@@ -30,3 +30,6 @@ django-bootstrap3==6.2.2
 
 # Data grids
 django-tables2==1.0.4
+
+# Admin
+django-grappelli==2.7.3
