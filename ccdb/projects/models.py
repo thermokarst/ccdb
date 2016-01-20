@@ -25,6 +25,7 @@ class Grant(models.Model):
     title = models.CharField(max_length=200)
     code = models.CharField(max_length=10, blank=True)
     description = models.CharField(max_length=255, blank=True)
+    projects = models.ManyToManyField(Project, related_name='grants')
     sort_order = models.IntegerField(blank=True, null=True)
 
     def __str__(self):

@@ -16,8 +16,8 @@ def import_grants(apps, schema_editor):
             reader = csv.DictReader(f, fieldnames=fieldnames)
             for r in reader:
                 r['sort_order'] = None
-                p = Grant(**r)
-                p.save()
+                g = Grant(**r)
+                g.save()
 
 
 def remove_grants(apps, schema_editor):

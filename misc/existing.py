@@ -267,14 +267,14 @@ class TblHashPeopleSets(models.Model):
         db_table = 'tbl_HASH_People_Sets'
 
 
-class TblHashProjectGrants(models.Model):
-    projectid = models.ForeignKey('TblLuProjects', db_column='ProjectID')  # Field name made lowercase.
-    grantid = models.ForeignKey('TblLuGrants', db_column='GrantID')  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'tbl_HASH_Project_Grants'
-        unique_together = (('ProjectID', 'GrantID'),)
+# class TblHashProjectGrants(models.Model):
+#     projectid = models.ForeignKey('TblLuProjects', db_column='ProjectID')  # Field name made lowercase.
+#     grantid = models.ForeignKey('TblLuGrants', db_column='GrantID')  # Field name made lowercase.
+#
+#     class Meta:
+#         managed = False
+#         db_table = 'tbl_HASH_Project_Grants'
+#         unique_together = (('ProjectID', 'GrantID'),)
 
 
 class TblHashTrapSpecies(models.Model):
