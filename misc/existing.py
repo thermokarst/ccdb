@@ -536,18 +536,18 @@ class TblLuProcessTypes(models.Model):
         unique_together = (('Process_Type', 'Process_Type_Code'),)
 
 
-class TblLuProjects(models.Model):
-    projectid = models.AutoField(db_column='ProjectID', primary_key=True)  # Field name made lowercase.
-    project = models.CharField(db_column='Project', max_length=100)  # Field name made lowercase.
-    project_code = models.CharField(db_column='Project_Code', max_length=10, blank=True, null=True)  # Field name made lowercase.
-    iacuc_number = models.CharField(db_column='IACUC_Number', max_length=25, blank=True, null=True)  # Field name made lowercase.
-    project_short_description = models.CharField(db_column='Project_Short_Description', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    sort_order = models.IntegerField(db_column='Sort_Order', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'tbl_LU_Projects'
-        unique_together = (('Project', 'Project_Code'),)
+# class TblLuProjects(models.Model):
+#     projectid = models.AutoField(db_column='ProjectID', primary_key=True)  # Field name made lowercase.
+#     project = models.CharField(db_column='Project', max_length=100)  # Field name made lowercase.
+#     project_code = models.CharField(db_column='Project_Code', max_length=10, blank=True, null=True)  # Field name made lowercase.
+#     iacuc_number = models.CharField(db_column='IACUC_Number', max_length=25, blank=True, null=True)  # Field name made lowercase.
+#     project_short_description = models.CharField(db_column='Project_Short_Description', max_length=255, blank=True, null=True)  # Field name made lowercase.
+#     sort_order = models.IntegerField(db_column='Sort_Order', blank=True, null=True)  # Field name made lowercase.
+#
+#     class Meta:
+#         managed = False
+#         db_table = 'tbl_LU_Projects'
+#         unique_together = (('Project', 'Project_Code'),)
 
 
 class TblLuReagents(models.Model):

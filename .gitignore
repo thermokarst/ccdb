@@ -1,5 +1,6 @@
 venv
 staticfiles
+data
 *.py[cod]
 *.pyc
 __pycache__
