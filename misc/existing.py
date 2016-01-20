@@ -409,20 +409,20 @@ class TblLuExperiments(models.Model):
         unique_together = (('Experiment_Name', 'Experiment_Code'),)
 
 
-class TblLuGrantReports(models.Model):
-    grantreportid = models.AutoField(db_column='GrantReportID', primary_key=True)  # Field name made lowercase.
-    grantid = models.ForeignKey('TblLuGrants', db_column='GrantID')  # Field name made lowercase.
-    report_title = models.CharField(db_column='Report_Title', max_length=200)  # Field name made lowercase.
-    report_type = models.CharField(db_column='Report_Type', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    report_short_description = models.CharField(db_column='Report_Short_Description', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    report_due_date = models.DateField(db_column='Report_Due_Date', blank=True, null=True)  # Field name made lowercase.
-    report_submitted_date = models.DateField(db_column='Report_Submitted_Date', blank=True, null=True)  # Field name made lowercase.
-    link_to_report = models.CharField(db_column='Link_To_Report', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    sort_order = models.IntegerField(db_column='Sort_Order', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'tbl_LU_Grant_Reports'
+# class TblLuGrantReports(models.Model):
+#     grantreportid = models.AutoField(db_column='GrantReportID', primary_key=True)  # Field name made lowercase.
+#     grantid = models.ForeignKey('TblLuGrants', db_column='GrantID')  # Field name made lowercase.
+#     report_title = models.CharField(db_column='Report_Title', max_length=200)  # Field name made lowercase.
+#     report_type = models.CharField(db_column='Report_Type', max_length=50, blank=True, null=True)  # Field name made lowercase.
+#     report_short_description = models.CharField(db_column='Report_Short_Description', max_length=255, blank=True, null=True)  # Field name made lowercase.
+#     report_due_date = models.DateField(db_column='Report_Due_Date', blank=True, null=True)  # Field name made lowercase.
+#     report_submitted_date = models.DateField(db_column='Report_Submitted_Date', blank=True, null=True)  # Field name made lowercase.
+#     link_to_report = models.CharField(db_column='Link_To_Report', max_length=255, blank=True, null=True)  # Field name made lowercase.
+#     sort_order = models.IntegerField(db_column='Sort_Order', blank=True, null=True)  # Field name made lowercase.
+#
+#     class Meta:
+#         managed = False
+#         db_table = 'tbl_LU_Grant_Reports'
 
 
 # class TblLuGrants(models.Model):
