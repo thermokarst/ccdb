@@ -425,17 +425,17 @@ class TblLuGrantReports(models.Model):
         db_table = 'tbl_LU_Grant_Reports'
 
 
-class TblLuGrants(models.Model):
-    grantid = models.AutoField(db_column='GrantID', primary_key=True)  # Field name made lowercase.
-    grant_title = models.CharField(db_column='Grant_Title', max_length=200)  # Field name made lowercase.
-    grant_code = models.CharField(db_column='Grant_Code', max_length=10, blank=True, null=True)  # Field name made lowercase.
-    grant_short_description = models.CharField(db_column='Grant_Short_Description', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    sort_order = models.IntegerField(db_column='Sort_Order', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'tbl_LU_Grants'
-        unique_together = (('Grant_Title', 'Grant_Code'),)
+# class TblLuGrants(models.Model):
+#     grantid = models.AutoField(db_column='GrantID', primary_key=True)  # Field name made lowercase.
+#     grant_title = models.CharField(db_column='Grant_Title', max_length=200)  # Field name made lowercase.
+#     grant_code = models.CharField(db_column='Grant_Code', max_length=10, blank=True, null=True)  # Field name made lowercase.
+#     grant_short_description = models.CharField(db_column='Grant_Short_Description', max_length=255, blank=True, null=True)  # Field name made lowercase.
+#     sort_order = models.IntegerField(db_column='Sort_Order', blank=True, null=True)  # Field name made lowercase.
+#
+#     class Meta:
+#         managed = False
+#         db_table = 'tbl_LU_Grants'
+#         unique_together = (('Grant_Title', 'Grant_Code'),)
 
 
 class TblLuMaterials(models.Model):

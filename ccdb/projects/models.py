@@ -19,3 +19,17 @@ class Project(models.Model):
     class Meta:
         unique_together = ('name', 'code')
         ordering = ['sort_order']
+
+
+class Grant(models.Model):
+    title = models.CharField(max_length=200)
+    code = models.CharField(max_length=10, blank=True)
+    description = models.CharField(max_length=255, blank=True)
+    sort_order = models.IntegerField(blank=True, null=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        unique_together = ('title', 'code',)
+        ordering = ['sort_order']
