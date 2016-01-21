@@ -1,30 +1,23 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+from django.db import migrations, models, transaction
 
-import csv
-import os
-
-from django.db import migrations, models
+from ccdb.utils.data_import import setup_sqlite
 
 
+@transaction.atomic
 def import_project_grant(apps, schema_editor):
     Project = apps.get_model('projects', 'Project')
     Grant = apps.get_model('projects', 'Grant')
-    filename = 'data/tbl_HASH_Project_Grants.csv'
-    if os.path.exists(filename):
-        with open(filename) as f:
-            fieldnames = ['project', 'grant']
-            reader = csv.DictReader(f, fieldnames=fieldnames)
-            for r in reader:
-                p = Project.objects.get(id=r['project'])
-                g = Grant.objects.get(id=r['grant'])
-                p.grants.add(g)
-                p.save()
+    c = setup_sqlite()
+    if c:
+        for r in c.execute('SELECT * FROM tbl_hash_project_grants;'):
+            p = Project.objects.get(id=r[0])
+            g = Grant.objects.get(id=r[1])
+            p.grants.add(g)
+            p.save()
 
 
 def remove_project_grant(apps, schema_editor):
-    Grant = apps.get_model('projects', 'Grant')
-    Grant.projects.clear()
+    pass
 
 
 class Migration(migrations.Migration):

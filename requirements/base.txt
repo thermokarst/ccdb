@@ -33,3 +33,6 @@ django-tables2==1.0.4
 
 # Admin
 django-grappelli==2.7.3
+
+# Date/time strings
+python-dateutil==2.4.2

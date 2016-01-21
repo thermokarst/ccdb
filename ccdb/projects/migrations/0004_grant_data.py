@@ -1,23 +1,17 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+from django.db import migrations, models, transaction
 
-import csv
-import os
-
-from django.db import migrations, models
+from ccdb.utils.data_import import setup_sqlite
 
 
+@transaction.atomic
 def import_grants(apps, schema_editor):
     Grant = apps.get_model('projects', 'Grant')
-    filename = 'data/tbl_LU_Grants.csv'
-    if os.path.exists(filename):
-        with open(filename) as f:
-            fieldnames = ['id', 'title', 'code', 'description', 'sort_order']
-            reader = csv.DictReader(f, fieldnames=fieldnames)
-            for r in reader:
-                r['sort_order'] = None
-                g = Grant(**r)
-                g.save()
+    c = setup_sqlite()
+    if c:
+        for r in c.execute('SELECT * FROM tbl_lu_grants;'):
+            g = Grant(id=r[0], title=r[1], code=r[2],
+                description=r[3], sort_order=r[4])
+            g.save()
 
 
 def remove_grants(apps, schema_editor):

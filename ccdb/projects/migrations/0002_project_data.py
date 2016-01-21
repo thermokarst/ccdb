@@ -1,24 +1,17 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+from django.db import migrations, models, transaction
 
-import csv
-import os
-
-from django.db import migrations, models
+from ccdb.utils.data_import import setup_sqlite
 
 
+@transaction.atomic
 def import_projects(apps, schema_editor):
     Project = apps.get_model('projects', 'Project')
-    filename = 'data/tbl_LU_Projects.csv'
-    if os.path.exists(filename):
-        with open(filename) as f:
-            fieldnames = ['id', 'name', 'code', 'iacuc_number',
-                'description', 'sort_order']
-            reader = csv.DictReader(f, fieldnames=fieldnames)
-            for r in reader:
-                r['sort_order'] = int(float(r['sort_order']))
-                p = Project(**r)
-                p.save()
+    c = setup_sqlite()
+    if c:
+        for r in c.execute('SELECT * FROM tbl_lu_projects;'):
+            p = Project(id=r[0], name=r[1], code=r[2], iacuc_number=r[3],
+                description=r[4], sort_order=r[5])
+            p.save()
 
 
 def remove_projects(apps, schema_editor):

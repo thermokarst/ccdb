@@ -1,30 +1,24 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+from django.db import migrations, models, transaction
 
-import csv
-import os
-from datetime import datetime
-
-from django.db import migrations, models
+from ccdb.utils.data_import import setup_sqlite
 
 
+@transaction.atomic
 def import_grantreport(apps, schema_editor):
     GrantReport = apps.get_model('projects', 'GrantReport')
     Grant = apps.get_model('projects', 'Grant')
-    filename = 'data/tbl_LU_Grant_Reports.csv'
-    if os.path.exists(filename):
-        with open(filename) as f:
-            fieldnames = ['id', 'grant_id', 'title', 'report_type', 'description',
-                'due_date', 'submitted_date', 'attachment', 'sort_order']
-            reader = csv.DictReader(f, fieldnames=fieldnames)
-            for r in reader:
-                r['sort_order'] = None
-                r['due_date'] = datetime.strptime(' '.join(r['due_date'].split(' AKDT ')), '%a %b %d %H:%M:%S %Y')
-                r['submitted_date'] = None
-                grant_id = r.pop('grant_id')
-                g = Grant.objects.get(id=grant_id)
-                gr = GrantReport(grant=g, **r)
-                gr.save()
+    c = setup_sqlite()
+    if c:
+        q = '''
+               SELECT *, report_due_date AS "due_date [dtdt]"
+               FROM tbl_lu_grant_reports;
+            '''
+        for r in c.execute(q):
+            g = Grant.objects.get(id=r[0])
+            gr = GrantReport(grant=g, title=r[1], report_type=r[2],
+                description=r[3], due_date=r[8], submitted_date=r[5],
+                attachment=r[6], sort_order=r[7])
+            gr.save()
 
 
 def remove_grantreport(apps, schema_editor):
