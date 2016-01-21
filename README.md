@@ -7,7 +7,7 @@ A collections and contaminants database.
     $ pyvenv venv
     $ source venv/bin/activate
     $ pip install -r requirements/local.txt
-    $ createdb tucotuco
+    $ createdb ccdbdjango
     $ python manage.py migrate
     $ python manage.py runserver
 
