@@ -9,6 +9,8 @@ from ccdb.utils.data_import import setup_sqlite
 from ccdb.projects.models import Project, Grant, GrantReport
 from ccdb.misc.models import MeasurementUnit, MeasurementType, Container, \
     Material, Color
+from ccdb.locations.models import Region, Site, MunicipalLocation, \
+    StudyLocation, StorageLocation
 
 
 class Command(BaseCommand):
@@ -104,3 +106,35 @@ def _import_data():
                 color_id=r[4], material_id=r[5], volume=r[6],
                 measurement_unit_id=r[7], sort_order=r[8])
             cl.save()
+
+        # Regions
+        for r in c.execute('SELECT * FROM tbl_lu_regions;'):
+            re = Region(id=r[0], name=r[1], code=r[2], sort_order=r[3])
+            re.save()
+
+        # Site
+        for r in c.execute('SELECT * FROM tbl_lu_sites;'):
+            s = Site(region_id=r[0], id=r[1], name=r[2], code=r[3],
+                description=r[4], sort_order=r[5])
+            s.save()
+
+        # Municipal Locations
+        for r in c.execute('SELECT * FROM tbl_lu_municipal_locations;'):
+            ml = MunicipalLocation(site_id=r[0], id=r[1], name=r[2], code=r[3],
+                municipal_location_type=r[4], description=r[5], sort_order=r[6])
+            ml.save()
+
+        # Study Locations
+        for r in c.execute('SELECT * FROM tbl_lu_study_locations;'):
+            sl = StudyLocation(site_id=r[0], id=r[1], name=r[2], code=r[3],
+                study_location_type=r[4], treatment_type=r[5],
+                municipal_location_id=r[6], collecting_location=r[7],
+                description=r[13], sort_order=r[14])
+            sl.save()
+
+        # Storage Location
+        for r in c.execute('SELECT * FROM tbl_lu_storage_locations;'):
+            sl = StorageLocation(id=r[0], facility=r[1], building=r[2],
+                room=r[3], freezer=r[4], temp_c=r[5],
+                description=r[6], sort_order=r[7])
+            sl.save()

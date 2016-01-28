@@ -370,20 +370,6 @@ class TblLuExperiments(models.Model):
         unique_together = (('Experiment_Name', 'Experiment_Code'),)
 
 
-class TblLuMunicipalLocations(models.Model):
-    municipal_locationid = models.AutoField(db_column='Municipal_LocationID', primary_key=True)  # Field name made lowercase.
-    siteid = models.ForeignKey('TblLuSites', db_column='SiteID')  # Field name made lowercase.
-    municipal_location = models.CharField(db_column='Municipal_Location', max_length=100)  # Field name made lowercase.
-    municipal_location_code = models.CharField(db_column='Municipal_Location_Code', max_length=10, blank=True, null=True)  # Field name made lowercase.
-    municipal_location_type = models.CharField(db_column='Municipal_Location_Type', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    mlocation_short_description = models.CharField(db_column='MLocation_Short_Description', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    sort_order = models.IntegerField(db_column='Sort_Order', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'tbl_LU_Municipal_Locations'
-
-
 class TblLuPeople(models.Model):
     peopleid = models.AutoField(db_column='PeopleID', primary_key=True)  # Field name made lowercase.
     affiliationid = models.ForeignKey(TblLuAffiliations, db_column='AffiliationID', blank=True, null=True)  # Field name made lowercase.
@@ -462,18 +448,6 @@ class TblLuRecordTypes(models.Model):
         db_table = 'tbl_LU_Record_Types'
 
 
-class TblLuRegions(models.Model):
-    regionid = models.AutoField(db_column='RegionID', primary_key=True)  # Field name made lowercase.
-    region = models.CharField(db_column='Region', max_length=100)  # Field name made lowercase.
-    region_code = models.CharField(db_column='Region_Code', max_length=10, blank=True, null=True)  # Field name made lowercase.
-    sort_order = models.IntegerField(db_column='Sort_Order', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'tbl_LU_Regions'
-        unique_together = (('Region', 'Region_Code'),)
-
-
 class TblLuSampleTypes(models.Model):
     sample_typeid = models.AutoField(db_column='Sample_TypeID', primary_key=True)  # Field name made lowercase.
     sample_type = models.CharField(db_column='Sample_Type', max_length=100)  # Field name made lowercase.
@@ -485,19 +459,6 @@ class TblLuSampleTypes(models.Model):
         managed = False
         db_table = 'tbl_LU_Sample_Types'
         unique_together = (('Sample_Type', 'Sample_Type_Code'),)
-
-
-class TblLuSites(models.Model):
-    regionid = models.ForeignKey(TblLuRegions, db_column='RegionID', blank=True, null=True)  # Field name made lowercase.
-    siteid = models.AutoField(db_column='SiteID', primary_key=True)  # Field name made lowercase.
-    site = models.CharField(db_column='Site', max_length=100)  # Field name made lowercase.
-    site_code = models.CharField(db_column='Site_Code', max_length=10, blank=True, null=True)  # Field name made lowercase.
-    site_short_description = models.CharField(db_column='Site_Short_Description', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    sort_order = models.IntegerField(db_column='Sort_Order', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'tbl_LU_Sites'
 
 
 class TblLuSpecies(models.Model):
@@ -512,45 +473,6 @@ class TblLuSpecies(models.Model):
         managed = False
         db_table = 'tbl_LU_Species'
         unique_together = (('Common_Name', 'Species'),)
-
-
-class TblLuStorageLocations(models.Model):
-    storage_locationid = models.AutoField(db_column='Storage_LocationID', primary_key=True)  # Field name made lowercase.
-    facility = models.CharField(db_column='Facility', max_length=100)  # Field name made lowercase.
-    building = models.CharField(db_column='Building', max_length=100)  # Field name made lowercase.
-    room = models.CharField(db_column='Room', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    freezer = models.CharField(db_column='Freezer', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    temp_c = models.IntegerField(db_column='Temp_C', blank=True, null=True)  # Field name made lowercase.
-    slocation_short_description = models.CharField(db_column='SLocation_Short_Description', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    sort_order = models.IntegerField(db_column='Sort_Order', blank=True, null=True)  # Field name made lowercase.
-    storage_location_code = models.CharField(db_column='Storage_Location_Code', unique=True, max_length=25)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'tbl_LU_Storage_Locations'
-
-
-class TblLuStudyLocations(models.Model):
-    siteid = models.ForeignKey(TblLuSites, db_column='SiteID', blank=True, null=True)  # Field name made lowercase.
-    study_locationid = models.AutoField(db_column='Study_LocationID', primary_key=True)  # Field name made lowercase.
-    study_location = models.CharField(db_column='Study_Location', max_length=100)  # Field name made lowercase.
-    study_location_code = models.CharField(db_column='Study_Location_Code', max_length=10, blank=True, null=True)  # Field name made lowercase.
-    study_location_type = models.CharField(db_column='Study_Location_Type', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    treatment_type = models.CharField(db_column='Treatment_Type', max_length=100, blank=True, null=True)  # Field name made lowercase.
-    municipal_locationid = models.ForeignKey(TblLuMunicipalLocations, db_column='Municipal_LocationID', blank=True, null=True)  # Field name made lowercase.
-    collecting_location = models.BooleanField(db_column='Collecting_Location')  # Field name made lowercase.
-    latitude = models.FloatField(db_column='Latitude', blank=True, null=True)  # Field name made lowercase.
-    longitude = models.FloatField(db_column='Longitude', blank=True, null=True)  # Field name made lowercase.
-    utmx = models.FloatField(db_column='UTMx', blank=True, null=True)  # Field name made lowercase.
-    utmy = models.FloatField(db_column='UTMy', blank=True, null=True)  # Field name made lowercase.
-    datum = models.CharField(db_column='Datum', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    slocation_short_description = models.CharField(db_column='SLocation_Short_Description', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    sort_order = models.IntegerField(db_column='Sort_Order', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'tbl_LU_Study_Locations'
-        unique_together = (('SiteID', 'Study_Location'),)
 
 
 class TblLuTreatmentTypes(models.Model):

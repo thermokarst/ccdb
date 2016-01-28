@@ -41,6 +41,7 @@ LOCAL_APPS = (
     'ccdb.users',  # custom users app
     'ccdb.projects',
     'ccdb.misc',
+    'ccdb.locations',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
