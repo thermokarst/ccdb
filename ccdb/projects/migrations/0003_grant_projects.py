@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('projects', '0004_grant_data'),
+        ('projects', '0002_initial_grant'),
     ]
 
     operations = [
