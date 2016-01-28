@@ -267,16 +267,6 @@ class TblHashPeopleSets(models.Model):
         db_table = 'tbl_HASH_People_Sets'
 
 
-# class TblHashProjectGrants(models.Model):
-#     projectid = models.ForeignKey('TblLuProjects', db_column='ProjectID')  # Field name made lowercase.
-#     grantid = models.ForeignKey('TblLuGrants', db_column='GrantID')  # Field name made lowercase.
-#
-#     class Meta:
-#         managed = False
-#         db_table = 'tbl_HASH_Project_Grants'
-#         unique_together = (('ProjectID', 'GrantID'),)
-
-
 class TblHashTrapSpecies(models.Model):
     trapspeciesid = models.AutoField(db_column='TrapSpeciesID', primary_key=True)  # Field name made lowercase.
     colltrapid = models.ForeignKey(TblHashCollectionTraps, db_column='CollTrapID')  # Field name made lowercase.
@@ -353,19 +343,6 @@ class TblLuCollectionTypes(models.Model):
         unique_together = (('Collection_Type', 'Collection_Type_Code'),)
 
 
-class TblLuColors(models.Model):
-    colorid = models.AutoField(db_column='ColorID', primary_key=True)  # Field name made lowercase.
-    color = models.CharField(db_column='Color', max_length=50)  # Field name made lowercase.
-    color_code = models.CharField(db_column='Color_Code', max_length=10, blank=True, null=True)  # Field name made lowercase.
-    msaccess_clr_nbr = models.FloatField(db_column='MSAccess_Clr_Nbr', blank=True, null=True)  # Field name made lowercase.
-    sort_order = models.IntegerField(db_column='Sort_Order', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'tbl_LU_Colors'
-        unique_together = (('Color', 'Color_Code', 'MSAccess_Clr_Nbr'),)
-
-
 class TblLuCommentTypes(models.Model):
     comment_typeid = models.AutoField(db_column='Comment_TypeID', primary_key=True)  # Field name made lowercase.
     comment_type = models.CharField(db_column='Comment_Type', max_length=100)  # Field name made lowercase.
@@ -376,22 +353,6 @@ class TblLuCommentTypes(models.Model):
         managed = False
         db_table = 'tbl_LU_Comment_Types'
         unique_together = (('Comment_Type', 'Comment_Type_Code'),)
-
-
-class TblLuContainers(models.Model):
-    containerid = models.AutoField(db_column='ContainerID', primary_key=True)  # Field name made lowercase.
-    container_type = models.CharField(db_column='Container_Type', max_length=100)  # Field name made lowercase.
-    container_type_code = models.CharField(db_column='Container_Type_Code', max_length=10, blank=True, null=True)  # Field name made lowercase.
-    container_type_application = models.CharField(db_column='Container_Type_Application', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    colorid = models.ForeignKey(TblLuColors, db_column='ColorID', blank=True, null=True)  # Field name made lowercase.
-    materialid = models.ForeignKey('TblLuMaterials', db_column='MaterialID', blank=True, null=True)  # Field name made lowercase.
-    volume = models.FloatField(db_column='Volume', blank=True, null=True)  # Field name made lowercase.
-    measurement_unitid = models.ForeignKey('TblLuMeasurementUnits', db_column='Measurement_UnitID', blank=True, null=True)  # Field name made lowercase.
-    sort_order = models.IntegerField(db_column='Sort_Order', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'tbl_LU_Containers'
 
 
 class TblLuExperiments(models.Model):
@@ -407,77 +368,6 @@ class TblLuExperiments(models.Model):
         managed = False
         db_table = 'tbl_LU_Experiments'
         unique_together = (('Experiment_Name', 'Experiment_Code'),)
-
-
-# class TblLuGrantReports(models.Model):
-#     grantreportid = models.AutoField(db_column='GrantReportID', primary_key=True)  # Field name made lowercase.
-#     grantid = models.ForeignKey('TblLuGrants', db_column='GrantID')  # Field name made lowercase.
-#     report_title = models.CharField(db_column='Report_Title', max_length=200)  # Field name made lowercase.
-#     report_type = models.CharField(db_column='Report_Type', max_length=50, blank=True, null=True)  # Field name made lowercase.
-#     report_short_description = models.CharField(db_column='Report_Short_Description', max_length=255, blank=True, null=True)  # Field name made lowercase.
-#     report_due_date = models.DateField(db_column='Report_Due_Date', blank=True, null=True)  # Field name made lowercase.
-#     report_submitted_date = models.DateField(db_column='Report_Submitted_Date', blank=True, null=True)  # Field name made lowercase.
-#     link_to_report = models.CharField(db_column='Link_To_Report', max_length=255, blank=True, null=True)  # Field name made lowercase.
-#     sort_order = models.IntegerField(db_column='Sort_Order', blank=True, null=True)  # Field name made lowercase.
-#
-#     class Meta:
-#         managed = False
-#         db_table = 'tbl_LU_Grant_Reports'
-
-
-# class TblLuGrants(models.Model):
-#     grantid = models.AutoField(db_column='GrantID', primary_key=True)  # Field name made lowercase.
-#     grant_title = models.CharField(db_column='Grant_Title', max_length=200)  # Field name made lowercase.
-#     grant_code = models.CharField(db_column='Grant_Code', max_length=10, blank=True, null=True)  # Field name made lowercase.
-#     grant_short_description = models.CharField(db_column='Grant_Short_Description', max_length=255, blank=True, null=True)  # Field name made lowercase.
-#     sort_order = models.IntegerField(db_column='Sort_Order', blank=True, null=True)  # Field name made lowercase.
-#
-#     class Meta:
-#         managed = False
-#         db_table = 'tbl_LU_Grants'
-#         unique_together = (('Grant_Title', 'Grant_Code'),)
-
-
-class TblLuMaterials(models.Model):
-    materialid = models.AutoField(db_column='MaterialID', primary_key=True)  # Field name made lowercase.
-    material = models.CharField(db_column='Material', max_length=100)  # Field name made lowercase.
-    material_code = models.CharField(db_column='Material_Code', max_length=10, blank=True, null=True)  # Field name made lowercase.
-    material_class = models.CharField(db_column='Material_Class', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    material_short_description = models.CharField(db_column='Material_Short_Description', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    sort_order = models.IntegerField(db_column='Sort_Order', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'tbl_LU_Materials'
-        unique_together = (('Material', 'Material_Code'),)
-
-
-class TblLuMeasurementTypes(models.Model):
-    measurement_typeid = models.AutoField(db_column='Measurement_TypeID', primary_key=True)  # Field name made lowercase.
-    measurement_type = models.CharField(db_column='Measurement_Type', max_length=100)  # Field name made lowercase.
-    measurement_type_code = models.CharField(db_column='Measurement_Type_Code', max_length=10, blank=True, null=True)  # Field name made lowercase.
-    measurement_type_class = models.CharField(db_column='Measurement_Type_Class', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    mtype_short_description = models.CharField(db_column='MType_Short_Description', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    default_measurement_unitid = models.ForeignKey('TblLuMeasurementUnits', db_column='Default_Measurement_UnitID', blank=True, null=True)  # Field name made lowercase.
-    sort_order = models.IntegerField(db_column='Sort_Order', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'tbl_LU_Measurement_Types'
-
-
-class TblLuMeasurementUnits(models.Model):
-    measurement_unitid = models.AutoField(db_column='Measurement_UnitID', primary_key=True)  # Field name made lowercase.
-    measurement_unit = models.CharField(db_column='Measurement_Unit', max_length=100)  # Field name made lowercase.
-    measurement_unit_code = models.CharField(db_column='Measurement_Unit_Code', max_length=25)  # Field name made lowercase.
-    measurement_unit_class = models.CharField(db_column='Measurement_Unit_Class', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    munit_short_description = models.CharField(db_column='MUnit_Short_Description', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    sort_order = models.IntegerField(db_column='Sort_Order', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'tbl_LU_Measurement_Units'
-        unique_together = (('Measurement_Unit', 'Measurement_Unit_Code'),)
 
 
 class TblLuMunicipalLocations(models.Model):
@@ -534,20 +424,6 @@ class TblLuProcessTypes(models.Model):
         managed = False
         db_table = 'tbl_LU_Process_Types'
         unique_together = (('Process_Type', 'Process_Type_Code'),)
-
-
-# class TblLuProjects(models.Model):
-#     projectid = models.AutoField(db_column='ProjectID', primary_key=True)  # Field name made lowercase.
-#     project = models.CharField(db_column='Project', max_length=100)  # Field name made lowercase.
-#     project_code = models.CharField(db_column='Project_Code', max_length=10, blank=True, null=True)  # Field name made lowercase.
-#     iacuc_number = models.CharField(db_column='IACUC_Number', max_length=25, blank=True, null=True)  # Field name made lowercase.
-#     project_short_description = models.CharField(db_column='Project_Short_Description', max_length=255, blank=True, null=True)  # Field name made lowercase.
-#     sort_order = models.IntegerField(db_column='Sort_Order', blank=True, null=True)  # Field name made lowercase.
-#
-#     class Meta:
-#         managed = False
-#         db_table = 'tbl_LU_Projects'
-#         unique_together = (('Project', 'Project_Code'),)
 
 
 class TblLuReagents(models.Model):
