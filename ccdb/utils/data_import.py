@@ -5,6 +5,10 @@ import dateutil.parser as dp
 
 
 def dtdt(s):
+    """
+        This lets us parse whatever crazy date/time formats that
+        come our way (looking at you, MS Access)
+    """
     return dp.parse(s)
 
 
