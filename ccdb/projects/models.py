@@ -50,4 +50,5 @@ class GrantReport(models.Model):
         return self.title
 
     class Meta:
+        unique_together = ('grant', 'title', 'due_date',)
         ordering = ['sort_order']

@@ -28,4 +28,8 @@ class Migration(migrations.Migration):
                 'ordering': ['sort_order'],
             },
         ),
+        migrations.AlterUniqueTogether(
+            name='grantreport',
+            unique_together=set([('grant', 'title', 'due_date')]),
+        ),
     ]

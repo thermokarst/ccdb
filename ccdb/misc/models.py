@@ -12,7 +12,7 @@ class MeasurementUnit(models.Model):
     slug = AutoSlugField(populate_from='name')
 
     def __str__(self):
-        return self.name
+        return self.code
 
     class Meta:
         unique_together = ('name', 'code')

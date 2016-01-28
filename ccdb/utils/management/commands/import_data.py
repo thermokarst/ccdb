@@ -2,6 +2,7 @@ import os
 import shutil
 
 from django.core.management.base import BaseCommand
+from django.db import IntegrityError
 
 import requests
 
@@ -70,10 +71,14 @@ def _import_data():
                FROM tbl_lu_grant_reports;
             '''
         for r in c.execute(q):
+            # No PK field in Andre's file
             gr = GrantReport(grant_id=r[0], title=r[1], report_type=r[2],
                 description=r[3], due_date=r[8], submitted_date=r[5],
                 attachment=r[6], sort_order=r[7])
-            gr.save()
+            try:
+                gr.save()
+            except IntegrityError:
+                pass
 
         # Measurement Units
         for r in c.execute('SELECT * FROM tbl_lu_measurement_units;'):
