@@ -39,13 +39,11 @@
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
               {% if request.user.is_authenticated %}
-                {% comment %}
                 <li class="nav-item {% block navbar_class-projects %}{% endblock %}">
-                  <a class="nav-link" href="{% url 'projects:project_list' %}">
-                    {% trans "Projects" %}
+                  <a class="nav-link" href="{% url 'admin:index' %}">
+                    {% trans "Admin" %}
                   </a>
                 </li>
-                {% endcomment %}
               {% endif %}
             </ul>
             <ul class="nav navbar-nav pull-right">
