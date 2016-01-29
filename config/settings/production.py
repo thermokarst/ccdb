@@ -23,6 +23,13 @@ SECRET_KEY = env("DJANGO_SECRET_KEY")
 # properly on Heroku.
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
+# django-secure
+# ------------------------------------------------------------------------------
+INSTALLED_APPS += ("djangosecure", )
+
+SECURITY_MIDDLEWARE = (
+    'djangosecure.middleware.SecurityMiddleware',
+)
 
 # Make sure djangosecure.middleware.SecurityMiddleware is listed first
 MIDDLEWARE_CLASSES = SECURITY_MIDDLEWARE + MIDDLEWARE_CLASSES
