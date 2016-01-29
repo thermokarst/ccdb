@@ -71,7 +71,7 @@ class StorageLocationAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'facility', 'building', 'room', 'freezer', 'temp_c',
         'description', 'sort_order')
     list_display_links = ('__str__',)
-    search_fields = ('__str__', 'facility', 'building', 'room', 'freezer', 'temp_c',
+    search_fields = ('facility', 'building', 'room', 'freezer', 'temp_c',
         'description')
     list_per_page = 25
     fields = ('facility', 'building', 'room', 'freezer', 'temp_c',
