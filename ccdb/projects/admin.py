@@ -27,7 +27,7 @@ class GrantAdmin(admin.ModelAdmin):
 
 
 class GrantReportAdmin(admin.ModelAdmin):
-    list_display = ('grant', 'title', 'report_type', 'description', 'due_date',
+    list_display = ('grant_title', 'title', 'report_type', 'description', 'due_date',
         'submitted_date', 'attachment', 'sort_order')
     list_display_links = ('title',)
     search_fields = ('grant__title', 'title', 'report_type', 'description', 'due_date',
@@ -35,6 +35,11 @@ class GrantReportAdmin(admin.ModelAdmin):
     list_per_page = 25
     fields = ('title', 'report_type', 'description', 'due_date',
         'submitted_date', 'attachment', 'sort_order')
+
+    def grant_title(self, obj):
+        return obj.grant.title
+    grant_title.admin_order_field = 'grant__title'
+    grant_title.short_description = 'Grant'
 
 
 admin.site.register(Project, ProjectAdmin)
