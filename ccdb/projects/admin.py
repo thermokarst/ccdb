@@ -27,10 +27,10 @@ class GrantAdmin(admin.ModelAdmin):
 
 
 class GrantReportAdmin(admin.ModelAdmin):
-    list_display = ('title', 'report_type', 'description', 'due_date',
+    list_display = ('grant', 'title', 'report_type', 'description', 'due_date',
         'submitted_date', 'attachment', 'sort_order')
     list_display_links = ('title',)
-    search_fields = ('title', 'report_type', 'description', 'due_date',
+    search_fields = ('grant__title', 'title', 'report_type', 'description', 'due_date',
         'submitted_date', 'attachment')
     list_per_page = 25
     fields = ('title', 'report_type', 'description', 'due_date',

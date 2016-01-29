@@ -15,7 +15,8 @@ class MeasurementTypeAdmin(admin.ModelAdmin):
     list_display = ('name', 'code', 'measurement_type_class', 'description',
         'default_measurement_unit', 'sort_order')
     list_display_links = ('name',)
-    search_fields = ('name', 'code', 'measurement_type_class', 'description')
+    search_fields = ('name', 'code', 'measurement_type_class',
+        'default_measurement_unit__code', 'description')
     list_per_page = 25
     fields = ('name', 'code', 'measurement_type_class', 'description',
         'default_measurement_unit', 'sort_order')
@@ -25,8 +26,8 @@ class ContainerAdmin(admin.ModelAdmin):
     list_display = ('name', 'code', 'application', 'color', 'material',
         'volume', 'measurement_unit', 'sort_order')
     list_display_links = ('name',)
-    search_fields = ('name', 'code', 'application', 'color', 'material',
-        'volume', 'measurement_unit')
+    search_fields = ('name', 'code', 'application', 'color__name',
+        'material__name', 'volume', 'measurement_unit__name')
     list_per_page = 25
     fields = ('name', 'code', 'application', 'color', 'material',
         'volume', 'measurement_unit', 'sort_order')

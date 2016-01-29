@@ -15,7 +15,7 @@ class RegionAdmin(admin.ModelAdmin):
 class SiteAdmin(admin.ModelAdmin):
     list_display = ('name', 'code', 'region', 'description', 'sort_order')
     list_display_links = ('name',)
-    search_fields = ('name', 'code', 'region', 'description')
+    search_fields = ('name', 'code', 'region__name', 'description')
     list_per_page = 25
     fields = ('name', 'code', 'region', 'description', 'sort_order')
 
@@ -24,7 +24,7 @@ class MunicipalLocationAdmin(admin.ModelAdmin):
     list_display = ('name', 'code', 'site', 'municipal_location_type',
         'description', 'sort_order')
     list_display_links = ('name',)
-    search_fields = ('name', 'code', 'site', 'municipal_location_type',
+    search_fields = ('name', 'code', 'site__name', 'municipal_location_type',
         'description')
     list_per_page = 25
     fields = ('name', 'code', 'site', 'municipal_location_type',
@@ -36,8 +36,8 @@ class StudyLocationAdmin(admin.ModelAdmin):
         'treatment_type', 'municipal_location', 'collecting_location',
         'description', 'sort_order')
     list_display_links = ('name',)
-    search_fields = ('name', 'code', 'site', 'study_location_type',
-        'treatment_type', 'municipal_location', 'collecting_location',
+    search_fields = ('name', 'code', 'site__name', 'study_location_type',
+        'treatment_type', 'municipal_location__name', 'collecting_location',
         'description')
     list_per_page = 25
     fields = ('name', 'code', 'site', 'study_location_type',
