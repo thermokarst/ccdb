@@ -139,7 +139,15 @@ def _import_data():
 
         # Storage Location
         for r in c.execute('SELECT * FROM tbl_lu_storage_locations;'):
+            bldg = "".join(e[0].upper() for e in r[2].split())
+            temp_c = '20'
+            if r[5]:
+                temp_c = r[5]
+            freezer = 'No Freezer'
+            if r[4]:
+                freezer = r[4]
+            code = " ".join([bldg, str(temp_c)+'C', str(freezer)])
             sl = StorageLocation(id=r[0], facility=r[1], building=r[2],
-                room=r[3], freezer=r[4], temp_c=r[5],
+                room=r[3], freezer=r[4], temp_c=r[5], code=code,
                 description=r[6], sort_order=r[7])
             sl.save()

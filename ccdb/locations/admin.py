@@ -68,15 +68,14 @@ class StudyLocationAdmin(admin.ModelAdmin):
 
 
 class StorageLocationAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'facility', 'building', 'room', 'freezer', 'temp_c',
+    list_display = ('code', 'facility', 'building', 'room', 'freezer', 'temp_c',
         'description', 'sort_order')
-    list_display_links = ('__str__',)
-    search_fields = ('facility', 'building', 'room', 'freezer', 'temp_c',
-        'description')
+    list_display_links = ('code',)
+    search_fields = ('code', 'facility', 'building', 'room', 'freezer',
+        'temp_c', 'description')
     list_per_page = 25
-    fields = ('facility', 'building', 'room', 'freezer', 'temp_c',
+    fields = ('code', 'facility', 'building', 'room', 'freezer', 'temp_c',
         'description', 'sort_order')
-
 
 
 admin.site.register(Region, RegionAdmin)

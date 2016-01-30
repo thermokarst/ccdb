@@ -70,6 +70,7 @@ class StudyLocation(models.Model):
 
 
 class StorageLocation(models.Model):
+    code = models.CharField(max_length=100)
     facility = models.CharField(max_length=100)
     building = models.CharField(max_length=100)
     room = models.CharField(max_length=50, blank=True)
@@ -79,16 +80,7 @@ class StorageLocation(models.Model):
     sort_order = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
-        bldg = "".join(e[0].upper() for e in self.building.split())
-        temp_c = '20'
-        if self.temp_c:
-            temp_c = self.temp_c
-
-        freezer = 'No Freezer'
-        if self.freezer:
-            freezer = self.freezer
-
-        return " ".join([bldg, str(temp_c)+'C', str(freezer)])
+        return self.code
 
     class Meta:
         ordering = ['sort_order']

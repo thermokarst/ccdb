@@ -60,6 +60,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('facility', models.CharField(max_length=100)),
                 ('building', models.CharField(max_length=100)),
+                ('code', models.CharField(max_length=100)),
                 ('room', models.CharField(max_length=50, blank=True)),
                 ('freezer', models.CharField(max_length=50, blank=True)),
                 ('temp_c', models.IntegerField(null=True, blank=True)),
