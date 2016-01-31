@@ -461,20 +461,6 @@ class TblLuSampleTypes(models.Model):
         unique_together = (('Sample_Type', 'Sample_Type_Code'),)
 
 
-class TblLuSpecies(models.Model):
-    speciesid = models.AutoField(db_column='SpeciesID', primary_key=True)  # Field name made lowercase.
-    common_name = models.CharField(db_column='Common_Name', max_length=100)  # Field name made lowercase.
-    genus = models.CharField(db_column='Genus', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    species = models.CharField(db_column='Species', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    parasite = models.BooleanField(db_column='Parasite')  # Field name made lowercase.
-    sort_order = models.IntegerField(db_column='Sort_Order', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'tbl_LU_Species'
-        unique_together = (('Common_Name', 'Species'),)
-
-
 class TblLuTreatmentTypes(models.Model):
     treatment_typeid = models.AutoField(db_column='Treatment_TypeID', primary_key=True)  # Field name made lowercase.
     experimentid = models.ForeignKey(TblLuExperiments, db_column='ExperimentID', blank=True, null=True)  # Field name made lowercase.

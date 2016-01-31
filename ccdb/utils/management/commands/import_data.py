@@ -12,6 +12,7 @@ from ccdb.misc.models import MeasurementUnit, MeasurementType, Container, \
     Material, Color
 from ccdb.locations.models import Region, Site, MunicipalLocation, \
     StudyLocation, StorageLocation
+from ccdb.species.models import Species
 
 
 class Command(BaseCommand):
@@ -151,3 +152,9 @@ def _import_data():
                 room=r[3], freezer=r[4], temp_c=r[5], code=code,
                 description=r[6], sort_order=r[7])
             sl.save()
+
+        # Species
+        for r in c.execute('SELECT * FROM tbl_lu_species;'):
+            s = Species(id=r[0], common_name=r[1], genus=r[2], species=r[3],
+                parasite=r[4], sort_order=r[5])
+            s.save()
