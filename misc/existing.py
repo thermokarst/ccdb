@@ -215,22 +215,6 @@ class TblHashCollectionSpecies(models.Model):
         unique_together = (('CollectionID', 'SpeciesID'),)
 
 
-class TblHashCollectionTraps(models.Model):
-    colltrapid = models.AutoField(db_column='CollTrapID', primary_key=True)  # Field name made lowercase.
-    collectionid = models.ForeignKey(TblCollections, db_column='CollectionID')  # Field name made lowercase.
-    number_of_traps = models.IntegerField(db_column='Number_Of_Traps')  # Field name made lowercase.
-    date_opened = models.DateField(db_column='Date_Opened')  # Field name made lowercase.
-    time_opened = models.TimeField(db_column='Time_Opened')  # Field name made lowercase.
-    date_closed = models.DateField(db_column='Date_Closed')  # Field name made lowercase.
-    time_closed = models.TimeField(db_column='Time_Closed')  # Field name made lowercase.
-    reference = models.CharField(db_column='Reference', max_length=255, blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'tbl_HASH_Collection_Traps'
-        unique_together = (('CollectionID', 'Date_Opened', 'Time_Opened', 'Date_Closed', 'Time_Closed'),)
-
-
 class TblHashPeopleSets(models.Model):
     peoplesetid = models.AutoField(db_column='PeopleSetID', primary_key=True)  # Field name made lowercase.
     record_typeid = models.ForeignKey('TblLuRecordTypes', db_column='Record_TypeID')  # Field name made lowercase.
@@ -291,31 +275,6 @@ class TblLuBioMolecules(models.Model):
         managed = False
         db_table = 'tbl_LU_Bio_Molecules'
         unique_together = (('BioMolecule', 'BioMolecule_Code'),)
-
-
-class TblLuCollectionMethods(models.Model):
-    collection_methodid = models.AutoField(db_column='Collection_MethodID', primary_key=True)  # Field name made lowercase.
-    collection_method = models.CharField(db_column='Collection_Method', max_length=100)  # Field name made lowercase.
-    collection_method_code = models.CharField(db_column='Collection_Method_Code', max_length=10, blank=True, null=True)  # Field name made lowercase.
-    collection_method_class = models.CharField(db_column='Collection_Method_Class', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    sort_order = models.IntegerField(db_column='Sort_Order', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'tbl_LU_Collection_Methods'
-        unique_together = (('Collection_Method', 'Collection_Method_Code'),)
-
-
-class TblLuCollectionTypes(models.Model):
-    collection_typeid = models.AutoField(db_column='Collection_TypeID', primary_key=True)  # Field name made lowercase.
-    collection_type = models.CharField(db_column='Collection_Type', max_length=100)  # Field name made lowercase.
-    collection_type_code = models.CharField(db_column='Collection_Type_Code', max_length=10, blank=True, null=True)  # Field name made lowercase.
-    sort_order = models.IntegerField(db_column='Sort_Order', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'tbl_LU_Collection_Types'
-        unique_together = (('Collection_Type', 'Collection_Type_Code'),)
 
 
 class TblLuCommentTypes(models.Model):
