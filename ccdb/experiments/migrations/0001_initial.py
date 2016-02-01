@@ -19,6 +19,7 @@ class Migration(migrations.Migration):
                 ('code', models.CharField(max_length=10, blank=True)),
                 ('description', models.CharField(max_length=255, blank=True)),
                 ('sort_order', models.IntegerField(null=True, blank=True)),
+                ('slug', autoslug.fields.AutoSlugField(populate_from='name', editable=False)),
             ],
             options={
                 'ordering': ['sort_order'],

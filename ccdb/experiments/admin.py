@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Flaw, Experiment, ProtocolAttachment
+from .models import Flaw, Experiment, ProtocolAttachment, TreatmentType
 
 
 class FlawAdmin(admin.ModelAdmin):
@@ -27,6 +27,18 @@ class ProtocolAttachmentAdmin(admin.ModelAdmin):
     fields = ('experiment', 'protocol')
 
 
+class TreatmentTypeAdmin(admin.ModelAdmin):
+    list_display = ('experiment', 'name', 'code', 'treatment_type',
+        'placement', 'description', 'sort_order')
+    list_display_links = ('name',)
+    search_fields = ('experiment', 'name', 'code', 'treatment_type',
+        'placement', 'description')
+    list_per_page = 25
+    fields = ('experiment', 'name', 'code', 'treatment_type', 'placement',
+        'description', 'sort_order')
+
+
 admin.site.register(Flaw, FlawAdmin)
 admin.site.register(Experiment, ExperimentAdmin)
 admin.site.register(ProtocolAttachment, ProtocolAttachmentAdmin)
+admin.site.register(TreatmentType, TreatmentTypeAdmin)

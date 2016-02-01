@@ -22,6 +22,7 @@ class Experiment(models.Model):
     description = models.CharField(max_length=255, blank=True)
     flaw = models.ForeignKey(Flaw, blank=True, null=True)
     sort_order = models.IntegerField(blank=True, null=True)
+    slug = AutoSlugField(populate_from='name')
 
     def __str__(self):
         return self.name
@@ -37,3 +38,21 @@ class ProtocolAttachment(models.Model):
 
     def __str__(self):
         return self.protocol
+
+
+class TreatmentType(models.Model):
+    experiment = models.ForeignKey(Experiment, blank=True, null=True)
+    name = models.CharField(max_length=200)
+    code = models.CharField(max_length=25, blank=True)
+    treatment_type = models.CharField(max_length=50, blank=True)
+    placement = models.CharField(max_length=25, blank=True)
+    description = models.CharField(max_length=255, blank=True)
+    sort_order = models.IntegerField(blank=True, null=True)
+    slug = AutoSlugField(populate_from='name')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        unique_together = ('experiment', 'name')
+        ordering = ['sort_order']

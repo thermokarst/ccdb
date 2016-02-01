@@ -315,22 +315,6 @@ class TblLuSampleTypes(models.Model):
         unique_together = (('Sample_Type', 'Sample_Type_Code'),)
 
 
-class TblLuTreatmentTypes(models.Model):
-    treatment_typeid = models.AutoField(db_column='Treatment_TypeID', primary_key=True)  # Field name made lowercase.
-    experimentid = models.ForeignKey(TblLuExperiments, db_column='ExperimentID', blank=True, null=True)  # Field name made lowercase.
-    treatment = models.CharField(db_column='Treatment', max_length=200)  # Field name made lowercase.
-    treatment_code = models.CharField(db_column='Treatment_Code', max_length=25, blank=True, null=True)  # Field name made lowercase.
-    treatment_type = models.CharField(db_column='Treatment_Type', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    placement = models.CharField(db_column='Placement', max_length=25, blank=True, null=True)  # Field name made lowercase.
-    treatment_short_description = models.CharField(db_column='Treatment_Short_Description', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    sort_order = models.IntegerField(db_column='Sort_Order', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'tbl_LU_Treatment_Types'
-        unique_together = (('ExperimentID', 'Treatment'),)
-
-
 class TblLuUsers(models.Model):
     userid = models.AutoField(db_column='UserID', primary_key=True)  # Field name made lowercase.
     first_name = models.CharField(db_column='First_Name', max_length=50)  # Field name made lowercase.
