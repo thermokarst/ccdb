@@ -16,6 +16,7 @@ from ccdb.species.models import Species, CollectionSpecies
 from ccdb.processing.models import ProcessType, Reagent, Flaw, Processing
 from ccdb.collections_ccdb.models import CollectionType, CollectionMethod, \
     Flaw, ADFGPermit, Collection
+from ccdb.experiments.models import Flaw, Experiment, ProtocolAttachment
 
 
 class Command(BaseCommand):
@@ -216,3 +217,9 @@ def _import_admin_data():
                 cs.save()
             except IntegrityError:
                 pass
+
+        # Experiment
+        for r in c.execute('SELECT * FROM tbl_lu_experiments;'):
+            e = Experiment(id=r[0], name=r[1], code=r[2],
+                description=r[3], sort_order=r[6])
+            e.save()

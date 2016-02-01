@@ -263,21 +263,6 @@ class TblLuCommentTypes(models.Model):
         unique_together = (('Comment_Type', 'Comment_Type_Code'),)
 
 
-class TblLuExperiments(models.Model):
-    experimentid = models.AutoField(db_column='ExperimentID', primary_key=True)  # Field name made lowercase.
-    experiment_name = models.CharField(db_column='Experiment_Name', max_length=150)  # Field name made lowercase.
-    experiment_code = models.CharField(db_column='Experiment_Code', max_length=10, blank=True, null=True)  # Field name made lowercase.
-    experiment_short_description = models.CharField(db_column='Experiment_Short_Description', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    link_to_protocol = models.CharField(db_column='Link_To_Protocol', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    flawid = models.ForeignKey('TblLuRecordFlaws', db_column='FlawID', blank=True, null=True)  # Field name made lowercase.
-    sort_order = models.IntegerField(db_column='Sort_Order', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'tbl_LU_Experiments'
-        unique_together = (('Experiment_Name', 'Experiment_Code'),)
-
-
 class TblLuPeople(models.Model):
     peopleid = models.AutoField(db_column='PeopleID', primary_key=True)  # Field name made lowercase.
     affiliationid = models.ForeignKey(TblLuAffiliations, db_column='AffiliationID', blank=True, null=True)  # Field name made lowercase.
