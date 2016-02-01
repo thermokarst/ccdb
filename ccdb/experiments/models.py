@@ -51,8 +51,22 @@ class TreatmentType(models.Model):
     slug = AutoSlugField(populate_from='name')
 
     def __str__(self):
-        return self.name
+        return "{} {} {} {}".format(self.experiment, self.name,
+            self.treatment_type, self.placement)
 
     class Meta:
         unique_together = ('experiment', 'name')
         ordering = ['sort_order']
+
+
+class Treatment(models.Model):
+    treatment_type = models.ForeignKey(TreatmentType)
+    container = models.ForeignKey('misc.Container', blank=True, null=True)
+    study_location = models.ForeignKey('locations.StudyLocation')
+    species = models.ForeignKey('species.Species')
+    sex = models.CharField(max_length=25)
+    flaw = models.ForeignKey(Flaw, blank=True, null=True)
+
+    def __str__(self):
+        return "{} {} {} {}".format(self.treatment_type, self.study_location,
+            self.species, self.sex)

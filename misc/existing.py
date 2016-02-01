@@ -362,17 +362,3 @@ class TblTreatmentReplicates(models.Model):
         managed = False
         db_table = 'tbl_Treatment_Replicates'
         unique_together = (('TreatmentID', 'Replicate', 'Setup_Date', 'Setup_Time'),)
-
-
-class TblTreatments(models.Model):
-    treatmentid = models.AutoField(db_column='TreatmentID', primary_key=True)  # Field name made lowercase.
-    treatment_typeid = models.ForeignKey(TblLuTreatmentTypes, db_column='Treatment_TypeID')  # Field name made lowercase.
-    containerid = models.ForeignKey(TblLuContainers, db_column='ContainerID', blank=True, null=True)  # Field name made lowercase.
-    study_locationid = models.ForeignKey(TblLuStudyLocations, db_column='Study_LocationID')  # Field name made lowercase.
-    speciesid = models.ForeignKey(TblLuSpecies, db_column='SpeciesID')  # Field name made lowercase.
-    sex = models.CharField(db_column='Sex', max_length=25)  # Field name made lowercase.
-    flawid = models.ForeignKey(TblLuRecordFlaws, db_column='FlawID', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'tbl_Treatments'
