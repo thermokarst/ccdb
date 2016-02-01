@@ -12,6 +12,10 @@ from ccdb.misc.models import MeasurementUnit, MeasurementType, Container, \
     Material, Color
 from ccdb.locations.models import Region, Site, MunicipalLocation, \
     StudyLocation, StorageLocation
+from ccdb.species.models import Species
+from ccdb.processing.models import ProcessType, Reagent, Flaw, Processing
+from ccdb.collections_ccdb.models import CollectionType, CollectionMethod, \
+    Flaw, ADFGPermit, Collection
 
 
 class Command(BaseCommand):
@@ -23,7 +27,7 @@ class Command(BaseCommand):
     def handle(self, **options):
         _fetch_data(options['manifest_url'], self.stdout.write)
         self.stdout.write('Fetched data')
-        _import_data()
+        _import_admin_data()
         self.stdout.write('Imported data')
 
 
@@ -43,7 +47,7 @@ def _fetch_data(url, write):
                     out_file.write(chunk)
 
 
-def _import_data():
+def _import_admin_data():
     c = setup_sqlite()
     if c:
         # Projects
@@ -125,7 +129,7 @@ def _import_data():
 
         # Municipal Locations
         for r in c.execute('SELECT * FROM tbl_lu_municipal_locations;'):
-            ml = MunicipalLocation(site_id=r[0], id=r[1], name=r[2], code=r[3],
+            ml = MunicipalLocation(id=r[1], name=r[2], code=r[3],
                 municipal_location_type=r[4], description=r[5], sort_order=r[6])
             ml.save()
 
@@ -151,3 +155,54 @@ def _import_data():
                 room=r[3], freezer=r[4], temp_c=r[5], code=code,
                 description=r[6], sort_order=r[7])
             sl.save()
+
+        # Species
+        for r in c.execute('SELECT * FROM tbl_lu_species;'):
+            s = Species(id=r[0], common_name=r[1], genus=r[2], species=r[3],
+                parasite=r[4], sort_order=r[5])
+            s.save()
+
+        # Processing Type
+        for r in c.execute('SELECT * FROM tbl_lu_process_types;'):
+            pt = ProcessType(id=r[0], name=r[1], code=r[2], description=r[3],
+                sort_order=r[4])
+            pt.save()
+
+        # Reagent
+        for r in c.execute('SELECT * FROM tbl_lu_reagents;'):
+            rg = Reagent(id=r[0], name=r[1], code=r[2], reagent_class=r[3],
+                sort_order=r[4])
+            rg.save()
+
+        # Collection Type
+        for r in c.execute('SELECT * FROM tbl_lu_collection_types;'):
+            ct = CollectionType(id=r[0], name=r[1], code=r[2], sort_order=r[3])
+            ct.save()
+
+        # Collection Method
+        for r in c.execute('SELECT * FROM tbl_lu_collection_methods;'):
+            cm = CollectionMethod(id=r[0], name=r[1], code=r[2],
+                collection_method_class=r[3], sort_order=r[4])
+            cm.save()
+
+        # Collection
+        for r in c.execute('''
+               SELECT *,
+                 collection_start_date AS "collection_start_date [dtdt]",
+                 collection_start_time AS "collection_start_time [dtdt]",
+                 collection_end_date   AS "collection_end_date [dtdt]",
+                 collection_end_time   AS "collection_end_time [dtdt]"
+               FROM tbl_collections;
+            '''):
+            if r[14] is not '':
+                permit, _ = ADFGPermit.objects.get_or_create(name=r[14])
+            else:
+                permit = None
+            col = Collection(project_id=r[0], id=r[1], study_location_id=r[2],
+                collection_type_id=r[3], collection_method_id=r[4],
+                number_of_traps=r[5], collection_start_date=r[17],
+                collection_start_time=r[18], collection_end_date=r[19],
+                collection_end_time=r[20], storage_location_id=r[10],
+                specimen_state=r[11], process_type_id=r[12], reagent_id=r[13],
+                adfg_permit=permit)
+            col.save()
