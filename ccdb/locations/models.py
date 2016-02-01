@@ -33,7 +33,6 @@ class Site(models.Model):
 
 
 class MunicipalLocation(models.Model):
-    site = models.ForeignKey(Site)
     name = models.CharField(max_length=100)
     code = models.CharField(max_length=10, blank=True)
     municipal_location_type = models.CharField(max_length=50, blank=True)
@@ -49,7 +48,7 @@ class MunicipalLocation(models.Model):
 
 
 class StudyLocation(models.Model):
-    site = models.ForeignKey(Site, blank=True, null=True)
+    site = models.ForeignKey(Site)
     name = models.CharField(max_length=100)
     code = models.CharField(max_length=10, blank=True)
     study_location_type = models.CharField(max_length=50, blank=True)
