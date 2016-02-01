@@ -18,3 +18,32 @@ class Species(models.Model):
         unique_together = ('common_name', 'species')
         ordering = ['sort_order']
         verbose_name_plural = 'species'
+
+
+class TrapSpecies(models.Model):
+    collection_trap = models.ForeignKey('collections_ccdb.CollectionTrap')
+    species = models.ForeignKey(Species)
+    sex = models.CharField(max_length=25, blank=True)
+    count = models.IntegerField(blank=True, null=True)
+    count_estimated = models.BooleanField(default=False)
+
+    def __str__(self):
+        return "{} {}".format(self.collection_trap, self.species)
+
+    class Meta:
+        verbose_name_plural = 'trap-species'
+
+
+class CollectionSpecies(models.Model):
+    collection = models.ForeignKey('collections_ccdb.Collection')
+    species = models.ForeignKey(Species)
+    sex = models.CharField(max_length=25, blank=True)
+    count = models.IntegerField(blank=True, null=True)
+    count_estimated = models.BooleanField(default=False)
+
+    def __str__(self):
+        return "{} {}".format(self.collection, self.species)
+
+    class Meta:
+        unique_together = ('collection', 'species')
+        verbose_name_plural = 'collection-species'

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Species
+from .models import Species, TrapSpecies, CollectionSpecies
 
 
 class SpeciesAdmin(admin.ModelAdmin):
@@ -11,4 +11,22 @@ class SpeciesAdmin(admin.ModelAdmin):
     fields = ('common_name', 'genus', 'species', 'parasite', 'sort_order')
 
 
+class TrapSpeciesAdmin(admin.ModelAdmin):
+    list_display = ('collection_trap', 'species', 'sex', 'count', 'count_estimated')
+    list_display_links = ('count',)
+    search_fields = ('collection_trap', 'species', 'sex', 'count', 'count_estimated')
+    list_per_page = 25
+    fields = ('collection_trap', 'species', 'sex', 'count', 'count_estimated')
+
+
+class CollectionSpeciesAdmin(admin.ModelAdmin):
+    list_display = ('collection', 'species', 'sex', 'count', 'count_estimated')
+    list_display_links = ('count',)
+    search_fields = ('collection', 'species', 'sex', 'count', 'count_estimated')
+    list_per_page = 25
+    fields = ('collection', 'species', 'sex', 'count', 'count_estimated')
+
+
 admin.site.register(Species, SpeciesAdmin)
+admin.site.register(TrapSpecies, TrapSpeciesAdmin)
+admin.site.register(CollectionSpecies, CollectionSpeciesAdmin)

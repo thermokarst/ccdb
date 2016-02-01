@@ -202,19 +202,6 @@ class TblHashCollectionExperiments(models.Model):
         unique_together = (('CollectionID', 'ExperimentID'),)
 
 
-class TblHashCollectionSpecies(models.Model):
-    collectionid = models.ForeignKey(TblCollections, db_column='CollectionID')  # Field name made lowercase.
-    speciesid = models.ForeignKey('TblLuSpecies', db_column='SpeciesID')  # Field name made lowercase.
-    sex = models.CharField(db_column='Sex', max_length=25, blank=True, null=True)  # Field name made lowercase.
-    count = models.IntegerField(db_column='Count', blank=True, null=True)  # Field name made lowercase.
-    count_estimated = models.BooleanField(db_column='Count_Estimated')  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'tbl_HASH_Collection_Species'
-        unique_together = (('CollectionID', 'SpeciesID'),)
-
-
 class TblHashPeopleSets(models.Model):
     peoplesetid = models.AutoField(db_column='PeopleSetID', primary_key=True)  # Field name made lowercase.
     record_typeid = models.ForeignKey('TblLuRecordTypes', db_column='Record_TypeID')  # Field name made lowercase.
@@ -224,19 +211,6 @@ class TblHashPeopleSets(models.Model):
     class Meta:
         managed = False
         db_table = 'tbl_HASH_People_Sets'
-
-
-class TblHashTrapSpecies(models.Model):
-    trapspeciesid = models.AutoField(db_column='TrapSpeciesID', primary_key=True)  # Field name made lowercase.
-    colltrapid = models.ForeignKey(TblHashCollectionTraps, db_column='CollTrapID')  # Field name made lowercase.
-    speciesid = models.ForeignKey('TblLuSpecies', db_column='SpeciesID')  # Field name made lowercase.
-    sex = models.CharField(db_column='Sex', max_length=25, blank=True, null=True)  # Field name made lowercase.
-    count = models.IntegerField(db_column='Count', blank=True, null=True)  # Field name made lowercase.
-    count_estimated = models.BooleanField(db_column='Count_Estimated')  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'tbl_HASH_Trap_Species'
 
 
 class TblLuAffiliations(models.Model):

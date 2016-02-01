@@ -12,7 +12,7 @@ from ccdb.misc.models import MeasurementUnit, MeasurementType, Container, \
     Material, Color
 from ccdb.locations.models import Region, Site, MunicipalLocation, \
     StudyLocation, StorageLocation
-from ccdb.species.models import Species
+from ccdb.species.models import Species, CollectionSpecies
 from ccdb.processing.models import ProcessType, Reagent, Flaw, Processing
 from ccdb.collections_ccdb.models import CollectionType, CollectionMethod, \
     Flaw, ADFGPermit, Collection
@@ -206,3 +206,13 @@ def _import_admin_data():
                 specimen_state=r[11], process_type_id=r[12], reagent_id=r[13],
                 adfg_permit=permit)
             col.save()
+
+        # Collection Species
+        for r in c.execute('SELECT * FROM tbl_hash_collection_species;'):
+            # No PK field in Andre's file
+            cs = CollectionSpecies(collection_id=r[0], species_id=r[1],
+                sex=r[2], count=r[3], count_estimated=r[4])
+            try:
+                cs.save()
+            except IntegrityError:
+                pass
