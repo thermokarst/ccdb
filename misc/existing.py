@@ -12,14 +12,6 @@ from __future__ import unicode_literals
 from django.db import models
 
 
-class AlembicVersion(models.Model):
-    version_num = models.CharField(max_length=32)
-
-    class Meta:
-        managed = False
-        db_table = 'alembic_version'
-
-
 class TblAliveDeadCounts(models.Model):
     trrepid = models.ForeignKey('TblTreatmentReplicates', db_column='TrRepID')  # Field name made lowercase.
     alivedeadcountid = models.AutoField(db_column='AliveDeadCountID', primary_key=True)  # Field name made lowercase.
@@ -72,18 +64,6 @@ class TblBioReplicates(models.Model):
     class Meta:
         managed = False
         db_table = 'tbl_Bio_Replicates'
-
-
-class TblComments(models.Model):
-    record_typeid = models.ForeignKey('TblLuRecordTypes', db_column='Record_TypeID')  # Field name made lowercase.
-    foreign_key = models.AutoField(db_column='Foreign_Key')  # Field name made lowercase.
-    comment_typeid = models.ForeignKey('TblLuCommentTypes', db_column='Comment_TypeID')  # Field name made lowercase.
-    comment = models.CharField(db_column='Comment', max_length=512)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'tbl_Comments'
-        unique_together = (('Record_TypeID', 'Foreign_Key', 'Comment_TypeID'),)
 
 
 class TblDevelopmentNotes(models.Model):
@@ -251,18 +231,6 @@ class TblLuBioMolecules(models.Model):
         unique_together = (('BioMolecule', 'BioMolecule_Code'),)
 
 
-class TblLuCommentTypes(models.Model):
-    comment_typeid = models.AutoField(db_column='Comment_TypeID', primary_key=True)  # Field name made lowercase.
-    comment_type = models.CharField(db_column='Comment_Type', max_length=100)  # Field name made lowercase.
-    comment_type_code = models.CharField(db_column='Comment_Type_Code', max_length=10, blank=True, null=True)  # Field name made lowercase.
-    sort_order = models.IntegerField(db_column='Sort_Order', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'tbl_LU_Comment_Types'
-        unique_together = (('Comment_Type', 'Comment_Type_Code'),)
-
-
 class TblLuPeople(models.Model):
     peopleid = models.AutoField(db_column='PeopleID', primary_key=True)  # Field name made lowercase.
     affiliationid = models.ForeignKey(TblLuAffiliations, db_column='AffiliationID', blank=True, null=True)  # Field name made lowercase.
@@ -292,16 +260,6 @@ class TblLuPeople(models.Model):
         unique_together = (('First_Name', 'Middle_Initial', 'Last_Name'),)
 
 
-class TblLuRecordTypes(models.Model):
-    record_typeid = models.AutoField(db_column='Record_TypeID', primary_key=True)  # Field name made lowercase.
-    record_type = models.CharField(db_column='Record_Type', unique=True, max_length=50)  # Field name made lowercase.
-    sort_order = models.IntegerField(db_column='Sort_Order', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'tbl_LU_Record_Types'
-
-
 class TblLuSampleTypes(models.Model):
     sample_typeid = models.AutoField(db_column='Sample_TypeID', primary_key=True)  # Field name made lowercase.
     sample_type = models.CharField(db_column='Sample_Type', max_length=100)  # Field name made lowercase.
@@ -313,21 +271,6 @@ class TblLuSampleTypes(models.Model):
         managed = False
         db_table = 'tbl_LU_Sample_Types'
         unique_together = (('Sample_Type', 'Sample_Type_Code'),)
-
-
-class TblLuUsers(models.Model):
-    userid = models.AutoField(db_column='UserID', primary_key=True)  # Field name made lowercase.
-    first_name = models.CharField(db_column='First_Name', max_length=50)  # Field name made lowercase.
-    last_name = models.CharField(db_column='Last_Name', max_length=50)  # Field name made lowercase.
-    email = models.CharField(db_column='Email', max_length=50)  # Field name made lowercase.
-    username = models.CharField(db_column='Username', unique=True, max_length=100)  # Field name made lowercase.
-    is_admin = models.BooleanField(db_column='Is_Admin')  # Field name made lowercase.
-    password_hash = models.CharField(db_column='Password_Hash', max_length=128)  # Field name made lowercase.
-    avatar_hash = models.CharField(db_column='Avatar_Hash', max_length=32, blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'tbl_LU_Users'
 
 
 class TblSamples(models.Model):
