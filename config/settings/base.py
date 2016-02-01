@@ -44,6 +44,7 @@ LOCAL_APPS = (
     'ccdb.locations',
     'ccdb.species',
     'ccdb.collections_ccdb',
+    'ccdb.processing',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

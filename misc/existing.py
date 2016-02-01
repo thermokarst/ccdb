@@ -74,31 +74,6 @@ class TblBioReplicates(models.Model):
         db_table = 'tbl_Bio_Replicates'
 
 
-class TblCollections(models.Model):
-    projectid = models.ForeignKey('TblLuProjects', db_column='ProjectID')  # Field name made lowercase.
-    collectionid = models.AutoField(db_column='CollectionID', primary_key=True)  # Field name made lowercase.
-    study_locationid = models.ForeignKey('TblLuStudyLocations', db_column='Study_LocationID')  # Field name made lowercase.
-    collection_typeid = models.ForeignKey('TblLuCollectionTypes', db_column='Collection_TypeID')  # Field name made lowercase.
-    collection_methodid = models.ForeignKey('TblLuCollectionMethods', db_column='Collection_MethodID')  # Field name made lowercase.
-    number_of_traps = models.IntegerField(db_column='Number_Of_Traps', blank=True, null=True)  # Field name made lowercase.
-    collection_start_date = models.DateField(db_column='Collection_Start_Date', blank=True, null=True)  # Field name made lowercase.
-    collection_start_time = models.TimeField(db_column='Collection_Start_Time', blank=True, null=True)  # Field name made lowercase.
-    collection_end_date = models.DateField(db_column='Collection_End_Date', blank=True, null=True)  # Field name made lowercase.
-    collection_end_time = models.TimeField(db_column='Collection_End_Time', blank=True, null=True)  # Field name made lowercase.
-    storage_locationid = models.ForeignKey('TblLuStorageLocations', db_column='Storage_LocationID', blank=True, null=True)  # Field name made lowercase.
-    specimen_state = models.CharField(db_column='Specimen_State', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    process_typeid = models.ForeignKey('TblLuProcessTypes', db_column='Process_TypeID', blank=True, null=True)  # Field name made lowercase.
-    reagentid = models.ForeignKey('TblLuReagents', db_column='ReagentID', blank=True, null=True)  # Field name made lowercase.
-    adfg_permit = models.CharField(db_column='ADFG_Permit', max_length=25, blank=True, null=True)  # Field name made lowercase.
-    link_to_datasheets = models.CharField(db_column='Link_To_Datasheets', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    flawid = models.ForeignKey('TblLuRecordFlaws', db_column='FlawID', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'tbl_Collections'
-        unique_together = (('ProjectID', 'Study_LocationID', 'Collection_TypeID', 'Collection_Start_Date', 'Collection_End_Date', 'Collection_MethodID'),)
-
-
 class TblComments(models.Model):
     record_typeid = models.ForeignKey('TblLuRecordTypes', db_column='Record_TypeID')  # Field name made lowercase.
     foreign_key = models.AutoField(db_column='Foreign_Key')  # Field name made lowercase.
@@ -399,45 +374,6 @@ class TblLuPeople(models.Model):
         unique_together = (('First_Name', 'Middle_Initial', 'Last_Name'),)
 
 
-class TblLuProcessTypes(models.Model):
-    process_typeid = models.AutoField(db_column='Process_TypeID', primary_key=True)  # Field name made lowercase.
-    process_type = models.CharField(db_column='Process_Type', max_length=100)  # Field name made lowercase.
-    process_type_code = models.CharField(db_column='Process_Type_Code', max_length=10, blank=True, null=True)  # Field name made lowercase.
-    ptype_short_description = models.CharField(db_column='PType_Short_Description', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    sort_order = models.IntegerField(db_column='Sort_Order', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'tbl_LU_Process_Types'
-        unique_together = (('Process_Type', 'Process_Type_Code'),)
-
-
-class TblLuReagents(models.Model):
-    reagentid = models.AutoField(db_column='ReagentID', primary_key=True)  # Field name made lowercase.
-    reagent = models.CharField(db_column='Reagent', max_length=100)  # Field name made lowercase.
-    reagent_code = models.CharField(db_column='Reagent_Code', max_length=10, blank=True, null=True)  # Field name made lowercase.
-    reagent_class = models.CharField(db_column='Reagent_Class', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    sort_order = models.IntegerField(db_column='Sort_Order', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'tbl_LU_Reagents'
-        unique_together = (('Reagent', 'Reagent_Code'),)
-
-
-class TblLuRecordFlaws(models.Model):
-    flawid = models.AutoField(db_column='FlawID', primary_key=True)  # Field name made lowercase.
-    record_typeid = models.ForeignKey('TblLuRecordTypes', db_column='Record_TypeID')  # Field name made lowercase.
-    flaw = models.CharField(db_column='Flaw', max_length=200)  # Field name made lowercase.
-    flaw_short_description = models.CharField(db_column='Flaw_Short_Description', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    sort_order = models.IntegerField(db_column='Sort_Order', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'tbl_LU_Record_Flaws'
-        unique_together = (('Record_TypeID', 'Flaw'),)
-
-
 class TblLuRecordTypes(models.Model):
     record_typeid = models.AutoField(db_column='Record_TypeID', primary_key=True)  # Field name made lowercase.
     record_type = models.CharField(db_column='Record_Type', unique=True, max_length=50)  # Field name made lowercase.
@@ -490,25 +426,6 @@ class TblLuUsers(models.Model):
     class Meta:
         managed = False
         db_table = 'tbl_LU_Users'
-
-
-class TblProcessing(models.Model):
-    processid = models.AutoField(db_column='ProcessID', primary_key=True)  # Field name made lowercase.
-    process_typeid = models.ForeignKey(TblLuProcessTypes, db_column='Process_TypeID')  # Field name made lowercase.
-    containerid = models.ForeignKey(TblLuContainers, db_column='ContainerID')  # Field name made lowercase.
-    container_label = models.CharField(db_column='Container_Label', max_length=50)  # Field name made lowercase.
-    process_date = models.DateField(db_column='Process_Date', blank=True, null=True)  # Field name made lowercase.
-    process_time = models.TimeField(db_column='Process_Time', blank=True, null=True)  # Field name made lowercase.
-    reagentid = models.ForeignKey(TblLuReagents, db_column='ReagentID', blank=True, null=True)  # Field name made lowercase.
-    reagent_volume = models.FloatField(db_column='Reagent_Volume', blank=True, null=True)  # Field name made lowercase.
-    measurement_unitid = models.ForeignKey(TblLuMeasurementUnits, db_column='Measurement_UnitID', blank=True, null=True)  # Field name made lowercase.
-    time_in_reagent = models.CharField(db_column='Time_in_Reagent', max_length=10, blank=True, null=True)  # Field name made lowercase.
-    flawid = models.ForeignKey(TblLuRecordFlaws, db_column='FlawID', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'tbl_Processing'
-        unique_together = (('Process_TypeID', 'ContainerID', 'Container_Label', 'Process_Date', 'Process_Time', 'ReagentID'),)
 
 
 class TblSamples(models.Model):

@@ -13,6 +13,7 @@ from ccdb.misc.models import MeasurementUnit, MeasurementType, Container, \
 from ccdb.locations.models import Region, Site, MunicipalLocation, \
     StudyLocation, StorageLocation
 from ccdb.species.models import Species
+from ccdb.processing.models import ProcessType, Reagent, Flaw, Processing
 
 
 class Command(BaseCommand):
@@ -24,7 +25,7 @@ class Command(BaseCommand):
     def handle(self, **options):
         _fetch_data(options['manifest_url'], self.stdout.write)
         self.stdout.write('Fetched data')
-        _import_data()
+        _import_admin_data()
         self.stdout.write('Imported data')
 
 
@@ -44,7 +45,7 @@ def _fetch_data(url, write):
                     out_file.write(chunk)
 
 
-def _import_data():
+def _import_admin_data():
     c = setup_sqlite()
     if c:
         # Projects
@@ -126,7 +127,7 @@ def _import_data():
 
         # Municipal Locations
         for r in c.execute('SELECT * FROM tbl_lu_municipal_locations;'):
-            ml = MunicipalLocation(site_id=r[0], id=r[1], name=r[2], code=r[3],
+            ml = MunicipalLocation(id=r[1], name=r[2], code=r[3],
                 municipal_location_type=r[4], description=r[5], sort_order=r[6])
             ml.save()
 
@@ -158,3 +159,15 @@ def _import_data():
             s = Species(id=r[0], common_name=r[1], genus=r[2], species=r[3],
                 parasite=r[4], sort_order=r[5])
             s.save()
+
+        # Processing Type
+        for r in c.execute('SELECT * FROM tbl_lu_process_types;'):
+            pt = ProcessType(id=r[0], name=r[1], code=r[2], description=r[3],
+                sort_order=r[4])
+            pt.save()
+
+        # Reagent
+        for r in c.execute('SELECT * FROM tbl_lu_reagents;'):
+            r = Reagent(id=r[0], name=r[1], code=r[2], reagent_class=r[3],
+                sort_order=r[4])
+            r.save()
