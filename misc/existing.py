@@ -346,19 +346,3 @@ class TblSamples(models.Model):
         managed = False
         db_table = 'tbl_Samples'
         unique_together = (('TrRepID', 'Sample_Date', 'Sample_Time', 'Time_Block'),)
-
-
-class TblTreatmentReplicates(models.Model):
-    treatmentid = models.ForeignKey('TblTreatments', db_column='TreatmentID')  # Field name made lowercase.
-    trrepid = models.AutoField(db_column='TrRepID', primary_key=True)  # Field name made lowercase.
-    replicate = models.CharField(db_column='Replicate', max_length=50)  # Field name made lowercase.
-    setup_date = models.DateField(db_column='Setup_Date', blank=True, null=True)  # Field name made lowercase.
-    setup_time = models.TimeField(db_column='Setup_Time', blank=True, null=True)  # Field name made lowercase.
-    setup_sample_size = models.IntegerField(db_column='Setup_Sample_Size', blank=True, null=True)  # Field name made lowercase.
-    mass_g = models.FloatField(db_column='Mass_g', blank=True, null=True)  # Field name made lowercase.
-    flawid = models.ForeignKey(TblLuRecordFlaws, db_column='FlawID', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'tbl_Treatment_Replicates'
-        unique_together = (('TreatmentID', 'Replicate', 'Setup_Date', 'Setup_Time'),)

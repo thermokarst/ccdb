@@ -13,11 +13,12 @@ from ccdb.misc.models import MeasurementUnit, MeasurementType, Container, \
 from ccdb.locations.models import Region, Site, MunicipalLocation, \
     StudyLocation, StorageLocation
 from ccdb.species.models import Species, CollectionSpecies
-from ccdb.processing.models import ProcessType, Reagent, Flaw, Processing
+from ccdb.processing.models import ProcessType, Reagent, \
+    Flaw as ProcessingFlaw,Processing
 from ccdb.collections_ccdb.models import CollectionType, CollectionMethod, \
-    Flaw, ADFGPermit, Collection
-from ccdb.experiments.models import Flaw, Experiment, ProtocolAttachment, \
-    TreatmentType, Treatment
+    Flaw as CollectionFlaw, ADFGPermit, Collection
+from ccdb.experiments.models import Flaw as ExperimentFlaw, Experiment, \
+    ProtocolAttachment, TreatmentType, Treatment, TreatmentReplicate
 
 
 class Command(BaseCommand):
@@ -236,3 +237,17 @@ def _import_admin_data():
             t = Treatment(id=r[0], treatment_type_id=r[1], container_id=r[2],
                 study_location_id=r[3], species_id=r[4], sex=r[5])
             t.save()
+
+        # Treatment Replicate
+        for r in c.execute('''
+                SELECT *, setup_date AS "setup_date [dtdt]"
+                FROM tbl_treatment_replicates tr
+                INNER JOIN tbl_lu_record_flaws f ON f.flawid=tr.flawid;
+            '''):
+            if r[10] is not '':
+                flaw, _ = ExperimentFlaw.objects.get_or_create(name=r[10])
+            else:
+                flaw = None
+            tr = TreatmentReplicate(treatment_id=r[0], id=r[1], name=r[2],
+                setup_date=r[13], setup_sample_size=r[5], mass_g=r[6], flaw=flaw)
+            tr.save()

@@ -70,3 +70,20 @@ class Treatment(models.Model):
     def __str__(self):
         return "{} {} {} {}".format(self.treatment_type, self.study_location,
             self.species, self.sex)
+
+
+class TreatmentReplicate(models.Model):
+    treatment = models.ForeignKey(Treatment)
+    name = models.CharField(max_length=50)
+    setup_date = models.DateField(blank=True, null=True)
+    setup_time = models.TimeField(blank=True, null=True)
+    setup_sample_size = models.IntegerField(blank=True, null=True)
+    mass_g = models.FloatField(blank=True, null=True)
+    flaw = models.ForeignKey(Flaw, blank=True, null=True)
+
+    def __str__(self):
+        return "{} {} {} {}".format(self.treatment, self.name,
+            self.setup_date, self.setup_sample_size)
+
+    class Meta:
+        unique_together = ('treatment', 'name', 'setup_date', 'setup_time')

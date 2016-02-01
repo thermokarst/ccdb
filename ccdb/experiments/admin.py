@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from .models import Flaw, Experiment, ProtocolAttachment, TreatmentType, \
-    Treatment
+    Treatment, TreatmentReplicate
 
 
 class FlawAdmin(admin.ModelAdmin):
@@ -50,8 +50,20 @@ class TreatmentAdmin(admin.ModelAdmin):
         'sex', 'flaw')
 
 
+class TreatmentReplicateAdmin(admin.ModelAdmin):
+    list_display = ('treatment', 'name', 'setup_date', 'setup_time',
+        'setup_sample_size', 'mass_g', 'flaw')
+    list_display_links = ('name',)
+    search_fields = ('treatment', 'name', 'setup_date', 'setup_time',
+        'setup_sample_size', 'mass_g', 'flaw')
+    list_per_page = 25
+    fields = ('treatment', 'name', 'setup_date', 'setup_time',
+        'setup_sample_size', 'mass_g', 'flaw')
+
+
 admin.site.register(Flaw, FlawAdmin)
 admin.site.register(Experiment, ExperimentAdmin)
 admin.site.register(ProtocolAttachment, ProtocolAttachmentAdmin)
 admin.site.register(TreatmentType, TreatmentTypeAdmin)
 admin.site.register(Treatment, TreatmentAdmin)
+admin.site.register(TreatmentReplicate, TreatmentReplicateAdmin)
