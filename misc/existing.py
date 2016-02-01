@@ -12,20 +12,6 @@ from __future__ import unicode_literals
 from django.db import models
 
 
-class TblAliveDeadCounts(models.Model):
-    trrepid = models.ForeignKey('TblTreatmentReplicates', db_column='TrRepID')  # Field name made lowercase.
-    alivedeadcountid = models.AutoField(db_column='AliveDeadCountID', primary_key=True)  # Field name made lowercase.
-    status_date = models.DateField(db_column='Status_Date')  # Field name made lowercase.
-    status_time = models.TimeField(db_column='Status_Time', blank=True, null=True)  # Field name made lowercase.
-    count_alive = models.IntegerField(db_column='Count_Alive', blank=True, null=True)  # Field name made lowercase.
-    count_dead = models.IntegerField(db_column='Count_Dead', blank=True, null=True)  # Field name made lowercase.
-    flawid = models.ForeignKey('TblLuRecordFlaws', db_column='FlawID', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'tbl_Alive_Dead_Counts'
-
-
 class TblBiorepImageHistology(models.Model):
     imageid = models.AutoField(db_column='ImageID', primary_key=True)  # Field name made lowercase.
     record_typeid = models.ForeignKey('TblLuRecordTypes', db_column='Record_TypeID')  # Field name made lowercase.

@@ -87,3 +87,15 @@ class TreatmentReplicate(models.Model):
 
     class Meta:
         unique_together = ('treatment', 'name', 'setup_date', 'setup_time')
+
+
+class AliveDeadCount(models.Model):
+    treatment_replicate = models.ForeignKey(TreatmentReplicate)
+    status_date = models.DateField()
+    status_time = models.TimeField(blank=True, null=True)
+    count_alive = models.IntegerField(blank=True, null=True)
+    count_dead = models.IntegerField(blank=True, null=True)
+    flaw = models.ForeignKey(Flaw, blank=True, null=True)
+
+    def __str__(self):
+        return "{}".format(self.status_date)

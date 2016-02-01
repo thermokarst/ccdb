@@ -18,7 +18,8 @@ from ccdb.processing.models import ProcessType, Reagent, \
 from ccdb.collections_ccdb.models import CollectionType, CollectionMethod, \
     Flaw as CollectionFlaw, ADFGPermit, Collection
 from ccdb.experiments.models import Flaw as ExperimentFlaw, Experiment, \
-    ProtocolAttachment, TreatmentType, Treatment, TreatmentReplicate
+    ProtocolAttachment, TreatmentType, Treatment, TreatmentReplicate, \
+    AliveDeadCount
 
 
 class Command(BaseCommand):
@@ -242,12 +243,29 @@ def _import_admin_data():
         for r in c.execute('''
                 SELECT *, setup_date AS "setup_date [dtdt]"
                 FROM tbl_treatment_replicates tr
-                INNER JOIN tbl_lu_record_flaws f ON f.flawid=tr.flawid;
+                LEFT OUTER JOIN tbl_lu_record_flaws f ON f.flawid=tr.flawid;
             '''):
-            if r[10] is not '':
+            if r[7]:
                 flaw, _ = ExperimentFlaw.objects.get_or_create(name=r[10])
             else:
                 flaw = None
             tr = TreatmentReplicate(treatment_id=r[0], id=r[1], name=r[2],
                 setup_date=r[13], setup_sample_size=r[5], mass_g=r[6], flaw=flaw)
             tr.save()
+
+        # Alive-Dead Count
+        for r in c.execute('''
+                SELECT *,
+                  status_date AS "status_date [dtdt]",
+                  status_time AS "status_time [dtdt]"
+                FROM tbl_alive_dead_counts adc
+                LEFT OUTER JOIN tbl_lu_record_flaws f ON f.flawid=adc.flawid;
+            '''):
+            if r[6]:
+                flaw, _ = ExperimentFlaw.objects.get_or_create(name=r[9])
+            else:
+                flaw = None
+            adc = AliveDeadCount(treatment_replicate_id=r[0], id=r[1],
+                status_date=r[12], status_time=r[13], count_alive=r[4],
+                count_dead=r[5], flaw=flaw)
+            adc.save()
