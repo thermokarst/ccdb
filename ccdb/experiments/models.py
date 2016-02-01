@@ -23,6 +23,7 @@ class Experiment(models.Model):
     flaw = models.ForeignKey(Flaw, blank=True, null=True)
     sort_order = models.IntegerField(blank=True, null=True)
     slug = AutoSlugField(populate_from='name')
+    collections = models.ManyToManyField('collections_ccdb.Collection')
 
     def __str__(self):
         return self.name

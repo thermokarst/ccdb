@@ -17,7 +17,7 @@ class ExperimentAdmin(admin.ModelAdmin):
     list_display_links = ('name',)
     search_fields = ('name', 'code', 'description', 'flaw', 'sort_order')
     list_per_page = 25
-    fields = ('name', 'code', 'description', 'flaw', 'sort_order')
+    fields = ('name', 'code', 'description', 'flaw', 'collections', 'sort_order')
 
 
 class ProtocolAttachmentAdmin(admin.ModelAdmin):

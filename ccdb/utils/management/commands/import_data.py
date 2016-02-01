@@ -269,3 +269,10 @@ def _import_admin_data():
                 status_date=r[12], status_time=r[13], count_alive=r[4],
                 count_dead=r[5], flaw=flaw)
             adc.save()
+
+        # Experiment-Collection
+        for r in c.execute('SELECT * FROM tbl_hash_collection_experiments;'):
+            c = Collection.objects.get(id=r[0])
+            e = Experiment.objects.get(id=r[1])
+            e.collections.add(c)
+            e.save()
