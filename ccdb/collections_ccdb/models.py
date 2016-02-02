@@ -73,11 +73,17 @@ class Collection(models.Model):
     reagent = models.ForeignKey('processing.Reagent', blank=True, null=True)
     adfg_permit = models.ForeignKey(ADFGPermit, blank=True, null=True)
     flaw = models.ForeignKey(Flaw, blank=True, null=True)
+    display_name = models.CharField(max_length=255, editable=False)
+
+    def save(self, *args, **kwargs):
+        self.display_name = "{} {} {} {} {} {}".format(self.project,
+            self.study_location, self.collection_start_date,
+            self.collection_end_date, self.collection_type,
+            self.collection_method)
+        super(Collection, self).save(*args, **kwargs)
 
     def __str__(self):
-        return "{} {} {} {} {} {}".format(self.project, self.study_location,
-            self.collection_start_date, self.collection_end_date,
-            self.collection_type, self.collection_method)
+        return self.display_name
 
     class Meta:
         unique_together = ('project', 'study_location', 'collection_type',
