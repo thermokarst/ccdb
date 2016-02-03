@@ -67,10 +67,15 @@ class Treatment(models.Model):
     species = models.ForeignKey('species.Species')
     sex = models.CharField(max_length=25)
     flaw = models.ForeignKey(Flaw, blank=True, null=True)
+    display_name = models.CharField(max_length=255, editable=False)
+
+    def save(self, *args, **kwargs):
+        self.display_name = "{}_{}_{}_{}".format(self.treatment_type,
+            self.study_location, self.species, self.sex)
+        super(Treatment, self).save(*args, **kwargs)
 
     def __str__(self):
-        return "{} {} {} {}".format(self.treatment_type, self.study_location,
-            self.species, self.sex)
+        return self.display_name
 
 
 class TreatmentReplicate(models.Model):

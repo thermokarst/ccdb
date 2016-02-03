@@ -62,14 +62,24 @@ class TreatmentReplicateAdmin(admin.ModelAdmin):
 
 
 class AliveDeadCountAdmin(admin.ModelAdmin):
-    list_display = ('treatment_replicate', 'status_date', 'status_time',
-        'count_alive', 'count_dead', 'flaw')
+    list_display = ('treatment', 'tr', 'status_date',
+        'status_time', 'count_alive', 'count_dead', 'flaw')
     list_display_links = ('status_date',)
     search_fields = ('treatment_replicate', 'status_date', 'status_time',
         'count_alive', 'count_dead', 'flaw')
     list_per_page = 25
     fields = ('treatment_replicate', 'status_date', 'status_time',
         'count_alive', 'count_dead', 'flaw')
+
+    def treatment(self, obj):
+        return obj.treatment_replicate.treatment
+    treatment.admin_order_field = 'treatment_replicate__treatment'
+
+    def tr(self, obj):
+        return "{}_{}_{}".format(obj.treatment_replicate.setup_date,
+            obj.treatment_replicate.name,
+            obj.treatment_replicate.setup_sample_size)
+    tr.short_description = 'Treatment Replicate'
 
 
 admin.site.register(Flaw, FlawAdmin)
