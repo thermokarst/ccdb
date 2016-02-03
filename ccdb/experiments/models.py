@@ -81,10 +81,16 @@ class TreatmentReplicate(models.Model):
     setup_sample_size = models.IntegerField(blank=True, null=True)
     mass_g = models.FloatField(blank=True, null=True)
     flaw = models.ForeignKey(Flaw, blank=True, null=True)
+    display_name = models.CharField(max_length=255, editable=False)
+
+    def save(self, *args, **kwargs):
+        self.display_name = "{}_{}_{}_{}".format(self.treatment,
+            self.setup_date.date(), self.name,
+            self.setup_sample_size)
+        super(TreatmentReplicate, self).save(*args, **kwargs)
 
     def __str__(self):
-        return "{} {} {} {}".format(self.treatment, self.name,
-            self.setup_date, self.setup_sample_size)
+        return self.display_name
 
     class Meta:
         unique_together = ('treatment', 'name', 'setup_date', 'setup_time')
@@ -100,3 +106,6 @@ class AliveDeadCount(models.Model):
 
     def __str__(self):
         return "{}".format(self.status_date)
+
+    class Meta:
+        verbose_name = 'Alive-dead Count'

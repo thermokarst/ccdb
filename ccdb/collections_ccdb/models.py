@@ -55,6 +55,7 @@ class ADFGPermit(models.Model):
 
     class Meta:
         ordering = ['sort_order']
+        verbose_name = 'ADFG Permit'
 
 
 class Collection(models.Model):
