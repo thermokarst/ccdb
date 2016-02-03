@@ -76,10 +76,9 @@ class Collection(models.Model):
     display_name = models.CharField(max_length=255, editable=False)
 
     def save(self, *args, **kwargs):
-        self.display_name = "{} {} {} {} {} {}".format(self.project,
-            self.study_location, self.collection_start_date,
-            self.collection_end_date, self.collection_type,
-            self.collection_method)
+        self.display_name = "{}_{}_{}_{}".format(self.project,
+            self.collection_end_date.date(), self.study_location,
+            self.collection_type)
         super(Collection, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -88,6 +87,7 @@ class Collection(models.Model):
     class Meta:
         unique_together = ('project', 'study_location', 'collection_type',
             'collection_start_date', 'collection_end_date', 'collection_method')
+        ordering = ['project', 'collection_end_date']
 
 
 class DatasheetAttachment(models.Model):
@@ -105,7 +105,8 @@ class CollectionTrap(models.Model):
     time_closed = models.TimeField()
 
     def __str__(self):
-        return "{collection} {number_of_traps} {date_opened} {date_closed}".format(self)
+        return "{} # Traps: {} {} {}".format(
+            self.collection, self.number_of_traps, self.date_opened, self.date_closed)
 
     class Meta:
         unique_together = ('collection', 'date_opened', 'time_opened', 'date_closed', 'time_closed')

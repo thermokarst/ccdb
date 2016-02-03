@@ -50,7 +50,7 @@ class MunicipalLocation(models.Model):
 class StudyLocation(models.Model):
     site = models.ForeignKey(Site)
     name = models.CharField(max_length=100)
-    code = models.CharField(max_length=10, blank=True)
+    code = models.CharField(max_length=10)
     study_location_type = models.CharField(max_length=50, blank=True)
     treatment_type = models.CharField(max_length=100, blank=True)
     municipal_location = models.ForeignKey(MunicipalLocation,
@@ -61,7 +61,7 @@ class StudyLocation(models.Model):
     slug = AutoSlugField(populate_from='name')
 
     def __str__(self):
-        return self.name
+        return self.code
 
     class Meta:
         unique_together = ('site', 'name')
