@@ -6,7 +6,16 @@ Local settings
 - Add Django Debug Toolbar
 '''
 
+import warnings
+
 from .base import *  # noqa
+
+
+with warnings.catch_warnings(record=True) as warning:
+    environ.Env.read_env('.env')
+    for w in warning:
+        print(w.message)
+
 
 # DEBUG
 # ------------------------------------------------------------------------------
@@ -45,4 +54,9 @@ DEBUG_TOOLBAR_CONFIG = {
 # ------------------------------------------------------------------------------
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
-# Your local stuff: Below this line define 3rd party library settings
+
+DJOSER = {
+    'SITE_NAME': 'CCDB (test)',
+    'DOMAIN': 'localhost:4200',
+    'PASSWORD_RESET_CONFIRM_URL': 'password-reset?uid={uid}&token={token}',
+}

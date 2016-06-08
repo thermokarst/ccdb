@@ -5,13 +5,12 @@ Production Configurations
 - Use mailgun to send emails
 
 '''
-from __future__ import absolute_import, unicode_literals
 
 from boto.s3.connection import OrdinaryCallingFormat
 from django.utils import six
 
-
 from .base import *  # noqa
+
 
 # SECRET CONFIGURATION
 # ------------------------------------------------------------------------------
@@ -169,4 +168,11 @@ LOGGING = {
 # Custom Admin URL, use {% url 'admin:index' %}
 ADMIN_URL = env('DJANGO_ADMIN_URL')
 
-# Your production stuff: Below this line define 3rd party library settings
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = env.tuple('CORS_ORIGIN_WHITELIST', None)
+
+DJOSER = {
+    'SITE_NAME': 'CCDB',
+    'DOMAIN': 'https://ccdb.info',
+    'PASSWORD_RESET_CONFIRM_URL': 'https://ccdb.info/password-reset?uid={uid}&token={token}',
+}

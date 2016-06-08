@@ -1,8 +1,6 @@
 """
 Django settings for CCDB
 """
-from __future__ import absolute_import, unicode_literals
-
 from django.utils.translation import ugettext_lazy as _
 
 import environ
@@ -31,14 +29,14 @@ THIRD_PARTY_APPS = (
     'crispy_forms',  # Form layouts
     'allauth',  # registration
     'allauth.account',  # registration
-    'bootstrap3', # bootstrappin'
-    'django_tables2', # data grids
+    'bootstrap3',  # bootstrappin'
+    'django_tables2',  # data grids
 )
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
     'ccdb.utils',
-    'ccdb.users',  # custom users app
+    'ccdb.users',
     'ccdb.projects',
     'ccdb.misc',
     'ccdb.locations',
@@ -238,4 +236,19 @@ AUTOSLUG_SLUGIFY_FUNCTION = 'slugify.slugify'
 ADMIN_URL = r'^admin/'
 GRAPPELLI_ADMIN_TITLE = 'CCDB'
 
-# Your common stuff: Below this line define 3rd party library settings
+
+MANIFEST_URL = env('MANIFEST_URL', default=None)
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
+    'DEFAULT_PAGINATION_CLASS': 'hibernators.api.pagination.CustomPageNumberPagination',
+    'PAGE_SIZE': 100,
+}
