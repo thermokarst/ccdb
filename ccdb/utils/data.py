@@ -45,7 +45,7 @@ def _write_url(url, filename):
 
 
 def _get_db0():
-    dbfile = 'data/Replica_Hibernators_Back_UAF_Laptop_29_June_2015.sqlite'
+    dbfile = 'data/CC_Database_020216.sqlite'
     return setup_sqlite(dbfile)
 
 

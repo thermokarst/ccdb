@@ -41,6 +41,10 @@ EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND',
 MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
 INSTALLED_APPS += ('debug_toolbar', )
 
+# Testing
+# ------------------------------------------------------------------------------
+INSTALLED_APPS += ('django_extensions', 'test_without_migrations')
+
 INTERNAL_IPS = ('127.0.0.1', )
 
 DEBUG_TOOLBAR_CONFIG = {
@@ -54,6 +58,8 @@ DEBUG_TOOLBAR_CONFIG = {
 # ------------------------------------------------------------------------------
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
+MANIFEST_URL = env('MANIFEST_URL', default=None)
+CORS_ORIGIN_ALLOW_ALL = True
 
 DJOSER = {
     'SITE_NAME': 'CCDB (test)',
