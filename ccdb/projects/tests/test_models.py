@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from django.test import TestCase
 from django.db import IntegrityError, transaction
 
@@ -16,7 +14,7 @@ class ProjectTestCase(TestCase):
     def test_uniqueness(self):
         p1 = ProjectFactory()
         with transaction.atomic(), self.assertRaises(IntegrityError):
-            p2 = ProjectFactory(name=p1.name, code=p1.code)
+            ProjectFactory(name=p1.name, code=p1.code)
         p3 = ProjectFactory()
         self.assertTrue(isinstance(p3, Project))
 
@@ -30,7 +28,7 @@ class GrantTestCase(TestCase):
     def test_uniqueness(self):
         g1 = GrantFactory()
         with transaction.atomic(), self.assertRaises(IntegrityError):
-            g2 = GrantFactory(title=g1.title, code=g1.code)
+            GrantFactory(title=g1.title, code=g1.code)
         g3 = GrantFactory()
         self.assertTrue(isinstance(g3, Grant))
 
@@ -44,6 +42,6 @@ class GrantReportTestCase(TestCase):
     def test_uniqueness(self):
         g1 = GrantReportFactory()
         with transaction.atomic(), self.assertRaises(IntegrityError):
-            g2 = GrantReportFactory(title=g1.title, grant=g1.grant)
+            GrantReportFactory(title=g1.title, grant=g1.grant)
         g3 = GrantReportFactory()
         self.assertTrue(isinstance(g3, GrantReport))
