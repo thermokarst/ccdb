@@ -59,8 +59,8 @@ class Processing(models.Model):
     flaw = models.ForeignKey(Flaw, blank=True, null=True)
 
     def __str__(self):
-        return "{process_date} {process_type} {container_label}".format(**self)
+        return "{} {} {}".format(self.process_date, self.process_type, self.container_label)
 
     class Meta:
         unique_together = ('process_type', 'container', 'container_label',
-            'process_date', 'process_time', 'reagent')
+                           'process_date', 'process_time', 'reagent')
