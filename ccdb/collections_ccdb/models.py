@@ -78,7 +78,7 @@ class Collection(models.Model):
 
     def save(self, *args, **kwargs):
         self.display_name = "{}_{}_{}_{}".format(self.project,
-            self.collection_end_date.date(), self.study_location,
+            self.collection_end_date, self.study_location,
             self.collection_type)
         super(Collection, self).save(*args, **kwargs)
 
@@ -110,4 +110,5 @@ class CollectionTrap(models.Model):
             self.collection, self.number_of_traps, self.date_opened, self.date_closed)
 
     class Meta:
-        unique_together = ('collection', 'date_opened', 'time_opened', 'date_closed', 'time_closed')
+        unique_together = ('collection', 'date_opened', 'time_opened',
+                           'date_closed', 'time_closed')
