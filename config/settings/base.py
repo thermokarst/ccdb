@@ -16,7 +16,6 @@ DJANGO_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'grappelli',
@@ -28,6 +27,10 @@ THIRD_PARTY_APPS = (
     'allauth.account',
     'bootstrap3',
     'django_tables2',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'corsheaders',
+    'djoser',
 )
 
 # Apps specific for this project go here.
@@ -236,6 +239,6 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ],
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
-    'DEFAULT_PAGINATION_CLASS': 'hibernators.api.pagination.CustomPageNumberPagination',
+    'DEFAULT_PAGINATION_CLASS': 'drf_ember_pagination.EmberPageNumberPagination',
     'PAGE_SIZE': 100,
 }

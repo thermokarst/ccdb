@@ -45,3 +45,4 @@ djangorestframework==3.3.3
 django-cors-headers==1.1.0
 django-filter==0.13.0
 djoser==0.4.3
+git+git://github.com/thermokarst/drf_ember_pagination.git
