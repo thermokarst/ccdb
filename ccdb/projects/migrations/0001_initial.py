@@ -1,5 +1,4 @@
 from django.db import migrations, models
-import autoslug.fields
 
 
 class Migration(migrations.Migration):
@@ -16,7 +15,6 @@ class Migration(migrations.Migration):
                 ('iacuc_number', models.CharField(blank=True, max_length=25)),
                 ('description', models.CharField(blank=True, max_length=255)),
                 ('sort_order', models.IntegerField(blank=True, null=True)),
-                ('slug', autoslug.fields.AutoSlugField(populate_from='name', editable=False)),
             ],
             options={
                 'ordering': ['sort_order'],

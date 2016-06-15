@@ -1,5 +1,4 @@
 from django.db import migrations, models
-import autoslug.fields
 
 
 class Migration(migrations.Migration):
@@ -17,7 +16,6 @@ class Migration(migrations.Migration):
                 ('species', models.CharField(max_length=50, blank=True)),
                 ('parasite', models.BooleanField(default=False)),
                 ('sort_order', models.IntegerField(blank=True, null=True)),
-                ('slug', autoslug.fields.AutoSlugField(populate_from='common_name', editable=False)),
             ],
             options={
                 'ordering': ['sort_order'],

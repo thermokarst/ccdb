@@ -1,14 +1,11 @@
 from django.db import models
 
-from autoslug import AutoSlugField
-
 
 class ProcessType(models.Model):
     name = models.CharField(max_length=100)
     code = models.CharField(max_length=10, blank=True)
     description = models.CharField(max_length=255, blank=True)
     sort_order = models.IntegerField(blank=True, null=True)
-    slug = AutoSlugField(populate_from='name')
 
     def __str__(self):
         return self.name
@@ -23,7 +20,6 @@ class Reagent(models.Model):
     code = models.CharField(max_length=10, blank=True)
     reagent_class = models.CharField(max_length=50, blank=True)
     sort_order = models.IntegerField(blank=True, null=True)
-    slug = AutoSlugField(populate_from='name')
 
     def __str__(self):
         return self.name
@@ -37,7 +33,6 @@ class Flaw(models.Model):
     name = models.CharField(max_length=200)
     description = models.CharField(max_length=255, blank=True)
     sort_order = models.IntegerField(blank=True, null=True)
-    slug = AutoSlugField(populate_from='name')
 
     def __str__(self):
         return self.name

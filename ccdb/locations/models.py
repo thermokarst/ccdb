@@ -1,13 +1,10 @@
 from django.db import models
 
-from autoslug import AutoSlugField
-
 
 class Region(models.Model):
     name = models.CharField(max_length=100)
     code = models.CharField(max_length=10, blank=True)
     sort_order = models.IntegerField(blank=True, null=True)
-    slug = AutoSlugField(populate_from='name')
 
     def __str__(self):
         return self.name
@@ -23,7 +20,6 @@ class Site(models.Model):
     code = models.CharField(max_length=10, blank=True)
     description = models.CharField(max_length=255, blank=True)
     sort_order = models.IntegerField(blank=True, null=True)
-    slug = AutoSlugField(populate_from='name')
 
     def __str__(self):
         return self.name
@@ -38,7 +34,6 @@ class MunicipalLocation(models.Model):
     municipal_location_type = models.CharField(max_length=50, blank=True)
     description = models.CharField(max_length=255, blank=True)
     sort_order = models.IntegerField(blank=True, null=True)
-    slug = AutoSlugField(populate_from='name')
 
     def __str__(self):
         return self.name
@@ -58,7 +53,6 @@ class StudyLocation(models.Model):
     collecting_location = models.BooleanField(default=False)
     description = models.CharField(max_length=255, blank=True)
     sort_order = models.IntegerField(blank=True, null=True)
-    slug = AutoSlugField(populate_from='name')
 
     def __str__(self):
         return self.code

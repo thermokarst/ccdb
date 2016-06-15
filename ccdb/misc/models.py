@@ -1,7 +1,5 @@
 from django.db import models
 
-from autoslug import AutoSlugField
-
 
 class MeasurementUnit(models.Model):
     name = models.CharField(max_length=100)
@@ -9,7 +7,6 @@ class MeasurementUnit(models.Model):
     unit_class = models.CharField(max_length=50, blank=True)
     description = models.CharField(max_length=255, blank=True)
     sort_order = models.IntegerField(blank=True, null=True)
-    slug = AutoSlugField(populate_from='name')
 
     def __str__(self):
         return self.code
@@ -28,7 +25,6 @@ class MeasurementType(models.Model):
                                                  null=True,
                                                  related_name='measurement_types')
     sort_order = models.IntegerField(blank=True, null=True)
-    slug = AutoSlugField(populate_from='name')
 
     def __str__(self):
         return self.name
@@ -43,7 +39,6 @@ class Material(models.Model):
     material_class = models.CharField(max_length=50, blank=True)
     description = models.CharField(max_length=255, blank=True)
     sort_order = models.IntegerField(blank=True, null=True)
-    slug = AutoSlugField(populate_from='name')
 
     def __str__(self):
         return self.name
@@ -58,7 +53,6 @@ class Color(models.Model):
     code = models.CharField(max_length=10, blank=True)
     color_number = models.FloatField(blank=True, null=True)
     sort_order = models.IntegerField(blank=True, null=True)
-    slug = AutoSlugField(populate_from='name')
 
     def __str__(self):
         return self.name
@@ -80,7 +74,6 @@ class Container(models.Model):
     measurement_unit = models.ForeignKey(MeasurementUnit, blank=True, null=True,
                                          related_name='containers')
     sort_order = models.IntegerField(blank=True, null=True)
-    slug = AutoSlugField(populate_from='name')
 
     def __str__(self):
         return self.name

@@ -1,5 +1,4 @@
 from django.db import migrations, models
-import autoslug.fields
 
 
 class Migration(migrations.Migration):
@@ -16,7 +15,6 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
                 ('name', models.CharField(max_length=200)),
                 ('sort_order', models.IntegerField(blank=True, null=True)),
-                ('slug', autoslug.fields.AutoSlugField(populate_from='name', editable=False)),
             ],
             options={
                 'ordering': ['sort_order'],
@@ -43,7 +41,6 @@ class Migration(migrations.Migration):
                 ('code', models.CharField(blank=True, max_length=10)),
                 ('collection_method_class', models.CharField(blank=True, max_length=50)),
                 ('sort_order', models.IntegerField(blank=True, null=True)),
-                ('slug', autoslug.fields.AutoSlugField(populate_from='name', editable=False)),
             ],
             options={
                 'ordering': ['sort_order'],
@@ -68,7 +65,6 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=100)),
                 ('code', models.CharField(blank=True, max_length=10)),
                 ('sort_order', models.IntegerField(blank=True, null=True)),
-                ('slug', autoslug.fields.AutoSlugField(populate_from='name', editable=False)),
             ],
             options={
                 'ordering': ['sort_order'],
@@ -89,7 +85,6 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=200)),
                 ('description', models.CharField(blank=True, max_length=255)),
                 ('sort_order', models.IntegerField(blank=True, null=True)),
-                ('slug', autoslug.fields.AutoSlugField(populate_from='name', editable=False)),
             ],
             options={
                 'ordering': ['sort_order'],

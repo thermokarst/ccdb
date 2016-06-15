@@ -1,5 +1,4 @@
 from django.db import migrations, models
-import autoslug.fields
 
 
 class Migration(migrations.Migration):
@@ -19,7 +18,6 @@ class Migration(migrations.Migration):
                 ('code', models.CharField(blank=True, max_length=10)),
                 ('description', models.CharField(blank=True, max_length=255)),
                 ('sort_order', models.IntegerField(blank=True, null=True)),
-                ('slug', autoslug.fields.AutoSlugField(populate_from='name', editable=False)),
             ],
             options={
                 'ordering': ['sort_order'],
@@ -32,7 +30,6 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=200)),
                 ('description', models.CharField(blank=True, max_length=255)),
                 ('sort_order', models.IntegerField(blank=True, null=True)),
-                ('slug', autoslug.fields.AutoSlugField(populate_from='name', editable=False)),
             ],
             options={
                 'ordering': ['sort_order'],
@@ -65,7 +62,6 @@ class Migration(migrations.Migration):
                 ('placement', models.CharField(blank=True, max_length=25)),
                 ('description', models.CharField(blank=True, max_length=255)),
                 ('sort_order', models.IntegerField(blank=True, null=True)),
-                ('slug', autoslug.fields.AutoSlugField(populate_from='name', editable=False)),
                 ('experiment', models.ForeignKey(to='experiments.Experiment', null=True, blank=True)),
             ],
             options={

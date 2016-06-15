@@ -1,5 +1,4 @@
 from django.db import migrations, models
-import autoslug.fields
 
 
 class Migration(migrations.Migration):
@@ -16,7 +15,6 @@ class Migration(migrations.Migration):
                 ('municipal_location_type', models.CharField(blank=True, max_length=50)),
                 ('description', models.CharField(blank=True, max_length=255)),
                 ('sort_order', models.IntegerField(blank=True, null=True)),
-                ('slug', autoslug.fields.AutoSlugField(editable=False, populate_from='name')),
             ],
             options={
                 'ordering': ['sort_order'],
@@ -29,7 +27,6 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=100)),
                 ('code', models.CharField(blank=True, max_length=10)),
                 ('sort_order', models.IntegerField(blank=True, null=True)),
-                ('slug', autoslug.fields.AutoSlugField(editable=False, populate_from='name')),
             ],
             options={
                 'ordering': ['sort_order'],
@@ -43,7 +40,6 @@ class Migration(migrations.Migration):
                 ('code', models.CharField(blank=True, max_length=10)),
                 ('description', models.CharField(blank=True, max_length=255)),
                 ('sort_order', models.IntegerField(blank=True, null=True)),
-                ('slug', autoslug.fields.AutoSlugField(editable=False, populate_from='name')),
                 ('region', models.ForeignKey(to='locations.Region', null=True, blank=True)),
             ],
             options={
@@ -78,7 +74,6 @@ class Migration(migrations.Migration):
                 ('collecting_location', models.BooleanField(default=False)),
                 ('description', models.CharField(blank=True, max_length=255)),
                 ('sort_order', models.IntegerField(blank=True, null=True)),
-                ('slug', autoslug.fields.AutoSlugField(editable=False, populate_from='name')),
                 ('municipal_location', models.ForeignKey(to='locations.MunicipalLocation', null=True, blank=True)),
                 ('site', models.ForeignKey(to='locations.Site', null=True, blank=True)),
             ],

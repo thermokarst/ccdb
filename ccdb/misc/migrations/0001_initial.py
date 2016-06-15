@@ -1,5 +1,4 @@
 from django.db import migrations, models
-import autoslug.fields
 
 
 class Migration(migrations.Migration):
@@ -15,7 +14,6 @@ class Migration(migrations.Migration):
                 ('code', models.CharField(max_length=10, blank=True)),
                 ('color_number', models.FloatField(blank=True, null=True)),
                 ('sort_order', models.IntegerField(blank=True, null=True)),
-                ('slug', autoslug.fields.AutoSlugField(editable=False, populate_from='name')),
             ],
             options={
                 'ordering': ['sort_order'],
@@ -30,7 +28,6 @@ class Migration(migrations.Migration):
                 ('application', models.CharField(max_length=50, blank=True)),
                 ('volume', models.FloatField(blank=True, null=True)),
                 ('sort_order', models.IntegerField(blank=True, null=True)),
-                ('slug', autoslug.fields.AutoSlugField(editable=False, populate_from='name')),
                 ('color', models.ForeignKey(blank=True, to='misc.Color', null=True)),
             ],
             options={
@@ -46,7 +43,6 @@ class Migration(migrations.Migration):
                 ('material_class', models.CharField(max_length=50, blank=True)),
                 ('description', models.CharField(max_length=255, blank=True)),
                 ('sort_order', models.IntegerField(blank=True, null=True)),
-                ('slug', autoslug.fields.AutoSlugField(editable=False, populate_from='name')),
             ],
             options={
                 'ordering': ['sort_order'],
@@ -61,7 +57,6 @@ class Migration(migrations.Migration):
                 ('measurement_type_class', models.CharField(max_length=50, blank=True)),
                 ('description', models.CharField(max_length=255, blank=True)),
                 ('sort_order', models.IntegerField(blank=True, null=True)),
-                ('slug', autoslug.fields.AutoSlugField(editable=False, populate_from='name')),
             ],
             options={
                 'ordering': ['sort_order'],
@@ -76,7 +71,6 @@ class Migration(migrations.Migration):
                 ('unit_class', models.CharField(max_length=50, blank=True)),
                 ('description', models.CharField(max_length=255, blank=True)),
                 ('sort_order', models.IntegerField(blank=True, null=True)),
-                ('slug', autoslug.fields.AutoSlugField(editable=False, populate_from='name')),
             ],
             options={
                 'ordering': ['sort_order'],
