@@ -14,9 +14,6 @@ psycopg2==2.6.1
 # Time zones support
 pytz==2016.4
 
-# Admin
-django-grappelli==2.8.1
-
 # Date/time strings
 python-dateutil==2.5.3
 

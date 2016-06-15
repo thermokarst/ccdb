@@ -19,7 +19,6 @@ DJANGO_APPS = (
     'django.contrib.sites',  # Need this for djoser
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'grappelli',
     'django.contrib.admin',
 )
 THIRD_PARTY_APPS = (
