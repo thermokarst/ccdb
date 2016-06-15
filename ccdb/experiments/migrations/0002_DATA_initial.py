@@ -46,7 +46,11 @@ class Migration(migrations.Migration):
                                           treatment_type=r[4], placement=r[5],
                                           description=r[6]))
             if form.is_valid():
-                TreatmentType.objects.create(id=r[1], **form.cleaned_data)
+                experiment = Experiment.objects.get(id=r[0])
+                d = "{} {} {} {}".format(experiment.name, form.cleaned_data['name'],
+                                         form.cleaned_data['treatment_type'],
+                                         form.cleaned_data['placement'])
+                TreatmentType.objects.create(id=r[1], display_name=d, **form.cleaned_data)
             else:
                 print('treatment type', r[0:], form.errors.as_data())
 
@@ -57,8 +61,10 @@ class Migration(migrations.Migration):
                 treatment_type = TreatmentType.objects.get(id=r[1])
                 study_location = StudyLocation.objects.get(id=r[3])
                 species = Species.objects.get(id=r[4])
-                d = "{}_{}_{}_{}".format(treatment_type, study_location,
-                                         species, form.cleaned_data['sex'])
+                d = "{}_{}_{}_{}".format(treatment_type.display_name,
+                                         study_location.code,
+                                         species.common_name,
+                                         form.cleaned_data['sex'])
                 Treatment.objects.create(id=r[0], display_name=d, **form.cleaned_data)
             else:
                 print('treatment', r[0:], form.errors.as_data())
@@ -76,7 +82,13 @@ class Migration(migrations.Migration):
                                                setup_sample_size=r[5], mass_g=r[6],
                                                flaw=flaw))
             if form.is_valid():
-                TreatmentReplicate.objects.create(id=r[1], **form.cleaned_data)
+                treatment = Treatment.objects.get(id=r[0])
+                d = "{}_{}_{}_{}".format(treatment.display_name,
+                                         form.cleaned_data['setup_date'],
+                                         form.cleaned_data['name'],
+                                         form.cleaned_data['setup_sample_size'])
+                TreatmentReplicate.objects.create(id=r[1], display_name=d,
+                                                  **form.cleaned_data)
             else:
                 print('treatment replicate', r[0:], form.errors.as_data())
 

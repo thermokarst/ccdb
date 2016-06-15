@@ -82,7 +82,8 @@ class Migration(migrations.Migration):
                                        adfg_permit=permit))
             if form.is_valid():
                 project = Project.objects.get(id=r[0])
-                d = "{}_{}_{}_{}".format(project, form.cleaned_data['collection_end_date'],
+                d = "{}_{}_{}_{}".format(project.name,
+                                         form.cleaned_data['collection_end_date'],
                                          form.cleaned_data['study_location'],
                                          form.cleaned_data['collection_type'])
                 Collection.objects.create(id=r[1], display_name=d, **form.cleaned_data)

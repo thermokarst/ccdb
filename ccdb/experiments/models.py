@@ -51,10 +51,16 @@ class TreatmentType(models.Model):
     description = models.CharField(max_length=255, blank=True)
     sort_order = models.IntegerField(blank=True, null=True)
     slug = AutoSlugField(populate_from='name')
+    display_name = models.CharField(max_length=255, editable=False)
+
+    def save(self, *args, **kwargs):
+        self.display_name = "{} {} {} {}".format(self.experiment, self.name,
+                                                 self.treatment_type,
+                                                 self.placement)
+        super(TreatmentType, self).save(*args, **kwargs)
 
     def __str__(self):
-        return "{} {} {} {}".format(self.experiment, self.name,
-                                    self.treatment_type, self.placement)
+        return self.display_name
 
     class Meta:
         unique_together = ('experiment', 'name')

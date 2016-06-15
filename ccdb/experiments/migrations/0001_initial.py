@@ -127,6 +127,12 @@ class Migration(migrations.Migration):
             options={'verbose_name': 'Alive-dead Count'},
         ),
         migrations.AddField(
+            model_name='treatmenttype',
+            name='display_name',
+            field=models.CharField(default='x', max_length=255, editable=False),
+            preserve_default=False,
+        ),
+        migrations.AddField(
             model_name='treatmentreplicate',
             name='display_name',
             field=models.CharField(default='x', max_length=255, editable=False),
