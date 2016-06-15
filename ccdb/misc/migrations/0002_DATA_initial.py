@@ -104,6 +104,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('misc', '0001_initial'),
+        ('projects', '0002_DATA_initial'),
     ]
 
     operations = [

@@ -27,12 +27,14 @@ class Migration(migrations.Migration):
             else:
                 print('species', r[0:], form.errors.as_data())
 
+
     def rollback(apps, schema_editor):
         Species = apps.get_model('species', 'Species')
         Species.objects.all().delete()
 
     dependencies = [
-        ('species', '0003_collectionspecies'),
+        ('species', '0001_initial'),
+        ('locations', '0002_DATA_initial'),
     ]
 
     operations = [

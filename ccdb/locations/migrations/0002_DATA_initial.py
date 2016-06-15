@@ -94,7 +94,8 @@ class Migration(migrations.Migration):
             model.objects.all().delete()
 
     dependencies = [
-        ('locations', '0003_study_location_code_req'),
+        ('locations', '0001_initial'),
+        ('misc', '0002_DATA_initial'),
     ]
 
     operations = [

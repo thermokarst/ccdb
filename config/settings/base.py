@@ -16,17 +16,13 @@ DJANGO_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.sites',  # Need this for djoser
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'grappelli',
     'django.contrib.admin',
 )
 THIRD_PARTY_APPS = (
-    'crispy_forms',
-    'allauth',
-    'allauth.account',
-    'bootstrap3',
-    'django_tables2',
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
@@ -242,3 +238,5 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'drf_ember_pagination.EmberPageNumberPagination',
     'PAGE_SIZE': 100,
 }
+
+SITE_ID = 1

@@ -8,7 +8,6 @@ class Migration(migrations.Migration):
     def migrate(apps, schema_editor):
         sources = get_data_sources()
         if not sources:
-            print('no sources')
             return
 
         c = sources['db0']
@@ -75,7 +74,7 @@ class Migration(migrations.Migration):
             model.objects.all().delete()
 
     dependencies = [
-        ('projects', '0004_initial_grantreport'),
+        ('projects', '0001_initial'),
     ]
 
     operations = [

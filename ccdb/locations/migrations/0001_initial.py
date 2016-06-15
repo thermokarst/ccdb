@@ -1,12 +1,8 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from django.db import migrations, models
 import autoslug.fields
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
     ]
 
@@ -14,13 +10,13 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='MunicipalLocation',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
                 ('name', models.CharField(max_length=100)),
-                ('code', models.CharField(max_length=10, blank=True)),
-                ('municipal_location_type', models.CharField(max_length=50, blank=True)),
-                ('description', models.CharField(max_length=255, blank=True)),
-                ('sort_order', models.IntegerField(null=True, blank=True)),
-                ('slug', autoslug.fields.AutoSlugField(populate_from='name', editable=False)),
+                ('code', models.CharField(blank=True, max_length=10)),
+                ('municipal_location_type', models.CharField(blank=True, max_length=50)),
+                ('description', models.CharField(blank=True, max_length=255)),
+                ('sort_order', models.IntegerField(blank=True, null=True)),
+                ('slug', autoslug.fields.AutoSlugField(editable=False, populate_from='name')),
             ],
             options={
                 'ordering': ['sort_order'],
@@ -29,11 +25,11 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Region',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
                 ('name', models.CharField(max_length=100)),
-                ('code', models.CharField(max_length=10, blank=True)),
-                ('sort_order', models.IntegerField(null=True, blank=True)),
-                ('slug', autoslug.fields.AutoSlugField(populate_from='name', editable=False)),
+                ('code', models.CharField(blank=True, max_length=10)),
+                ('sort_order', models.IntegerField(blank=True, null=True)),
+                ('slug', autoslug.fields.AutoSlugField(editable=False, populate_from='name')),
             ],
             options={
                 'ordering': ['sort_order'],
@@ -42,12 +38,12 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Site',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
                 ('name', models.CharField(max_length=100)),
-                ('code', models.CharField(max_length=10, blank=True)),
-                ('description', models.CharField(max_length=255, blank=True)),
-                ('sort_order', models.IntegerField(null=True, blank=True)),
-                ('slug', autoslug.fields.AutoSlugField(populate_from='name', editable=False)),
+                ('code', models.CharField(blank=True, max_length=10)),
+                ('description', models.CharField(blank=True, max_length=255)),
+                ('sort_order', models.IntegerField(blank=True, null=True)),
+                ('slug', autoslug.fields.AutoSlugField(editable=False, populate_from='name')),
                 ('region', models.ForeignKey(to='locations.Region', null=True, blank=True)),
             ],
             options={
@@ -57,15 +53,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='StorageLocation',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
                 ('facility', models.CharField(max_length=100)),
                 ('building', models.CharField(max_length=100)),
                 ('code', models.CharField(max_length=100)),
-                ('room', models.CharField(max_length=50, blank=True)),
-                ('freezer', models.CharField(max_length=50, blank=True)),
-                ('temp_c', models.IntegerField(null=True, blank=True)),
-                ('description', models.CharField(max_length=255, blank=True)),
-                ('sort_order', models.IntegerField(null=True, blank=True)),
+                ('room', models.CharField(blank=True, max_length=50)),
+                ('freezer', models.CharField(blank=True, max_length=50)),
+                ('temp_c', models.IntegerField(blank=True, null=True)),
+                ('description', models.CharField(blank=True, max_length=255)),
+                ('sort_order', models.IntegerField(blank=True, null=True)),
             ],
             options={
                 'ordering': ['sort_order'],
@@ -74,15 +70,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='StudyLocation',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
                 ('name', models.CharField(max_length=100)),
-                ('code', models.CharField(max_length=10, blank=True)),
-                ('study_location_type', models.CharField(max_length=50, blank=True)),
-                ('treatment_type', models.CharField(max_length=100, blank=True)),
+                ('code', models.CharField(blank=True, max_length=10)),
+                ('study_location_type', models.CharField(blank=True, max_length=50)),
+                ('treatment_type', models.CharField(blank=True, max_length=100)),
                 ('collecting_location', models.BooleanField(default=False)),
-                ('description', models.CharField(max_length=255, blank=True)),
-                ('sort_order', models.IntegerField(null=True, blank=True)),
-                ('slug', autoslug.fields.AutoSlugField(populate_from='name', editable=False)),
+                ('description', models.CharField(blank=True, max_length=255)),
+                ('sort_order', models.IntegerField(blank=True, null=True)),
+                ('slug', autoslug.fields.AutoSlugField(editable=False, populate_from='name')),
                 ('municipal_location', models.ForeignKey(to='locations.MunicipalLocation', null=True, blank=True)),
                 ('site', models.ForeignKey(to='locations.Site', null=True, blank=True)),
             ],
@@ -94,13 +90,33 @@ class Migration(migrations.Migration):
             name='region',
             unique_together=set([('name', 'code')]),
         ),
-        migrations.AddField(
-            model_name='municipallocation',
-            name='site',
-            field=models.ForeignKey(to='locations.Site'),
-        ),
         migrations.AlterUniqueTogether(
             name='studylocation',
             unique_together=set([('site', 'name')]),
+        ),
+        migrations.AlterField(
+            model_name='studylocation',
+            name='site',
+            field=models.ForeignKey(to='locations.Site'),
+        ),
+        migrations.AlterField(
+            model_name='studylocation',
+            name='code',
+            field=models.CharField(max_length=10),
+        ),
+        migrations.AlterField(
+            model_name='site',
+            name='region',
+            field=models.ForeignKey(to='locations.Region', null=True, blank=True, related_name='sites'),
+        ),
+        migrations.AlterField(
+            model_name='studylocation',
+            name='municipal_location',
+            field=models.ForeignKey(to='locations.MunicipalLocation', null=True, blank=True, related_name='study_locations'),
+        ),
+        migrations.AlterField(
+            model_name='studylocation',
+            name='site',
+            field=models.ForeignKey(to='locations.Site', related_name='study_locations'),
         ),
     ]

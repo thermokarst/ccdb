@@ -23,6 +23,10 @@ class Migration(migrations.Migration):
                       Experiment, Flaw]:
             model.objects.all().delete()
 
+        Collection = apps.get_model('collections_ccdb', 'Collection')
+        StudyLocation = apps.get_model('locations', 'StudyLocation')
+        Species = apps.get_model('species', 'Species')
+
         ExperimentForm = modelform_factory(Experiment, exclude=('collections',))
         TreatmentTypeForm = modelform_factory(TreatmentType, fields='__all__')
         TreatmentForm = modelform_factory(Treatment, fields='__all__')
@@ -50,7 +54,12 @@ class Migration(migrations.Migration):
             form = TreatmentForm(dict(treatment_type=r[1], container=r[2],
                                       study_location=r[3], species=r[4], sex=r[5]))
             if form.is_valid():
-                Treatment.objects.create(id=r[0], **form.cleaned_data)
+                treatment_type = TreatmentType.objects.get(id=r[1])
+                study_location = StudyLocation.objects.get(id=r[3])
+                species = Species.objects.get(id=r[4])
+                d = "{}_{}_{}_{}".format(treatment_type, study_location,
+                                         species, form.cleaned_data['sex'])
+                Treatment.objects.create(id=r[0], display_name=d, **form.cleaned_data)
             else:
                 print('treatment', r[0:], form.errors.as_data())
 
@@ -91,6 +100,17 @@ class Migration(migrations.Migration):
             else:
                 print('alive-dead count', r[0:], form.errors.as_data())
 
+
+
+        for experiment in Experiment.objects.all():
+            experiment.collections.all().delete()
+
+        for r in c.execute('SELECT * FROM tbl_hash_collection_experiments;'):
+            c = Collection.objects.get(id=r[0])
+            e = Experiment.objects.get(id=r[1])
+            e.collections.add(c)
+            e.save()
+
     def rollback(apps, schema_editor):
         Flaw = apps.get_model('experiments', 'Flaw')
         Experiment = apps.get_model('experiments', 'Experiment')
@@ -103,9 +123,13 @@ class Migration(migrations.Migration):
                       Experiment, Flaw]:
             model.objects.all().delete()
 
+        for experiment in Experiment.objects.all():
+            experiment.collections.all().delete()
+
+
     dependencies = [
-        ('experiments', '0008_treatment_display_name'),
-        ('collections_ccdb', '0005_DATA_initial'),
+        ('experiments', '0001_initial'),
+        ('collections_ccdb', '0002_DATA_initial'),
     ]
 
     operations = [

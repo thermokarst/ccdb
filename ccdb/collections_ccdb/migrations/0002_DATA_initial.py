@@ -25,11 +25,15 @@ class Migration(migrations.Migration):
             model.objects.all().delete()
 
         Project = apps.get_model('projects', 'Project')
+        CollectionSpecies = apps.get_model('species', 'CollectionSpecies')
+
+        CollectionSpecies.objects.all().delete()
 
         CollectionTypeForm = modelform_factory(CollectionType, fields='__all__')
         CollectionMethodForm = modelform_factory(CollectionMethod, fields='__all__')
         ADFGPermitForm = modelform_factory(ADFGPermit, fields='__all__')
         CollectionForm = modelform_factory(Collection, fields='__all__')
+        CollectionSpeciesForm = modelform_factory(CollectionSpecies, fields='__all__')
 
         for r in c.execute('SELECT * FROM tbl_lu_collection_types;'):
             form = CollectionTypeForm(dict(name=r[1], code=r[2],
@@ -85,6 +89,15 @@ class Migration(migrations.Migration):
             else:
                 print('collection', r[0:], form.errors.as_data())
 
+        for r in c.execute('SELECT * FROM tbl_hash_collection_species;'):
+            form = CollectionSpeciesForm(dict(collection=r[0], species=r[1], sex=r[2],
+                                    count=r[3], count_estimated=r[4]))
+            if form.is_valid():
+                # No PK in Andre's file
+                form.save()
+            else:
+                print('collection species', r[0:], form.errors.as_data())
+
     def rollback(apps, schema_editor):
         CollectionType = apps.get_model('collections_ccdb', 'CollectionType')
         CollectionMethod = apps.get_model('collections_ccdb', 'CollectionMethod')
@@ -93,13 +106,15 @@ class Migration(migrations.Migration):
         Collection = apps.get_model('collections_ccdb', 'Collection')
         DatasheetAttachment = apps.get_model('collections_ccdb', 'DatasheetAttachment')
         CollectionTrap = apps.get_model('collections_ccdb', 'CollectionTrap')
+        CollectionSpecies = apps.get_model('species', 'CollectionSpecies')
 
         for model in [CollectionTrap, Collection, Flaw, DatasheetAttachment,
-                      CollectionMethod, CollectionType, ADFGPermit]:
+                      CollectionMethod, CollectionType, ADFGPermit, CollectionSpecies]:
             model.objects.all().delete()
 
     dependencies = [
-        ('collections_ccdb', '0004_collections_ordering'),
+        ('collections_ccdb', '0001_initial'),
+        ('processing', '0002_DATA_initial'),
     ]
 
     operations = [

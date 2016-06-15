@@ -50,6 +50,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('processing', '0001_initial'),
+        ('species', '0002_DATA_initial'),
     ]
 
     operations = [
