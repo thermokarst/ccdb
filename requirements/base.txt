@@ -5,27 +5,14 @@ django-environ==0.4.0
 django-secure==1.0.1
 whitenoise==3.2
 
-# Forms
-django-braces==1.9.0
-django-crispy-forms==1.6.0
-
 # Views
 django-extra-views==0.7.1
 
 # DB
 psycopg2==2.6.1
 
-# User Registration
-django-allauth==0.25.2
-
 # Time zones support
 pytz==2016.4
-
-# Bootstrap
-django-bootstrap3==7.0.1
-
-# Data grids
-django-tables2==1.2.2
 
 # Admin
 django-grappelli==2.8.1
