@@ -20,7 +20,7 @@ class Experiment(models.Model):
     name = models.CharField(max_length=150)
     code = models.CharField(max_length=10, blank=True)
     description = models.CharField(max_length=255, blank=True)
-    flaw = models.ForeignKey(Flaw, blank=True, null=True)
+    flaw = models.ForeignKey(Flaw, blank=True, null=True, related_name='experiments')
     sort_order = models.IntegerField(blank=True, null=True)
     slug = AutoSlugField(populate_from='name')
     collections = models.ManyToManyField('collections_ccdb.Collection')
@@ -34,7 +34,7 @@ class Experiment(models.Model):
 
 
 class ProtocolAttachment(models.Model):
-    experiment = models.ForeignKey(Experiment)
+    experiment = models.ForeignKey(Experiment, related_name='protocols')
     protocol = models.FileField(upload_to='experiments/protocols/%Y/%m/%d')
 
     def __str__(self):
@@ -42,7 +42,8 @@ class ProtocolAttachment(models.Model):
 
 
 class TreatmentType(models.Model):
-    experiment = models.ForeignKey(Experiment, blank=True, null=True)
+    experiment = models.ForeignKey(Experiment, blank=True, null=True,
+                                   related_name='treatment_types')
     name = models.CharField(max_length=200)
     code = models.CharField(max_length=25, blank=True)
     treatment_type = models.CharField(max_length=50, blank=True)
@@ -53,7 +54,7 @@ class TreatmentType(models.Model):
 
     def __str__(self):
         return "{} {} {} {}".format(self.experiment, self.name,
-            self.treatment_type, self.placement)
+                                    self.treatment_type, self.placement)
 
     class Meta:
         unique_together = ('experiment', 'name')
@@ -61,17 +62,20 @@ class TreatmentType(models.Model):
 
 
 class Treatment(models.Model):
-    treatment_type = models.ForeignKey(TreatmentType)
-    container = models.ForeignKey('misc.Container', blank=True, null=True)
-    study_location = models.ForeignKey('locations.StudyLocation')
-    species = models.ForeignKey('species.Species')
+    treatment_type = models.ForeignKey(TreatmentType, related_name='treatments')
+    container = models.ForeignKey('misc.Container', blank=True, null=True,
+                                  related_name='treatments')
+    study_location = models.ForeignKey('locations.StudyLocation',
+                                       related_name='treatments')
+    species = models.ForeignKey('species.Species', related_name='treatments')
     sex = models.CharField(max_length=25)
-    flaw = models.ForeignKey(Flaw, blank=True, null=True)
+    flaw = models.ForeignKey(Flaw, blank=True, null=True, related_name='treatments')
     display_name = models.CharField(max_length=255, editable=False)
 
     def save(self, *args, **kwargs):
         self.display_name = "{}_{}_{}_{}".format(self.treatment_type,
-            self.study_location, self.species, self.sex)
+                                                 self.study_location, self.species,
+                                                 self.sex)
         super(Treatment, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -79,19 +83,19 @@ class Treatment(models.Model):
 
 
 class TreatmentReplicate(models.Model):
-    treatment = models.ForeignKey(Treatment)
+    treatment = models.ForeignKey(Treatment, related_name='treatment_replicates')
     name = models.CharField(max_length=50)
     setup_date = models.DateField(blank=True, null=True)
     setup_time = models.TimeField(blank=True, null=True)
     setup_sample_size = models.IntegerField(blank=True, null=True)
     mass_g = models.FloatField(blank=True, null=True)
-    flaw = models.ForeignKey(Flaw, blank=True, null=True)
+    flaw = models.ForeignKey(Flaw, blank=True, null=True, related_name='treatment_replicates')
     display_name = models.CharField(max_length=255, editable=False)
 
     def save(self, *args, **kwargs):
         self.display_name = "{}_{}_{}_{}".format(self.treatment,
-            self.setup_date.date(), self.name,
-            self.setup_sample_size)
+                                                 self.setup_date, self.name,
+                                                 self.setup_sample_size)
         super(TreatmentReplicate, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -102,12 +106,14 @@ class TreatmentReplicate(models.Model):
 
 
 class AliveDeadCount(models.Model):
-    treatment_replicate = models.ForeignKey(TreatmentReplicate)
+    treatment_replicate = models.ForeignKey(TreatmentReplicate,
+                                            related_name='alive_dead_counts')
     status_date = models.DateField()
     status_time = models.TimeField(blank=True, null=True)
     count_alive = models.IntegerField(blank=True, null=True)
     count_dead = models.IntegerField(blank=True, null=True)
-    flaw = models.ForeignKey(Flaw, blank=True, null=True)
+    flaw = models.ForeignKey(Flaw, blank=True, null=True,
+                             related_name='alive_dead_counts')
 
     def __str__(self):
         return "{}".format(self.status_date)

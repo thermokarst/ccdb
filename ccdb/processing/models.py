@@ -47,20 +47,22 @@ class Flaw(models.Model):
 
 
 class Processing(models.Model):
-    process_type = models.ForeignKey(ProcessType)
-    container = models.ForeignKey('misc.Container')
+    process_type = models.ForeignKey(ProcessType, related_name='processings')
+    container = models.ForeignKey('misc.Container', related_name='processings')
     container_label = models.CharField(max_length=50)
     process_date = models.DateField(blank=True, null=True)
     process_time = models.TimeField(blank=True, null=True)
-    reagent = models.ForeignKey(Reagent, blank=True, null=True)
+    reagent = models.ForeignKey(Reagent, blank=True, null=True,
+                                related_name='processings')
     reagent_volume = models.FloatField(blank=True, null=True)
-    measurement_unit = models.ForeignKey('misc.MeasurementUnit', blank=True, null=True)
+    measurement_unit = models.ForeignKey('misc.MeasurementUnit', blank=True,
+                                         null=True, related_name='processings')
     minutes_in_reagent = models.IntegerField(blank=True, null=True)
-    flaw = models.ForeignKey(Flaw, blank=True, null=True)
+    flaw = models.ForeignKey(Flaw, blank=True, null=True, related_name='processings')
 
     def __str__(self):
-        return "{process_date} {process_type} {container_label}".format(**self)
+        return "{} {} {}".format(self.process_date, self.process_type, self.container_label)
 
     class Meta:
         unique_together = ('process_type', 'container', 'container_label',
-            'process_date', 'process_time', 'reagent')
+                           'process_date', 'process_time', 'reagent')

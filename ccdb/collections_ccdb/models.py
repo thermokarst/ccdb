@@ -59,26 +59,31 @@ class ADFGPermit(models.Model):
 
 
 class Collection(models.Model):
-    project = models.ForeignKey('projects.Project')
-    study_location = models.ForeignKey('locations.StudyLocation')
-    collection_type = models.ForeignKey(CollectionType)
-    collection_method = models.ForeignKey(CollectionMethod)
+    project = models.ForeignKey('projects.Project', related_name='collections')
+    study_location = models.ForeignKey('locations.StudyLocation',
+                                       related_name='collections')
+    collection_type = models.ForeignKey(CollectionType, related_name='collections')
+    collection_method = models.ForeignKey(CollectionMethod, related_name='collections')
     number_of_traps = models.IntegerField(blank=True, null=True)
     collection_start_date = models.DateField(blank=True, null=True)
     collection_start_time = models.TimeField(blank=True, null=True)
     collection_end_date = models.DateField(blank=True, null=True)
     collection_end_time = models.TimeField(blank=True, null=True)
-    storage_location = models.ForeignKey('locations.StorageLocation', blank=True, null=True)
+    storage_location = models.ForeignKey('locations.StorageLocation', blank=True,
+                                         null=True, related_name='collections')
     specimen_state = models.CharField(max_length=50, blank=True)
-    process_type = models.ForeignKey('processing.ProcessType', blank=True, null=True)
-    reagent = models.ForeignKey('processing.Reagent', blank=True, null=True)
-    adfg_permit = models.ForeignKey(ADFGPermit, blank=True, null=True)
-    flaw = models.ForeignKey(Flaw, blank=True, null=True)
+    process_type = models.ForeignKey('processing.ProcessType', blank=True,
+                                     null=True, related_name='collections')
+    reagent = models.ForeignKey('processing.Reagent', blank=True, null=True,
+                                related_name='collections')
+    adfg_permit = models.ForeignKey(ADFGPermit, blank=True, null=True,
+                                    related_name='collections')
+    flaw = models.ForeignKey(Flaw, blank=True, null=True, related_name='collections')
     display_name = models.CharField(max_length=255, editable=False)
 
     def save(self, *args, **kwargs):
         self.display_name = "{}_{}_{}_{}".format(self.project,
-            self.collection_end_date.date(), self.study_location,
+            self.collection_end_date, self.study_location,
             self.collection_type)
         super(Collection, self).save(*args, **kwargs)
 
@@ -92,13 +97,13 @@ class Collection(models.Model):
 
 
 class DatasheetAttachment(models.Model):
-    collection = models.ForeignKey(Collection)
+    collection = models.ForeignKey(Collection, related_name='datasheets')
     datasheet = models.FileField("Datasheet",
         upload_to='collections/datasheets/%Y/%m/%d')
 
 
 class CollectionTrap(models.Model):
-    collection = models.ForeignKey(Collection)
+    collection = models.ForeignKey(Collection, related_name='traps')
     number_of_traps = models.IntegerField()
     date_opened = models.DateField()
     time_opened = models.TimeField()
@@ -110,4 +115,5 @@ class CollectionTrap(models.Model):
             self.collection, self.number_of_traps, self.date_opened, self.date_closed)
 
     class Meta:
-        unique_together = ('collection', 'date_opened', 'time_opened', 'date_closed', 'time_closed')
+        unique_together = ('collection', 'date_opened', 'time_opened',
+                           'date_closed', 'time_closed')

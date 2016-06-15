@@ -24,7 +24,9 @@ class MeasurementType(models.Model):
     code = models.CharField(max_length=10, blank=True)
     measurement_type_class = models.CharField(max_length=50, blank=True)
     description = models.CharField(max_length=255, blank=True)
-    default_measurement_unit = models.ForeignKey('MeasurementUnit', blank=True, null=True)
+    default_measurement_unit = models.ForeignKey('MeasurementUnit', blank=True,
+                                                 null=True,
+                                                 related_name='measurement_types')
     sort_order = models.IntegerField(blank=True, null=True)
     slug = AutoSlugField(populate_from='name')
 
@@ -70,10 +72,13 @@ class Container(models.Model):
     name = models.CharField(max_length=100)
     code = models.CharField(max_length=10, blank=True)
     application = models.CharField(max_length=50, blank=True)
-    color = models.ForeignKey(Color, blank=True, null=True)
-    material = models.ForeignKey(Material, blank=True, null=True)
+    color = models.ForeignKey(Color, blank=True, null=True,
+                              related_name='containers')
+    material = models.ForeignKey(Material, blank=True, null=True,
+                                 related_name='containers')
     volume = models.FloatField(blank=True, null=True)
-    measurement_unit = models.ForeignKey(MeasurementUnit, blank=True, null=True)
+    measurement_unit = models.ForeignKey(MeasurementUnit, blank=True, null=True,
+                                         related_name='containers')
     sort_order = models.IntegerField(blank=True, null=True)
     slug = AutoSlugField(populate_from='name')
 
