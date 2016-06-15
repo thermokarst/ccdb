@@ -1,4 +1,4 @@
-# CCDB
+# CCDB - Collections and Contaminants Database
 
 A collections and contaminants database.
 
