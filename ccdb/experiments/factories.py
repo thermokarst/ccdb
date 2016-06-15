@@ -77,7 +77,7 @@ class TreatmentReplicateFactory(DjangoModelFactory):
     class Meta:
         model = TreatmentReplicate
 
-    treatment_replicate = SubFactory(TreatmentFactory)
+    treatment = SubFactory(TreatmentFactory)
     name = Sequence(lambda n: 'treatment_replicate{}'.format(n))
     setup_date = FuzzyDate(date(2012, 1, 1))
     setup_time = LazyFunction(time)
@@ -90,7 +90,7 @@ class AliveDeadCountFactory(DjangoModelFactory):
     class Meta:
         model = AliveDeadCount
 
-    treatment_replicate = SubFactory(TreatmentFactory)
+    treatment_replicate = SubFactory(TreatmentReplicateFactory)
     status_date = FuzzyDate(date(2012, 1, 1))
     status_time = LazyFunction(time)
     count_alive = FuzzyInteger(0)

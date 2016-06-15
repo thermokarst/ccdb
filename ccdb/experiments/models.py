@@ -91,7 +91,7 @@ class TreatmentReplicate(models.Model):
 
     def save(self, *args, **kwargs):
         self.display_name = "{}_{}_{}_{}".format(self.treatment,
-                                                 self.setup_date.date(), self.name,
+                                                 self.setup_date, self.name,
                                                  self.setup_sample_size)
         super(TreatmentReplicate, self).save(*args, **kwargs)
 
