@@ -53,7 +53,7 @@ class TreatmentType(models.Model):
 
     def __str__(self):
         return "{} {} {} {}".format(self.experiment, self.name,
-            self.treatment_type, self.placement)
+                                    self.treatment_type, self.placement)
 
     class Meta:
         unique_together = ('experiment', 'name')
@@ -71,7 +71,8 @@ class Treatment(models.Model):
 
     def save(self, *args, **kwargs):
         self.display_name = "{}_{}_{}_{}".format(self.treatment_type,
-            self.study_location, self.species, self.sex)
+                                                 self.study_location, self.species,
+                                                 self.sex)
         super(Treatment, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -90,8 +91,8 @@ class TreatmentReplicate(models.Model):
 
     def save(self, *args, **kwargs):
         self.display_name = "{}_{}_{}_{}".format(self.treatment,
-            self.setup_date.date(), self.name,
-            self.setup_sample_size)
+                                                 self.setup_date.date(), self.name,
+                                                 self.setup_sample_size)
         super(TreatmentReplicate, self).save(*args, **kwargs)
 
     def __str__(self):
