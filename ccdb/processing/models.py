@@ -30,7 +30,7 @@ class Reagent(models.Model):
 
 
 class Flaw(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True)
     description = models.CharField(max_length=255, blank=True)
     sort_order = models.IntegerField(blank=True, null=True)
 

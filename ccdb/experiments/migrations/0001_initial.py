@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
             name='Flaw',
             fields=[
                 ('id', models.AutoField(primary_key=True, serialize=False, auto_created=True, verbose_name='ID')),
-                ('name', models.CharField(max_length=200)),
+                ('name', models.CharField(max_length=200, unique=True)),
                 ('description', models.CharField(blank=True, max_length=255)),
                 ('sort_order', models.IntegerField(blank=True, null=True)),
             ],
@@ -84,6 +84,11 @@ class Migration(migrations.Migration):
                 ('treatment_type', models.ForeignKey(to='experiments.TreatmentType')),
             ],
         ),
+        migrations.AlterUniqueTogether(
+            name='treatment',
+            unique_together=set([('treatment_type', 'container', 'study_location',
+                                   'species', 'sex')]),
+        ),
         migrations.CreateModel(
             name='TreatmentReplicate',
             fields=[
@@ -112,6 +117,11 @@ class Migration(migrations.Migration):
                 ('flaw', models.ForeignKey(to='experiments.Flaw', null=True, blank=True)),
                 ('treatment_replicate', models.ForeignKey(to='experiments.TreatmentReplicate')),
             ],
+        ),
+        migrations.AlterUniqueTogether(
+            name='alivedeadcount',
+            unique_together=set([('treatment_replicate', 'status_date', 'status_time',
+                                   'count_alive', 'count_dead')]),
         ),
         migrations.AddField(
             model_name='experiment',

@@ -80,6 +80,10 @@ class Migration(migrations.Migration):
             name='measurementunit',
             unique_together=set([('name', 'code')]),
         ),
+        migrations.AlterUniqueTogether(
+            name='measurementtype',
+            unique_together=set([('name', 'code', 'measurement_type_class')]),
+        ),
         migrations.AddField(
             model_name='measurementtype',
             name='default_measurement_unit',
@@ -122,5 +126,9 @@ class Migration(migrations.Migration):
             model_name='measurementtype',
             name='default_measurement_unit',
             field=models.ForeignKey(blank=True, to='misc.MeasurementUnit', related_name='measurement_types', null=True),
+        ),
+        migrations.AlterUniqueTogether(
+            name='container',
+            unique_together=set([('name', 'code', 'color', 'material', 'volume')]),
         ),
     ]

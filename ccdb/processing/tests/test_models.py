@@ -39,6 +39,13 @@ class FlawTestCase(TestCase):
         self.assertTrue(isinstance(f, Flaw))
         self.assertEqual(f.__str__(), f.name)
 
+    def test_uniqueness(self):
+        f1 = FlawFactory()
+        with transaction.atomic(), self.assertRaises(IntegrityError):
+            FlawFactory(name=f1.name)
+        f3 = FlawFactory()
+        self.assertTrue(isinstance(f3, Flaw))
+
 
 class ProcessingTestCase(TestCase):
     def test_creation(self):

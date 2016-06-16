@@ -25,6 +25,7 @@ class Site(models.Model):
         return self.name
 
     class Meta:
+        unique_together = ('region', 'name', 'code')
         ordering = ['sort_order']
 
 
@@ -39,6 +40,7 @@ class MunicipalLocation(models.Model):
         return self.name
 
     class Meta:
+        unique_together = ('name', 'code')
         ordering = ['sort_order']
 
 
@@ -76,4 +78,6 @@ class StorageLocation(models.Model):
         return self.code
 
     class Meta:
+        unique_together = ('code', 'facility', 'building', 'room',
+                           'freezer', 'temp_c')
         ordering = ['sort_order']

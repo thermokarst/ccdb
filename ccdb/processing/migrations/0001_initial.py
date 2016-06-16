@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
             name='Flaw',
             fields=[
                 ('id', models.AutoField(auto_created=True, verbose_name='ID', serialize=False, primary_key=True)),
-                ('name', models.CharField(max_length=200)),
+                ('name', models.CharField(max_length=200, unique=True)),
                 ('description', models.CharField(max_length=255, blank=True)),
                 ('sort_order', models.IntegerField(null=True, blank=True)),
             ],

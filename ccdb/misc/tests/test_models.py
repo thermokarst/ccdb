@@ -26,6 +26,14 @@ class MeasurementTypeTestCase(TestCase):
         self.assertTrue(isinstance(m, MeasurementType))
         self.assertEqual(m.__str__(), m.name)
 
+    def test_uniqueness(self):
+        m1 = MeasurementTypeFactory()
+        with transaction.atomic(), self.assertRaises(IntegrityError):
+            MeasurementTypeFactory(name=m1.name, code=m1.code,
+                                   measurement_type_class=m1.measurement_type_class)
+        m3 = MeasurementTypeFactory()
+        self.assertTrue(isinstance(m3, MeasurementType))
+
 
 class MaterialTestCase(TestCase):
     def test_creation(self):
@@ -60,3 +68,11 @@ class ContainerTestCase(TestCase):
         c = ContainerFactory()
         self.assertTrue(isinstance(c, Container))
         self.assertEqual(c.__str__(), c.name)
+
+    def test_uniqueness(self):
+        c1 = ContainerFactory()
+        with transaction.atomic(), self.assertRaises(IntegrityError):
+            ContainerFactory(name=c1.name, code=c1.code, color=c1.color,
+                             material=c1.material, volume=c1.volume)
+        c3 = ContainerFactory()
+        self.assertTrue(isinstance(c3, Container))

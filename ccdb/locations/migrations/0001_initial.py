@@ -82,6 +82,19 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.AlterUniqueTogether(
+            name='site',
+            unique_together=set([('region', 'name', 'code')]),
+        ),
+        migrations.AlterUniqueTogether(
+            name='municipallocation',
+            unique_together=set([('name', 'code')]),
+        ),
+        migrations.AlterUniqueTogether(
+            name='storagelocation',
+            unique_together=set([('code', 'facility', 'building', 'room',
+                                  'freezer', 'temp_c')]),
+        ),
+        migrations.AlterUniqueTogether(
             name='region',
             unique_together=set([('name', 'code')]),
         ),

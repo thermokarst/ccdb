@@ -29,7 +29,7 @@ class CollectionMethod(models.Model):
 
 
 class Flaw(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True)
     description = models.CharField(max_length=255, blank=True)
     sort_order = models.IntegerField(blank=True, null=True)
 
@@ -41,7 +41,7 @@ class Flaw(models.Model):
 
 
 class ADFGPermit(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True)
     sort_order = models.IntegerField(blank=True, null=True)
 
     def __str__(self):

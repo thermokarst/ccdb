@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
             name='ADFGPermit',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
-                ('name', models.CharField(max_length=200)),
+                ('name', models.CharField(max_length=200, unique=True)),
                 ('sort_order', models.IntegerField(blank=True, null=True)),
             ],
             options={
@@ -82,7 +82,7 @@ class Migration(migrations.Migration):
             name='Flaw',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
-                ('name', models.CharField(max_length=200)),
+                ('name', models.CharField(max_length=200, unique=True)),
                 ('description', models.CharField(blank=True, max_length=255)),
                 ('sort_order', models.IntegerField(blank=True, null=True)),
             ],

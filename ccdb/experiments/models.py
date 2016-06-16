@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Flaw(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True)
     description = models.CharField(max_length=255, blank=True)
     sort_order = models.IntegerField(blank=True, null=True)
 
@@ -82,6 +82,10 @@ class Treatment(models.Model):
     def __str__(self):
         return self.display_name
 
+    class Meta:
+        unique_together = ('treatment_type', 'container', 'study_location',
+                           'species', 'sex')
+
 
 class TreatmentReplicate(models.Model):
     treatment = models.ForeignKey(Treatment, related_name='treatment_replicates')
@@ -121,3 +125,5 @@ class AliveDeadCount(models.Model):
 
     class Meta:
         verbose_name = 'Alive-dead Count'
+        unique_together = ('treatment_replicate', 'status_date', 'status_time',
+                           'count_alive', 'count_dead')

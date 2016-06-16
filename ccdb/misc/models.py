@@ -30,6 +30,7 @@ class MeasurementType(models.Model):
         return self.name
 
     class Meta:
+        unique_together = ('name', 'code', 'measurement_type_class')
         ordering = ['sort_order']
 
 
@@ -79,4 +80,5 @@ class Container(models.Model):
         return self.name
 
     class Meta:
+        unique_together = ('name', 'code', 'color', 'material', 'volume')
         ordering = ['sort_order']

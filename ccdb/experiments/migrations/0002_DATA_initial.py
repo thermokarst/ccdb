@@ -76,7 +76,8 @@ class Migration(migrations.Migration):
                 '''):
             flaw = None
             if r[7]:
-                flaw = Flaw.objects.create(name=r[10]).pk
+                flaw, _ = Flaw.objects.get_or_create(name=r[10])
+                flaw = flaw.pk
             form = TreatmentReplicateForm(dict(treatment=r[0], name=r[2],
                                                setup_date=r[13],
                                                setup_sample_size=r[5], mass_g=r[6],
@@ -101,7 +102,8 @@ class Migration(migrations.Migration):
                 '''):
             flaw = None
             if r[6]:
-                flaw = Flaw.objects.create(name=r[9]).pk
+                flaw, _ = Flaw.objects.get_or_create(name=r[9])
+                flaw = flaw.pk
             form = AliveDeadCountForm(dict(treatment_replicate=r[0],
                                            status_date=r[12],
                                            status_time=r[13].time() if r[13] else None,

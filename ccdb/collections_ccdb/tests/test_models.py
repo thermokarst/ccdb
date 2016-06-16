@@ -42,12 +42,26 @@ class FlawTestCase(TestCase):
         self.assertTrue(isinstance(f, Flaw))
         self.assertEqual(f.__str__(), f.name)
 
+    def test_uniqueness(self):
+        f1 = FlawFactory()
+        with transaction.atomic(), self.assertRaises(IntegrityError):
+            FlawFactory(name=f1.name)
+        f3 = FlawFactory()
+        self.assertTrue(isinstance(f3, Flaw))
+
 
 class ADFGPermitTestCase(TestCase):
     def test_creation(self):
         a = ADFGPermitFactory()
         self.assertTrue(isinstance(a, ADFGPermit))
         self.assertEqual(a.__str__(), a.name)
+
+    def test_uniqueness(self):
+        a1 = ADFGPermitFactory()
+        with transaction.atomic(), self.assertRaises(IntegrityError):
+            ADFGPermitFactory(name=a1.name)
+        a3 = ADFGPermitFactory()
+        self.assertTrue(isinstance(a3, ADFGPermit))
 
 
 class CollectionTestCase(TestCase):
