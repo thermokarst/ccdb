@@ -9,7 +9,8 @@ class ProjectGrantInline(admin.TabularInline):
 
 
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('name', 'code', 'iacuc_number', 'description', 'sort_order')
+    list_display = ('name', 'code', 'iacuc_number', 'description',
+                    'sort_order')
     list_display_links = ('name',)
     search_fields = ('name', 'code', 'iacuc_number', 'description')
     list_per_page = 25
@@ -27,14 +28,14 @@ class GrantAdmin(admin.ModelAdmin):
 
 
 class GrantReportAdmin(admin.ModelAdmin):
-    list_display = ('grant_title', 'title', 'report_type', 'description', 'due_date',
-        'submitted_date', 'attachment', 'sort_order')
+    list_display = ('grant_title', 'title', 'report_type', 'description',
+                    'due_date', 'submitted_date', 'attachment', 'sort_order')
     list_display_links = ('title',)
-    search_fields = ('grant__title', 'title', 'report_type', 'description', 'due_date',
-        'submitted_date', 'attachment')
+    search_fields = ('grant__title', 'title', 'report_type', 'description',
+                     'due_date', 'submitted_date', 'attachment')
     list_per_page = 25
-    fields = ('title', 'report_type', 'description', 'due_date',
-        'submitted_date', 'attachment', 'sort_order')
+    fields = ('grant', 'title', 'report_type', 'description', 'due_date',
+              'submitted_date', 'attachment', 'sort_order')
 
     def grant_title(self, obj):
         return obj.grant.title
