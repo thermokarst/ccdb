@@ -7,7 +7,6 @@ from django.views import defaults as default_views
 from django.core.urlresolvers import reverse_lazy
 
 urlpatterns = [
-    url(r'^grappelli/', include('grappelli.urls')),
     url(settings.ADMIN_URL, include(admin.site.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api/', include('ccdb.api.urls', namespace='api')),
