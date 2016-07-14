@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 from django.contrib.auth import user_logged_in
 
 from rest_framework import status
@@ -6,14 +8,17 @@ from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.viewsets import ViewSet
 
-from djoser.views import LoginView, PasswordResetView, PasswordResetConfirmView
+from djoser.views import (LoginView, PasswordResetView,
+                          PasswordResetConfirmView)
 
 
 class Login(LoginView):
     def action(self, serializer):
         user = serializer.user
         token, _ = Token.objects.get_or_create(user=user)
-        user_logged_in.send(sender=user.__class__, request=self.request, user=user)
+        user_logged_in.send(sender=user.__class__,
+                            request=self.request,
+                            user=user)
         return Response(
             data={'token': token.key, 'id': token.user_id},
             status=status.HTTP_200_OK,
@@ -41,9 +46,24 @@ class AdminURLs(ViewSet):
         return 'Admin URLs List'
 
     def list(self, request, *args, **kwargs):
-        urls = [
-           ['collection-type', 'collections_ccdb', 'collectiontype'],
-        ]
+        urls = OrderedDict([
+            ('projects', [
+                ['project', 'projects', 'project'],
+                ['grant', 'projects', 'grant'],
+                ['grant-report', 'projects', 'grantreport'],
+            ]),
 
-        data = [{'id': x[0], 'url': reverse('admin:{}_{}_changelist'.format(x[1], x[2])                                            , request=request)} for x in urls]
+            ('collections', [
+                ['collection-type', 'collections_ccdb', 'collectiontype'],
+            ]),
+        ])
+
+        data = OrderedDict()
+        for category, group in urls.items():
+            paths = []
+            for url in group:
+                lookup = 'admin:{}_{}_changelist'.format(url[1], url[2])
+                path = reverse(lookup, request=request)
+                paths.append({'id': url[0], 'url': path})
+            data[category] = paths
         return Response(data)
