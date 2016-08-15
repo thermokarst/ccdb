@@ -39,23 +39,12 @@ EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND',
                     default='django.core.mail.backends.console.EmailBackend')
 
 
-# django-debug-toolbar
-# ------------------------------------------------------------------------------
-MIDDLEWARE += ('ccdb.utils.middleware.PatchedDebugToolbarMiddleware',)
-INSTALLED_APPS += ('debug_toolbar', )
-
 # Testing
 # ------------------------------------------------------------------------------
 INSTALLED_APPS += ('django_extensions',)
 
 INTERNAL_IPS = ('127.0.0.1', )
 
-DEBUG_TOOLBAR_CONFIG = {
-    'DISABLE_PANELS': [
-        'debug_toolbar.panels.redirects.RedirectsPanel',
-    ],
-    'SHOW_TEMPLATE_CONTEXT': True,
-}
 
 # TESTING
 # ------------------------------------------------------------------------------
