@@ -7,6 +7,8 @@ Local settings
 '''
 
 import warnings
+import sys
+import logging
 
 from .base import *  # noqa
 
@@ -26,7 +28,8 @@ TEMPLATES[0]['OPTIONS']['debug'] = DEBUG
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 # Note: This key only used for development and testing.
-SECRET_KEY = env("DJANGO_SECRET_KEY", default='t69v7lq5ayk^k_)uyvjvpo(sljrcnbh)&$(rsqqjg-87160@^%')
+SECRET_KEY = env("DJANGO_SECRET_KEY",
+                 default='t69v7lq5ayk^k_)uyvjvpo(sljrcnbh)&$(rsqqjg-87160@^%')
 
 # Mail settings
 # ------------------------------------------------------------------------------
@@ -57,6 +60,27 @@ DEBUG_TOOLBAR_CONFIG = {
 # TESTING
 # ------------------------------------------------------------------------------
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
+
+
+# http://stackoverflow.com/a/28560805/313548
+class DisableMigrations(object):
+    def __contains__(self, item):
+        return True
+
+    def __getitem__(self, item):
+        return "notmigrations"
+
+
+TESTS_IN_PROGRESS = False
+if 'test' in sys.argv[1:] or 'jenkins' in sys.argv[1:]:
+    logging.disable(logging.CRITICAL)
+    PASSWORD_HASHERS = (
+        'django.contrib.auth.hashers.MD5PasswordHasher',
+    )
+    DEBUG = False
+    TEMPLATE_DEBUG = False
+    TESTS_IN_PROGRESS = True
+    MIGRATION_MODULES = DisableMigrations()
 
 MANIFEST_URL = env('MANIFEST_URL', default=None)
 CORS_ORIGIN_ALLOW_ALL = True
