@@ -8,9 +8,11 @@ from django.core.urlresolvers import reverse_lazy
 
 urlpatterns = [
     url(settings.ADMIN_URL, include(admin.site.urls)),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^api-auth/', include('rest_framework.urls',
+                               namespace='rest_framework')),
     url(r'^api/', include('ccdb.api.urls', namespace='api')),
-    url(r'^$', RedirectView.as_view(url=reverse_lazy('admin:index'), permanent=True)),
+    url(r'^$', RedirectView.as_view(url=reverse_lazy('admin:index'),
+                                    permanent=True)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:

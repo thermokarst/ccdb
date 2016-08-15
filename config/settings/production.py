@@ -31,7 +31,7 @@ SECURITY_MIDDLEWARE = (
 )
 
 # Make sure djangosecure.middleware.SecurityMiddleware is listed first
-MIDDLEWARE_CLASSES = SECURITY_MIDDLEWARE + MIDDLEWARE_CLASSES
+MIDDLEWARE = SECURITY_MIDDLEWARE + MIDDLEWARE
 
 # set this to 60 seconds and then to 518400 when you can prove it works
 SECURE_HSTS_SECONDS = 60
@@ -107,8 +107,13 @@ SERVER_EMAIL = env('DJANGO_SERVER_EMAIL', default=DEFAULT_FROM_EMAIL)
 # See:
 # https://docs.djangoproject.com/en/dev/ref/templates/api/#django.template.loaders.cached.Loader
 TEMPLATES[0]['OPTIONS']['loaders'] = [
-    ('django.template.loaders.cached.Loader', [
-        'django.template.loaders.filesystem.Loader', 'django.template.loaders.app_directories.Loader', ]),
+    (
+        'django.template.loaders.cached.Loader',
+        [
+            'django.template.loaders.filesystem.Loader',
+            'django.template.loaders.app_directories.Loader'
+        ]
+    ),
 ]
 
 # DATABASE CONFIGURATION
@@ -174,5 +179,6 @@ CORS_ORIGIN_WHITELIST = env.tuple('CORS_ORIGIN_WHITELIST', None)
 DJOSER = {
     'SITE_NAME': 'CCDB',
     'DOMAIN': 'https://ccdb.info',
-    'PASSWORD_RESET_CONFIRM_URL': 'https://ccdb.info/password-reset?uid={uid}&token={token}',
+    'PASSWORD_RESET_CONFIRM_URL': 'https://ccdb.info/password-reset?'
+                                  'uid={uid}&token={token}',
 }

@@ -41,12 +41,12 @@ EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND',
 
 # django-debug-toolbar
 # ------------------------------------------------------------------------------
-MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
+MIDDLEWARE += ('ccdb.utils.middleware.PatchedDebugToolbarMiddleware',)
 INSTALLED_APPS += ('debug_toolbar', )
 
 # Testing
 # ------------------------------------------------------------------------------
-INSTALLED_APPS += ('django_extensions', 'test_without_migrations')
+INSTALLED_APPS += ('django_extensions',)
 
 INTERNAL_IPS = ('127.0.0.1', )
 
