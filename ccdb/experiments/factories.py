@@ -32,7 +32,7 @@ class ExperimentFactory(DjangoModelFactory):
     sort_order = Sequence(lambda n: n)
 
     @post_generation
-    def collections(self, create, extracted, **kwargs):
+    def collections(self, create, extracted, **kwargs):  # pragma: no cover
         if not create:
             return
         if extracted:
