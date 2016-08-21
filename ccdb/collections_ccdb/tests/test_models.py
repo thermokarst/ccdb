@@ -1,11 +1,11 @@
 from django.test import TestCase
 from django.db import IntegrityError, transaction
 
-from ..models import CollectionType, CollectionMethod, Flaw, ADFGPermit, \
-    Collection, DatasheetAttachment, CollectionTrap
-from ..factories import CollectionTypeFactory, CollectionMethodFactory, \
-    FlawFactory, ADFGPermitFactory, CollectionFactory, DatasheetAttachmentFactory, \
-    CollectionTrapFactory
+from ..models import (CollectionType, CollectionMethod, Flaw, ADFGPermit,
+                      Collection, DatasheetAttachment, CollectionTrap)
+from .factories import (CollectionTypeFactory, CollectionMethodFactory,
+                        FlawFactory, ADFGPermitFactory, CollectionFactory,
+                        DatasheetAttachmentFactory, CollectionTrapFactory)
 
 
 class CollectionTypeTestCase(TestCase):

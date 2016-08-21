@@ -1,9 +1,10 @@
 from django.test import TestCase
 from django.db import IntegrityError, transaction
 
-from ..models import MeasurementUnit, MeasurementType, Material, Color, Container
-from ..factories import MeasurementUnitFactory, MeasurementTypeFactory, \
-    MaterialFactory, ColorFactory, ContainerFactory
+from ..models import (MeasurementUnit, MeasurementType, Material, Color,
+                      Container)
+from .factories import (MeasurementUnitFactory, MeasurementTypeFactory,
+                        MaterialFactory, ColorFactory, ContainerFactory)
 
 
 class MeasurementUnitTestCase(TestCase):

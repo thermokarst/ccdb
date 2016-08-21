@@ -3,8 +3,8 @@ from datetime import datetime, date
 from factory import DjangoModelFactory, Sequence, SubFactory, LazyFunction
 from factory.fuzzy import FuzzyText, FuzzyDate, FuzzyFloat, FuzzyInteger
 
-from .models import ProcessType, Reagent, Flaw, Processing
-from ..misc.factories import ContainerFactory, MeasurementUnitFactory
+from ..models import ProcessType, Reagent, Flaw, Processing
+from ccdb.misc.tests.factories import ContainerFactory, MeasurementUnitFactory
 
 
 class ProcessTypeFactory(DjangoModelFactory):

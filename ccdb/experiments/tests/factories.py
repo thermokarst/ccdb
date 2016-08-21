@@ -1,15 +1,15 @@
 from datetime import date, time
 
-from factory import DjangoModelFactory, Sequence, SubFactory, \
-    LazyFunction, post_generation
+from factory import (DjangoModelFactory, Sequence, SubFactory, LazyFunction,
+                     post_generation)
 from factory.fuzzy import FuzzyText, FuzzyDate, FuzzyInteger, FuzzyFloat
 from factory.django import FileField
 
-from .models import Flaw, Experiment, ProtocolAttachment, TreatmentType, \
-    Treatment, TreatmentReplicate, AliveDeadCount
-from ..misc.factories import ContainerFactory
-from ..locations.factories import StudyLocationFactory
-from ..species.factories import SpeciesFactory
+from ..models import (Flaw, Experiment, ProtocolAttachment, TreatmentType,
+                      Treatment, TreatmentReplicate, AliveDeadCount)
+from ccdb.misc.tests.factories import ContainerFactory
+from ccdb.locations.tests.factories import StudyLocationFactory
+from ccdb.species.tests.factories import SpeciesFactory
 
 
 class FlawFactory(DjangoModelFactory):

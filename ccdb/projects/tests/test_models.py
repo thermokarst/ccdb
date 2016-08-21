@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.db import IntegrityError, transaction
 
 from ..models import Project, Grant, GrantReport
-from ..factories import ProjectFactory, GrantFactory, GrantReportFactory
+from .factories import ProjectFactory, GrantFactory, GrantReportFactory
 
 
 class ProjectTestCase(TestCase):

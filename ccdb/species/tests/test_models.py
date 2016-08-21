@@ -2,8 +2,8 @@ from django.test import TestCase
 from django.db import IntegrityError, transaction
 
 from ..models import Species, TrapSpecies, CollectionSpecies
-from ..factories import (SpeciesFactory, TrapSpeciesFactory,
-                         CollectionSpeciesFactory)
+from .factories import (SpeciesFactory, TrapSpeciesFactory,
+                        CollectionSpeciesFactory)
 
 
 class SpeciesTestCase(TestCase):

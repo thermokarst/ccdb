@@ -4,11 +4,12 @@ from factory import DjangoModelFactory, Sequence, SubFactory, LazyFunction
 from factory.fuzzy import FuzzyText, FuzzyDate, FuzzyInteger
 from factory.django import FileField
 
-from .models import CollectionType, CollectionMethod, Flaw, ADFGPermit, Collection, \
-    DatasheetAttachment, CollectionTrap
-from ..projects.factories import ProjectFactory
-from ..locations.factories import StudyLocationFactory, StorageLocationFactory
-from ..processing.factories import ProcessTypeFactory, ReagentFactory
+from ..models import (CollectionType, CollectionMethod, Flaw, ADFGPermit,
+                      Collection, DatasheetAttachment, CollectionTrap)
+from ccdb.projects.tests.factories import ProjectFactory
+from ccdb.locations.tests.factories import (StudyLocationFactory,
+                                            StorageLocationFactory)
+from ccdb.processing.tests.factories import ProcessTypeFactory, ReagentFactory
 
 
 class CollectionTypeFactory(DjangoModelFactory):

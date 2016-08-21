@@ -1,7 +1,8 @@
 from factory import DjangoModelFactory, Sequence, SubFactory
 from factory.fuzzy import FuzzyText, FuzzyChoice, FuzzyInteger
 
-from .models import Region, Site, MunicipalLocation, StudyLocation, StorageLocation
+from ..models import (Region, Site, MunicipalLocation, StudyLocation,
+                      StorageLocation)
 
 
 class RegionFactory(DjangoModelFactory):

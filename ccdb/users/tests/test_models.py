@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.db import IntegrityError, transaction
 
 from ..models import User
-from ..factories import UserFactory
+from .factories import UserFactory
 
 
 class UserTestCase(TestCase):

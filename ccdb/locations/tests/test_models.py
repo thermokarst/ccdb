@@ -1,9 +1,10 @@
 from django.test import TestCase
 from django.db import IntegrityError, transaction
 
-from ..models import Region, Site, MunicipalLocation, StudyLocation, StorageLocation
-from ..factories import RegionFactory, SiteFactory, MunicipalLocationFactory, \
-    StudyLocationFactory, StorageLocationFactory
+from ..models import (Region, Site, MunicipalLocation, StudyLocation,
+                      StorageLocation)
+from .factories import (RegionFactory, SiteFactory, MunicipalLocationFactory,
+                        StudyLocationFactory, StorageLocationFactory)
 
 
 class RegionTestCase(TestCase):

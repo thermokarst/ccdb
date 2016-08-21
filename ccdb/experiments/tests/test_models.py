@@ -1,11 +1,12 @@
 from django.test import TestCase
 from django.db import IntegrityError, transaction
 
-from ..models import Flaw, Experiment, ProtocolAttachment, TreatmentType, \
-    Treatment, TreatmentReplicate, AliveDeadCount
-from ..factories import FlawFactory, ExperimentFactory, ProtocolAttachmentFactory, \
-    TreatmentTypeFactory, TreatmentFactory, TreatmentReplicateFactory, \
-    AliveDeadCountFactory
+from ..models import (Flaw, Experiment, ProtocolAttachment, TreatmentType,
+                      Treatment, TreatmentReplicate, AliveDeadCount)
+from .factories import (FlawFactory, ExperimentFactory,
+                        ProtocolAttachmentFactory, TreatmentTypeFactory,
+                        TreatmentFactory, TreatmentReplicateFactory,
+                        AliveDeadCountFactory)
 
 
 class FlawTestCase(TestCase):

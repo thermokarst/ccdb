@@ -1,6 +1,6 @@
 from factory import DjangoModelFactory, Sequence
 
-from .models import User
+from ..models import User
 
 
 class UserFactory(DjangoModelFactory):

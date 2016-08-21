@@ -2,7 +2,7 @@ from datetime import datetime
 
 import factory
 
-from .models import Project, Grant, GrantReport
+from ..models import Project, Grant, GrantReport
 
 
 class ProjectFactory(factory.DjangoModelFactory):

@@ -1,6 +1,7 @@
 import factory
 
-from .models import MeasurementUnit, MeasurementType, Material, Color, Container
+from ..models import (MeasurementUnit, MeasurementType, Material, Color,
+                      Container)
 
 
 class MeasurementUnitFactory(factory.DjangoModelFactory):

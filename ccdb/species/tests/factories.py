@@ -1,9 +1,9 @@
 from factory import DjangoModelFactory, Sequence, SubFactory
 from factory.fuzzy import FuzzyText, FuzzyChoice, FuzzyInteger
 
-from .models import Species, TrapSpecies, CollectionSpecies
-from ..collections_ccdb.factories import (CollectionFactory,
-                                          CollectionTrapFactory)
+from ..models import Species, TrapSpecies, CollectionSpecies
+from ccdb.collections_ccdb.tests.factories import (CollectionFactory,
+                                                   CollectionTrapFactory)
 
 
 class SpeciesFactory(DjangoModelFactory):

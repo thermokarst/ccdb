@@ -2,7 +2,8 @@ from django.test import TestCase
 from django.db import IntegrityError, transaction
 
 from ..models import ProcessType, Reagent, Flaw, Processing
-from ..factories import ProcessTypeFactory, ReagentFactory, FlawFactory, ProcessingFactory
+from .factories import (ProcessTypeFactory, ReagentFactory, FlawFactory,
+                        ProcessingFactory)
 
 
 class ProcessTypeTestCase(TestCase):
