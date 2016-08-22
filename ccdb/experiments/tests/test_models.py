@@ -71,9 +71,10 @@ class TreatmentTestCase(TestCase):
     def test_uniqueness(self):
         t1 = TreatmentFactory()
         with transaction.atomic(), self.assertRaises(IntegrityError):
-            TreatmentFactory(treatment_type=t1.treatment_type, container=t1.container,
-                             study_location=t1.study_location, species=t1.species,
-                             sex=t1.sex)
+            TreatmentFactory(treatment_type=t1.treatment_type,
+                             container=t1.container,
+                             study_location=t1.study_location,
+                             species=t1.species, sex=t1.sex)
         t3 = TreatmentFactory()
         self.assertTrue(isinstance(t3, Treatment))
 

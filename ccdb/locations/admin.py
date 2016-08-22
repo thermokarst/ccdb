@@ -26,33 +26,27 @@ class SiteAdmin(admin.ModelAdmin):
 
 
 class MunicipalLocationAdmin(admin.ModelAdmin):
-    list_display = ('name', 'code', 'site_name', 'municipal_location_type',
-        'description', 'sort_order')
+    list_display = ('name', 'code', 'municipal_location_type', 'description',
+                    'sort_order')
     list_display_links = ('name',)
-    search_fields = ('name', 'code', 'site__name', 'municipal_location_type',
-        'description')
+    search_fields = ('name', 'code', 'municipal_location_type', 'description')
     list_per_page = 25
-    fields = ('name', 'code', 'site', 'municipal_location_type',
-        'description', 'sort_order')
-
-    def site_name(self, obj):
-        return obj.site.name
-    site_name.admin_order_field = 'site__name'
-    site_name.short_description = 'Site'
+    fields = ('name', 'code', 'municipal_location_type', 'description',
+              'sort_order')
 
 
 class StudyLocationAdmin(admin.ModelAdmin):
     list_display = ('name', 'code', 'site_name', 'study_location_type',
-        'treatment_type', 'ml_name', 'collecting_location',
-        'description', 'sort_order')
+                    'treatment_type', 'ml_name', 'collecting_location',
+                    'description', 'sort_order')
     list_display_links = ('name',)
     search_fields = ('name', 'code', 'site__name', 'study_location_type',
-        'treatment_type', 'municipal_location__name', 'collecting_location',
-        'description')
+                     'treatment_type', 'municipal_location__name',
+                     'collecting_location', 'description')
     list_per_page = 25
-    fields = ('name', 'code', 'site', 'study_location_type',
-        'treatment_type', 'municipal_location', 'collecting_location',
-        'description', 'sort_order')
+    fields = ('name', 'code', 'site', 'study_location_type', 'treatment_type',
+              'municipal_location', 'collecting_location', 'description',
+              'sort_order')
 
     def site_name(self, obj):
         return obj.site.name
@@ -60,22 +54,20 @@ class StudyLocationAdmin(admin.ModelAdmin):
     site_name.short_description = 'Site'
 
     def ml_name(self, obj):
-        if obj.municipal_location:
-            return obj.municipal_location.name
-        return obj.municipal_location
+        return str(obj.municipal_location) if obj.municipal_location else None
     ml_name.admin_order_field = 'municipal_location__name'
     ml_name.short_description = 'Municipal Location'
 
 
 class StorageLocationAdmin(admin.ModelAdmin):
-    list_display = ('code', 'facility', 'building', 'room', 'freezer', 'temp_c',
-        'description', 'sort_order')
+    list_display = ('code', 'facility', 'building', 'room', 'freezer',
+                    'temp_c', 'description', 'sort_order')
     list_display_links = ('code',)
     search_fields = ('code', 'facility', 'building', 'room', 'freezer',
-        'temp_c', 'description')
+                     'temp_c', 'description')
     list_per_page = 25
     fields = ('code', 'facility', 'building', 'room', 'freezer', 'temp_c',
-        'description', 'sort_order')
+              'description', 'sort_order')
 
 
 admin.site.register(Region, RegionAdmin)
