@@ -52,13 +52,15 @@ class ProcessingTestCase(TestCase):
     def test_creation(self):
         p = ProcessingFactory()
         self.assertTrue(isinstance(p, Processing))
-        name = "{} {} {}".format(p.process_date, p.process_type, p.container_label)
+        name = "{} {} {}".format(p.process_date, p.process_type,
+                                 p.container_label)
         self.assertEqual(p.__str__(), name)
 
     def test_uniqueness(self):
         p1 = ProcessingFactory()
         with transaction.atomic(), self.assertRaises(IntegrityError):
-            ProcessingFactory(process_type=p1.process_type, container=p1.container,
+            ProcessingFactory(process_type=p1.process_type,
+                              container=p1.container,
                               container_label=p1.container_label,
                               process_date=p1.process_date,
                               process_time=p1.process_time, reagent=p1.reagent)

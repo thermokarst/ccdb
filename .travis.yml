@@ -1,0 +1,18 @@
+language: python
+python:
+  - 3.5
+services:
+  - postgresql
+before_install:
+  - psql -c 'CREATE DATABASE ccdbdjango;' -U postgres
+  - export DJANGO_SETTINGS_MODULE=config.settings.local
+  - export DATABASE_URL=postgres://postgres@localhost/ccdbdjango
+install:
+  - pip install -r requirements/local.txt
+  - pip install coveralls
+script:
+  - python manage.py migrate
+  - flake8 --exclude=migrations,settings,manage.py,misc/existing.py
+  - coverage run --rcfile .coveragerc manage.py test
+after_success:
+  - coveralls

@@ -1,3 +1,9 @@
 [run]
-omit = ./venv/*,./config/*,manage.py
+omit =
+    */venv/*
+    */config/*
+    */migrations/*
+    manage.py
 branch = True
+source = ccdb
+include = */ccdb/*

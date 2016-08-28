@@ -37,4 +37,3 @@ class GrantReportFactory(factory.DjangoModelFactory):
     due_date = factory.LazyFunction(datetime.now)
     submitted_date = factory.LazyFunction(datetime.now)
     sort_order = factory.Sequence(lambda n: n)
-

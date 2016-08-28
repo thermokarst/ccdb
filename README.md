@@ -1,5 +1,8 @@
 # CCDB - Collections and Contaminants Database
 
+[![Build Status](https://travis-ci.org/thermokarst/ccdb.svg?branch=master)](https://travis-ci.org/thermokarst/ccdb)
+[![Coverage Status](https://coveralls.io/repos/github/thermokarst/ccdb/badge.svg?branch=master)](https://coveralls.io/github/thermokarst/ccdb?branch=master)
+
 A collections and contaminants database.
 
 ## Development Setup

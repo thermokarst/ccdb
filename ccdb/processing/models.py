@@ -53,10 +53,12 @@ class Processing(models.Model):
     measurement_unit = models.ForeignKey('misc.MeasurementUnit', blank=True,
                                          null=True, related_name='processings')
     minutes_in_reagent = models.IntegerField(blank=True, null=True)
-    flaw = models.ForeignKey(Flaw, blank=True, null=True, related_name='processings')
+    flaw = models.ForeignKey(Flaw, blank=True, null=True,
+                             related_name='processings')
 
     def __str__(self):
-        return "{} {} {}".format(self.process_date, self.process_type, self.container_label)
+        return "{} {} {}".format(self.process_date, self.process_type,
+                                 self.container_label)
 
     class Meta:
         unique_together = ('process_type', 'container', 'container_label',

@@ -21,9 +21,12 @@ class MeasurementType(models.Model):
     code = models.CharField(max_length=10, blank=True)
     measurement_type_class = models.CharField(max_length=50, blank=True)
     description = models.CharField(max_length=255, blank=True)
-    default_measurement_unit = models.ForeignKey('MeasurementUnit', blank=True,
-                                                 null=True,
-                                                 related_name='measurement_types')
+    default_measurement_unit = models.ForeignKey(
+        'MeasurementUnit',
+        blank=True,
+        null=True,
+        related_name='measurement_types'
+    )
     sort_order = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
@@ -72,8 +75,8 @@ class Container(models.Model):
     material = models.ForeignKey(Material, blank=True, null=True,
                                  related_name='containers')
     volume = models.FloatField(blank=True, null=True)
-    measurement_unit = models.ForeignKey(MeasurementUnit, blank=True, null=True,
-                                         related_name='containers')
+    measurement_unit = models.ForeignKey(MeasurementUnit, blank=True,
+                                         null=True, related_name='containers')
     sort_order = models.IntegerField(blank=True, null=True)
 
     def __str__(self):

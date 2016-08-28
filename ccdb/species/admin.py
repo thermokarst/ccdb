@@ -4,7 +4,8 @@ from .models import Species, TrapSpecies, CollectionSpecies
 
 
 class SpeciesAdmin(admin.ModelAdmin):
-    list_display = ('common_name', 'genus', 'species', 'parasite', 'sort_order')
+    list_display = ('common_name', 'genus', 'species', 'parasite',
+                    'sort_order')
     list_display_links = ('common_name',)
     search_fields = ('common_name', 'genus', 'species', 'parasite')
     list_per_page = 25
@@ -12,9 +13,11 @@ class SpeciesAdmin(admin.ModelAdmin):
 
 
 class TrapSpeciesAdmin(admin.ModelAdmin):
-    list_display = ('collection_trap', 'species', 'sex', 'count', 'count_estimated')
+    list_display = ('collection_trap', 'species', 'sex', 'count',
+                    'count_estimated')
     list_display_links = ('count',)
-    search_fields = ('collection_trap', 'species', 'sex', 'count', 'count_estimated')
+    search_fields = ('collection_trap', 'species', 'sex', 'count',
+                     'count_estimated')
     list_per_page = 25
     fields = ('collection_trap', 'species', 'sex', 'count', 'count_estimated')
 
@@ -22,7 +25,8 @@ class TrapSpeciesAdmin(admin.ModelAdmin):
 class CollectionSpeciesAdmin(admin.ModelAdmin):
     list_display = ('collection', 'species', 'sex', 'count', 'count_estimated')
     list_display_links = ('count',)
-    search_fields = ('collection', 'species', 'sex', 'count', 'count_estimated')
+    search_fields = ('collection', 'species', 'sex', 'count',
+                     'count_estimated')
     list_per_page = 25
     fields = ('collection', 'species', 'sex', 'count', 'count_estimated')
 

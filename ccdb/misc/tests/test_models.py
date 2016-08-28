@@ -30,8 +30,11 @@ class MeasurementTypeTestCase(TestCase):
     def test_uniqueness(self):
         m1 = MeasurementTypeFactory()
         with transaction.atomic(), self.assertRaises(IntegrityError):
-            MeasurementTypeFactory(name=m1.name, code=m1.code,
-                                   measurement_type_class=m1.measurement_type_class)
+            MeasurementTypeFactory(
+                name=m1.name,
+                code=m1.code,
+                measurement_type_class=m1.measurement_type_class
+            )
         m3 = MeasurementTypeFactory()
         self.assertTrue(isinstance(m3, MeasurementType))
 
@@ -59,7 +62,8 @@ class ColorTestCase(TestCase):
     def test_uniqueness(self):
         c1 = ColorFactory()
         with transaction.atomic(), self.assertRaises(IntegrityError):
-            ColorFactory(name=c1.name, code=c1.code, color_number=c1.color_number)
+            ColorFactory(name=c1.name, code=c1.code,
+                         color_number=c1.color_number)
         c3 = ColorFactory()
         self.assertTrue(isinstance(c3, Color))
 

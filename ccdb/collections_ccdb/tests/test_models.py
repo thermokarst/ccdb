@@ -73,7 +73,8 @@ class CollectionTestCase(TestCase):
     def test_uniqueness(self):
         c1 = CollectionFactory()
         with transaction.atomic(), self.assertRaises(IntegrityError):
-            CollectionFactory(project=c1.project, study_location=c1.study_location,
+            CollectionFactory(project=c1.project,
+                              study_location=c1.study_location,
                               collection_type=c1.collection_type,
                               collection_start_date=c1.collection_start_date,
                               collection_end_date=c1.collection_end_date,
@@ -99,8 +100,10 @@ class CollectionTrapTestCase(TestCase):
     def test_uniqueness(self):
         c1 = CollectionTrapFactory()
         with transaction.atomic(), self.assertRaises(IntegrityError):
-            CollectionTrapFactory(collection=c1.collection, date_opened=c1.date_opened,
-                                  time_opened=c1.time_opened, date_closed=c1.date_closed,
+            CollectionTrapFactory(collection=c1.collection,
+                                  date_opened=c1.date_opened,
+                                  time_opened=c1.time_opened,
+                                  date_closed=c1.date_closed,
                                   time_closed=c1.time_closed)
         c3 = CollectionTrapFactory()
         self.assertTrue(isinstance(c3, CollectionTrap))
