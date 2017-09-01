@@ -47,7 +47,9 @@ if 'test' in sys.argv[1:] or 'jenkins' in sys.argv[1:]:
     MIGRATION_MODULES = DisableMigrations()
 
 MANIFEST_URL = env('MANIFEST_URL', default=None)
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = ('localhost:4200',)
 
 DJOSER = {
     'SITE_NAME': 'CCDB (test)',
