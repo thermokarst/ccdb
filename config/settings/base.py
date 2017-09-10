@@ -159,6 +159,8 @@ REST_FRAMEWORK = {
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
 }
 
+JSON_API_FORMAT_KEYS = 'dasherize'
+
 SITE_ID = 1
 
 DJOSER = {
