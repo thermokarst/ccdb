@@ -140,7 +140,7 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_VERSIONING_CLASS':
         'rest_framework.versioning.NamespaceVersioning',
-    'PAGE_SIZE': 100,
+    'PAGE_SIZE': 20,
     'EXCEPTION_HANDLER':
         'rest_framework_json_api.exceptions.exception_handler',
     'DEFAULT_PAGINATION_CLASS':
