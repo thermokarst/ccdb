@@ -19,6 +19,7 @@ THIRD_PARTY_APPS = (
     'rest_framework.authtoken',
     'corsheaders',
     'djoser',
+    'django_filters',
 )
 LOCAL_APPS = (
     'ccdb.utils',
@@ -43,6 +44,7 @@ MIDDLEWARE = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'ccdb.api.middleware.DeBracketifyMiddleware',
 )
 
 DEBUG = env.bool("DJANGO_DEBUG", False)

@@ -1,5 +1,7 @@
 from rest_framework import viewsets
+from django_filters import rest_framework as filters
 
+from .filters import CollectionFilter
 from .models import Collection, CollectionMethod, CollectionType, Flaw
 from .serializers import (CollectionSerializer, CollectionMethodSerializer,
                           CollectionTypeSerializer, FlawSerializer)
@@ -8,6 +10,8 @@ from .serializers import (CollectionSerializer, CollectionMethodSerializer,
 class CollectionViewSet(viewsets.ModelViewSet):
     queryset = Collection.objects.all()
     serializer_class = CollectionSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_class = CollectionFilter
 
 
 class CollectionMethodViewSet(viewsets.ModelViewSet):

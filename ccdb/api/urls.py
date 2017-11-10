@@ -24,6 +24,8 @@ router.register(r'collection-flaws',
 # Projects
 router.register(r'projects', projects_viewsets.ProjectViewSet)
 # Locations
+router.register(r'regions', locations_viewsets.RegionViewSet)
+router.register(r'sites', locations_viewsets.SiteViewSet)
 router.register(r'study-locations', locations_viewsets.StudyLocationViewSet)
 
 urlpatterns = [

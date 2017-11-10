@@ -6,6 +6,7 @@ from .models import Collection, CollectionMethod, CollectionType, Flaw
 class CollectionSerializer(serializers.ModelSerializer):
     included_serializers = {
         'project': 'ccdb.projects.serializers.ProjectSerializer',
+        'site': 'ccdb.locations.serializers.SiteSerializer',
         'study_location': 'ccdb.locations.serializers.StudyLocationSerializer',
         'collection_method':
             'ccdb.collections_ccdb.serializers.CollectionMethodSerializer',
