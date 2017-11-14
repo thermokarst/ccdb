@@ -51,6 +51,9 @@ class ADFGPermit(models.Model):
         ordering = ['sort_order']
         verbose_name = 'ADFG Permit'
 
+    class JSONAPIMeta:
+        resource_name = 'AdfgPermit'
+
 
 class Collection(models.Model):
     project = models.ForeignKey('projects.Project', related_name='collections')

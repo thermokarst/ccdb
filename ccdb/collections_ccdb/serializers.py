@@ -1,10 +1,13 @@
 from rest_framework_json_api import serializers
 
-from .models import Collection, CollectionMethod, CollectionType, Flaw
+from .models import (ADFGPermit, Collection, CollectionMethod, CollectionType,
+                     Flaw)
 
 
 class CollectionSerializer(serializers.ModelSerializer):
     included_serializers = {
+        'adfg_permit':
+            'ccdb.collections_ccdb.serializers.ADFGPermitSerializer',
         'project': 'ccdb.projects.serializers.ProjectSerializer',
         'site': 'ccdb.locations.serializers.SiteSerializer',
         'study_location': 'ccdb.locations.serializers.StudyLocationSerializer',
@@ -23,6 +26,12 @@ class CollectionSerializer(serializers.ModelSerializer):
                   'collection_end_date', 'collection_end_time',
                   'storage_location', 'specimen_state', 'process_type',
                   'reagent', 'adfg_permit', 'flaw', 'display_name')
+
+
+class ADFGPermitSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ADFGPermit
+        fields = ('id', 'name', 'sort_order')
 
 
 class CollectionMethodSerializer(serializers.ModelSerializer):

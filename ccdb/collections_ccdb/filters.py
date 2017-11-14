@@ -1,7 +1,7 @@
 from django_filters.filters import ModelMultipleChoiceFilter
 from django_filters import rest_framework as filters
 
-from .models import Collection, CollectionMethod
+from .models import Collection, CollectionMethod, ADFGPermit
 from ccdb.projects.models import Project
 from ccdb.locations.models import Region, Site, StudyLocation
 
@@ -37,8 +37,15 @@ class CollectionFilter(filters.FilterSet):
         queryset=CollectionMethod.objects.all(),
     )
 
+    adfg_permit = ModelMultipleChoiceFilter(
+        name='adfg_permit__id',
+        to_field_name='id',
+        queryset=ADFGPermit.objects.all(),
+    )
+
     class Meta:
         model = Collection
         fields = ['project', 'region', 'site', 'study_location',
                   'collection_method', 'number_of_traps',
-                  'collection_start_date', 'collection_end_date']
+                  'collection_start_date', 'collection_end_date',
+                  'adfg_permit']

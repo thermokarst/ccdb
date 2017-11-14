@@ -21,6 +21,7 @@ router.register(r'collection-types',
                 collections_viewsets.CollectionTypeViewSet)
 router.register(r'collection-flaws',
                 collections_viewsets.FlawViewSet)
+router.register(r'adfg-permits', collections_viewsets.ADFGPermitViewSet)
 # Projects
 router.register(r'projects', projects_viewsets.ProjectViewSet)
 # Locations

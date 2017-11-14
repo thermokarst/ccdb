@@ -2,9 +2,11 @@ from rest_framework import viewsets
 from django_filters import rest_framework as filters
 
 from .filters import CollectionFilter
-from .models import Collection, CollectionMethod, CollectionType, Flaw
+from .models import (ADFGPermit, Collection, CollectionMethod, CollectionType,
+                     Flaw)
 from .serializers import (CollectionSerializer, CollectionMethodSerializer,
-                          CollectionTypeSerializer, FlawSerializer)
+                          CollectionTypeSerializer, FlawSerializer,
+                          ADFGPermitSerializer)
 
 
 class CollectionViewSet(viewsets.ModelViewSet):
@@ -27,3 +29,8 @@ class CollectionTypeViewSet(viewsets.ModelViewSet):
 class FlawViewSet(viewsets.ModelViewSet):
     queryset = Flaw.objects.all()
     serializer_class = FlawSerializer
+
+
+class ADFGPermitViewSet(viewsets.ModelViewSet):
+    queryset = ADFGPermit.objects.all()
+    serializer_class = ADFGPermitSerializer
