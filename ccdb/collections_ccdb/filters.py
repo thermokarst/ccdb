@@ -4,6 +4,7 @@ from django_filters import rest_framework as filters
 from .models import Collection, CollectionMethod, ADFGPermit
 from ccdb.projects.models import Project
 from ccdb.locations.models import Region, Site, StudyLocation
+from ccdb.species.models import Species
 
 
 class CollectionFilter(filters.FilterSet):
@@ -43,9 +44,15 @@ class CollectionFilter(filters.FilterSet):
         queryset=ADFGPermit.objects.all(),
     )
 
+    species = ModelMultipleChoiceFilter(
+        name='collection_species__species__id',
+        to_field_name='id',
+        queryset=Species.objects.all(),
+    )
+
     class Meta:
         model = Collection
         fields = ['project', 'region', 'site', 'study_location',
                   'collection_method', 'number_of_traps',
                   'collection_start_date', 'collection_end_date',
-                  'adfg_permit']
+                  'adfg_permit', 'species']

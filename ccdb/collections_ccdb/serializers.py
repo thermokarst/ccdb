@@ -16,6 +16,8 @@ class CollectionSerializer(serializers.ModelSerializer):
         'collection_type':
             'ccdb.collections_ccdb.serializers.CollectionTypeSerializer',
         'flaw': 'ccdb.collections_ccdb.serializers.FlawSerializer',
+        'collection_species':
+            'ccdb.species.serializers.CollectionSpeciesSerializer',
     }
 
     class Meta:
@@ -25,7 +27,8 @@ class CollectionSerializer(serializers.ModelSerializer):
                   'collection_start_date', 'collection_start_time',
                   'collection_end_date', 'collection_end_time',
                   'storage_location', 'specimen_state', 'process_type',
-                  'reagent', 'adfg_permit', 'flaw', 'display_name')
+                  'reagent', 'adfg_permit', 'flaw', 'display_name',
+                  'collection_species')
 
 
 class ADFGPermitSerializer(serializers.ModelSerializer):

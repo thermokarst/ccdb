@@ -7,6 +7,7 @@ from ..utils import viewsets as utils_viewsets
 from ..collections_ccdb import viewsets as collections_viewsets
 from ..projects import viewsets as projects_viewsets
 from ..locations import viewsets as locations_viewsets
+from ..species import viewsets as species_viewsets
 
 
 router = routers.DefaultRouter(trailing_slash=False)
@@ -28,6 +29,10 @@ router.register(r'projects', projects_viewsets.ProjectViewSet)
 router.register(r'regions', locations_viewsets.RegionViewSet)
 router.register(r'sites', locations_viewsets.SiteViewSet)
 router.register(r'study-locations', locations_viewsets.StudyLocationViewSet)
+# Species
+router.register(r'species', species_viewsets.SpeciesViewSet)
+router.register(r'collection-species',
+                species_viewsets.CollectionSpeciesViewSet)
 
 urlpatterns = [
     url(r'^auth/login/', api_v.Login.as_view()),
