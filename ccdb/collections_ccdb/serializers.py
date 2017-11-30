@@ -29,6 +29,7 @@ class CollectionSerializer(serializers.ModelSerializer):
                   'storage_location', 'specimen_state', 'process_type',
                   'reagent', 'adfg_permit', 'flaw', 'display_name',
                   'collection_species')
+        read_only_fields = ('collection_species',)
 
 
 class ADFGPermitSerializer(serializers.ModelSerializer):
