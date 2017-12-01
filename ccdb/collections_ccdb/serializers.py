@@ -1,7 +1,7 @@
 from rest_framework_json_api import serializers
 
 from .models import (ADFGPermit, Collection, CollectionMethod, CollectionType,
-                     Flaw)
+                     Flaw, DatasheetAttachment)
 
 
 class CollectionSerializer(serializers.ModelSerializer):
@@ -18,6 +18,8 @@ class CollectionSerializer(serializers.ModelSerializer):
         'flaw': 'ccdb.collections_ccdb.serializers.FlawSerializer',
         'collection_species':
             'ccdb.species.serializers.CollectionSpeciesSerializer',
+        'datasheets':
+            'ccdb.collections_ccdb.serializers.DatasheetAttachmentSerializer',
     }
 
     class Meta:
@@ -28,8 +30,8 @@ class CollectionSerializer(serializers.ModelSerializer):
                   'collection_end_date', 'collection_end_time',
                   'storage_location', 'specimen_state', 'process_type',
                   'reagent', 'adfg_permit', 'flaw', 'display_name',
-                  'collection_species')
-        read_only_fields = ('collection_species',)
+                  'collection_species', 'datasheets')
+        read_only_fields = ('collection_species', 'datasheets')
 
 
 class ADFGPermitSerializer(serializers.ModelSerializer):
@@ -55,3 +57,13 @@ class FlawSerializer(serializers.ModelSerializer):
     class Meta:
         model = Flaw
         fields = ('id', 'name', 'description', 'sort_order')
+
+
+class DatasheetAttachmentSerializer(serializers.ModelSerializer):
+    included_serializers = {
+        'collection': 'ccdb.collections_ccdb.serializers.CollectionSerializer',
+    }
+
+    class Meta:
+        model = DatasheetAttachment
+        fields = ('id', 'collection', 'datasheet')

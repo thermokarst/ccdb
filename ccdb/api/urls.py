@@ -23,6 +23,8 @@ router.register(r'collection-types',
 router.register(r'collection-flaws',
                 collections_viewsets.FlawViewSet)
 router.register(r'adfg-permits', collections_viewsets.ADFGPermitViewSet)
+router.register(r'datasheet-attachments',
+                collections_viewsets.DatasheetAttachmentViewSet)
 # Projects
 router.register(r'projects', projects_viewsets.ProjectViewSet)
 # Locations
