@@ -61,12 +61,13 @@ class CollectionFactory(DjangoModelFactory):
     collection_start_time = None
     collection_end_date = FuzzyDate(date(2015, 1, 1))
     collection_end_time = None
+    notes = FuzzyText(length=150)
     storage_location = SubFactory(StorageLocationFactory)
     specimen_state = FuzzyText(length=50)
     process_type = SubFactory(ProcessTypeFactory)
     reagent = SubFactory(ReagentFactory)
     adfg_permit = SubFactory(ADFGPermitFactory)
-    flaw = SubFactory(FlawFactory)
+    collection_flaw = SubFactory(FlawFactory)
 
 
 class DatasheetAttachmentFactory(DjangoModelFactory):

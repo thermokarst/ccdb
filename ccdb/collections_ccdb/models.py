@@ -68,6 +68,7 @@ class Collection(models.Model):
     collection_start_time = models.TimeField(blank=True, null=True)
     collection_end_date = models.DateField(blank=True, null=True)
     collection_end_time = models.TimeField(blank=True, null=True)
+    notes = models.TextField(blank=True, null=False)
     storage_location = models.ForeignKey('locations.StorageLocation',
                                          blank=True, null=True,
                                          related_name='collections')
@@ -78,8 +79,8 @@ class Collection(models.Model):
                                 related_name='collections')
     adfg_permit = models.ForeignKey(ADFGPermit, blank=True, null=True,
                                     related_name='collections')
-    flaw = models.ForeignKey(Flaw, blank=True, null=True,
-                             related_name='collections')
+    collection_flaw = models.ForeignKey(Flaw, blank=True, null=True,
+                                        related_name='collections')
     display_name = models.CharField(max_length=255, editable=False)
 
     def save(self, *args, **kwargs):

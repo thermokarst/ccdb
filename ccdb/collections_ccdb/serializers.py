@@ -15,7 +15,7 @@ class CollectionSerializer(serializers.ModelSerializer):
             'ccdb.collections_ccdb.serializers.CollectionMethodSerializer',
         'collection_type':
             'ccdb.collections_ccdb.serializers.CollectionTypeSerializer',
-        'flaw': 'ccdb.collections_ccdb.serializers.FlawSerializer',
+        'collection_flaw': 'ccdb.collections_ccdb.serializers.FlawSerializer',
         'collection_species':
             'ccdb.species.serializers.CollectionSpeciesSerializer',
         'datasheets':
@@ -29,8 +29,8 @@ class CollectionSerializer(serializers.ModelSerializer):
                   'collection_start_date', 'collection_start_time',
                   'collection_end_date', 'collection_end_time',
                   'storage_location', 'specimen_state', 'process_type',
-                  'reagent', 'adfg_permit', 'flaw', 'display_name',
-                  'collection_species', 'datasheets')
+                  'reagent', 'adfg_permit', 'collection_flaw', 'display_name',
+                  'collection_species', 'datasheets', 'notes')
         read_only_fields = ('collection_species', 'datasheets')
 
 
