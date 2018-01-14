@@ -3,10 +3,11 @@ from django_filters import rest_framework as filters
 
 from .filters import CollectionFilter
 from .models import (ADFGPermit, Collection, CollectionMethod, CollectionType,
-                     Flaw, DatasheetAttachment)
+                     Flaw, DatasheetAttachment, CollectionMeasurement)
 from .serializers import (CollectionSerializer, CollectionMethodSerializer,
                           CollectionTypeSerializer, FlawSerializer,
-                          ADFGPermitSerializer, DatasheetAttachmentSerializer)
+                          ADFGPermitSerializer, DatasheetAttachmentSerializer,
+                          CollectionMeasurementSerializer)
 
 
 class CollectionViewSet(viewsets.ModelViewSet):
@@ -39,3 +40,8 @@ class ADFGPermitViewSet(viewsets.ModelViewSet):
 class DatasheetAttachmentViewSet(viewsets.ModelViewSet):
     queryset = DatasheetAttachment.objects.all()
     serializer_class = DatasheetAttachmentSerializer
+
+
+class CollectionMeasurementViewSet(viewsets.ModelViewSet):
+    queryset = CollectionMeasurement.objects.all()
+    serializer_class = CollectionMeasurementSerializer

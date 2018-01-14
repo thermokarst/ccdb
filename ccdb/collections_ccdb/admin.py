@@ -1,7 +1,8 @@
 from django.contrib import admin
 
 from .models import (CollectionType, CollectionMethod, Flaw, ADFGPermit,
-                     DatasheetAttachment, CollectionTrap, Collection)
+                     DatasheetAttachment, CollectionTrap, Collection,
+                     CollectionMeasurement)
 from ..species.models import CollectionSpecies
 
 
@@ -57,8 +58,12 @@ class CollectionSpeciesInlineAdmin(admin.TabularInline):
     model = CollectionSpecies
 
 
+class CollectionMeasurementInlineAdmin(admin.TabularInline):
+    model = CollectionMeasurement
+
+
 class CollectionAdmin(admin.ModelAdmin):
-    inlines = (CollectionSpeciesInlineAdmin, )
+    inlines = (CollectionSpeciesInlineAdmin, CollectionMeasurementInlineAdmin)
     list_display = ('project', 'study_location', 'collection_end_date',
                     'collection_type', 'collection_method')
     list_display_links = ('project', 'study_location', 'collection_end_date',

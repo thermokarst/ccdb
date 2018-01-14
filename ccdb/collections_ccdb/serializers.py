@@ -1,7 +1,7 @@
 from rest_framework_json_api import serializers
 
 from .models import (ADFGPermit, Collection, CollectionMethod, CollectionType,
-                     Flaw, DatasheetAttachment)
+                     Flaw, DatasheetAttachment, CollectionMeasurement)
 
 
 class CollectionSerializer(serializers.ModelSerializer):
@@ -20,6 +20,9 @@ class CollectionSerializer(serializers.ModelSerializer):
             'ccdb.species.serializers.CollectionSpeciesSerializer',
         'datasheets':
             'ccdb.collections_ccdb.serializers.DatasheetAttachmentSerializer',
+        'env_measurements':
+            'ccdb.collections_ccdb.serializers.'
+            'CollectionMeasurementSerializer',
     }
 
     class Meta:
@@ -30,8 +33,10 @@ class CollectionSerializer(serializers.ModelSerializer):
                   'collection_end_date', 'collection_end_time',
                   'storage_location', 'specimen_state', 'process_type',
                   'reagent', 'adfg_permit', 'collection_flaw', 'display_name',
-                  'collection_species', 'datasheets', 'notes')
-        read_only_fields = ('collection_species', 'datasheets')
+                  'collection_species', 'datasheets', 'notes',
+                  'env_measurements')
+        read_only_fields = ('collection_species', 'datasheets',
+                            'env_measurements')
 
 
 class ADFGPermitSerializer(serializers.ModelSerializer):
@@ -67,3 +72,14 @@ class DatasheetAttachmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = DatasheetAttachment
         fields = ('id', 'collection', 'datasheet')
+
+
+class CollectionMeasurementSerializer(serializers.ModelSerializer):
+    included_serializers = {
+        'collection': 'ccdb.collections_ccdb.serializers.CollectionSerializer',
+    }
+
+    class Meta:
+        model = CollectionMeasurement
+        fields = ('id', 'collection', 'date_measured', 'time_measured',
+                  'water_temp_c', 'air_temp_c')

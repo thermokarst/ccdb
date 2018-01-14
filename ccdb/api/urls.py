@@ -22,6 +22,8 @@ router.register(r'collection-types',
                 collections_viewsets.CollectionTypeViewSet)
 router.register(r'collection-flaws',
                 collections_viewsets.FlawViewSet)
+router.register(r'collection-measurements',
+                collections_viewsets.CollectionMeasurementViewSet)
 router.register(r'adfg-permits', collections_viewsets.ADFGPermitViewSet)
 router.register(r'datasheet-attachments',
                 collections_viewsets.DatasheetAttachmentViewSet)

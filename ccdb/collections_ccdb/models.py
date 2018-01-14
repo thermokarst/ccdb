@@ -123,3 +123,15 @@ class CollectionTrap(models.Model):
     class Meta:
         unique_together = ('collection', 'date_opened', 'time_opened',
                            'date_closed', 'time_closed')
+
+
+class CollectionMeasurement(models.Model):
+    collection = models.ForeignKey(Collection, related_name='env_measurements')
+    date_measured = models.DateField()
+    time_measured = models.TimeField()
+    water_temp_c = models.FloatField(null=True)
+    air_temp_c = models.FloatField(null=True)
+
+    class Meta:
+        unique_together = ('collection', 'date_measured', 'time_measured')
+        ordering = ['date_measured', 'time_measured']
