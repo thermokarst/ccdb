@@ -9,43 +9,43 @@ from ccdb.species.models import Species
 
 class CollectionFilter(filters.FilterSet):
     project = ModelMultipleChoiceFilter(
-        name='project__id',
+        field_name='project__id',
         to_field_name='id',
         queryset=Project.objects.all(),
     )
 
     region = ModelMultipleChoiceFilter(
-        name='study_location__site__region__id',
+        field_name='study_location__site__region__id',
         to_field_name='id',
         queryset=Region.objects.all(),
     )
 
     site = ModelMultipleChoiceFilter(
-        name='study_location__site__id',
+        field_name='study_location__site__id',
         to_field_name='id',
         queryset=Site.objects.all(),
     )
 
     study_location = ModelMultipleChoiceFilter(
-        name='study_location__id',
+        field_name='study_location__id',
         to_field_name='id',
         queryset=StudyLocation.objects.all(),
     )
 
     collection_method = ModelMultipleChoiceFilter(
-        name='collection_method__id',
+        field_name='collection_method__id',
         to_field_name='id',
         queryset=CollectionMethod.objects.all(),
     )
 
     adfg_permit = ModelMultipleChoiceFilter(
-        name='adfg_permit__id',
+        field_name='adfg_permit__id',
         to_field_name='id',
         queryset=ADFGPermit.objects.all(),
     )
 
     species = ModelMultipleChoiceFilter(
-        name='collection_species__species__id',
+        field_name='collection_species__species__id',
         to_field_name='id',
         queryset=Species.objects.all(),
     )

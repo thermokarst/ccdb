@@ -38,11 +38,12 @@ router.register(r'species', species_viewsets.SpeciesViewSet)
 router.register(r'collection-species',
                 species_viewsets.CollectionSpeciesViewSet)
 
+app_name = 'api'
 urlpatterns = [
     url(r'^auth/login/', api_v.Login.as_view()),
     url(r'^auth/password/reset/confirm/',
         api_v.PasswordResetConfirm.as_view()),
     url(r'^auth/password/reset/', api_v.PasswordReset.as_view()),
     url(r'^auth/', include('djoser.urls.authtoken')),
-    url(r'^v1/', include(router.urls, namespace='v1')),
+    url(r'^v1/', include((router.urls, 'api_v1'), namespace='v1')),
 ]

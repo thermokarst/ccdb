@@ -42,19 +42,24 @@ class Flaw(models.Model):
 
 
 class Processing(models.Model):
-    process_type = models.ForeignKey(ProcessType, related_name='processings')
-    container = models.ForeignKey('misc.Container', related_name='processings')
+    process_type = models.ForeignKey(ProcessType, related_name='processings',
+                                     on_delete=models.CASCADE)
+    container = models.ForeignKey('misc.Container', related_name='processings',
+                                  on_delete=models.CASCADE)
     container_label = models.CharField(max_length=50)
     process_date = models.DateField(blank=True, null=True)
     process_time = models.TimeField(blank=True, null=True)
     reagent = models.ForeignKey(Reagent, blank=True, null=True,
-                                related_name='processings')
+                                related_name='processings',
+                                on_delete=models.CASCADE)
     reagent_volume = models.FloatField(blank=True, null=True)
     measurement_unit = models.ForeignKey('misc.MeasurementUnit', blank=True,
-                                         null=True, related_name='processings')
+                                         null=True, related_name='processings',
+                                         on_delete=models.CASCADE)
     minutes_in_reagent = models.IntegerField(blank=True, null=True)
     flaw = models.ForeignKey(Flaw, blank=True, null=True,
-                             related_name='processings')
+                             related_name='processings',
+                             on_delete=models.CASCADE)
 
     def __str__(self):
         return "{} {} {}".format(self.process_date, self.process_type,

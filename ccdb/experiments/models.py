@@ -18,7 +18,8 @@ class Experiment(models.Model):
     code = models.CharField(max_length=10, blank=True)
     description = models.CharField(max_length=255, blank=True)
     flaw = models.ForeignKey(Flaw, blank=True, null=True,
-                             related_name='experiments')
+                             related_name='experiments',
+                             on_delete=models.CASCADE)
     sort_order = models.IntegerField(blank=True, null=True)
     collections = models.ManyToManyField('collections_ccdb.Collection')
 
@@ -31,7 +32,8 @@ class Experiment(models.Model):
 
 
 class ProtocolAttachment(models.Model):
-    experiment = models.ForeignKey(Experiment, related_name='protocols')
+    experiment = models.ForeignKey(Experiment, related_name='protocols',
+                                   on_delete=models.CASCADE)
     protocol = models.FileField(upload_to='experiments/protocols/%Y/%m/%d')
 
     def __str__(self):
@@ -40,7 +42,8 @@ class ProtocolAttachment(models.Model):
 
 class TreatmentType(models.Model):
     experiment = models.ForeignKey(Experiment, blank=True, null=True,
-                                   related_name='treatment_types')
+                                   related_name='treatment_types',
+                                   on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     code = models.CharField(max_length=25, blank=True)
     treatment_type = models.CharField(max_length=50, blank=True)
@@ -65,15 +68,20 @@ class TreatmentType(models.Model):
 
 class Treatment(models.Model):
     treatment_type = models.ForeignKey(TreatmentType,
-                                       related_name='treatments')
+                                       related_name='treatments',
+                                       on_delete=models.CASCADE)
     container = models.ForeignKey('misc.Container', blank=True, null=True,
-                                  related_name='treatments')
+                                  related_name='treatments',
+                                  on_delete=models.CASCADE)
     study_location = models.ForeignKey('locations.StudyLocation',
-                                       related_name='treatments')
-    species = models.ForeignKey('species.Species', related_name='treatments')
+                                       related_name='treatments',
+                                       on_delete=models.CASCADE)
+    species = models.ForeignKey('species.Species', related_name='treatments',
+                                on_delete=models.CASCADE)
     sex = models.CharField(max_length=25)
     flaw = models.ForeignKey(Flaw, blank=True, null=True,
-                             related_name='treatments')
+                             related_name='treatments',
+                             on_delete=models.CASCADE)
     display_name = models.CharField(max_length=255, editable=False)
 
     def save(self, *args, **kwargs):
@@ -93,14 +101,16 @@ class Treatment(models.Model):
 
 class TreatmentReplicate(models.Model):
     treatment = models.ForeignKey(Treatment,
-                                  related_name='treatment_replicates')
+                                  related_name='treatment_replicates',
+                                  on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
     setup_date = models.DateField(blank=True, null=True)
     setup_time = models.TimeField(blank=True, null=True)
     setup_sample_size = models.IntegerField(blank=True, null=True)
     mass_g = models.FloatField(blank=True, null=True)
     flaw = models.ForeignKey(Flaw, blank=True, null=True,
-                             related_name='treatment_replicates')
+                             related_name='treatment_replicates',
+                             on_delete=models.CASCADE)
     display_name = models.CharField(max_length=255, editable=False)
 
     def save(self, *args, **kwargs):
@@ -118,13 +128,15 @@ class TreatmentReplicate(models.Model):
 
 class AliveDeadCount(models.Model):
     treatment_replicate = models.ForeignKey(TreatmentReplicate,
-                                            related_name='alive_dead_counts')
+                                            related_name='alive_dead_counts',
+                                            on_delete=models.CASCADE)
     status_date = models.DateField()
     status_time = models.TimeField(blank=True, null=True)
     count_alive = models.IntegerField(blank=True, null=True)
     count_dead = models.IntegerField(blank=True, null=True)
     flaw = models.ForeignKey(Flaw, blank=True, null=True,
-                             related_name='alive_dead_counts')
+                             related_name='alive_dead_counts',
+                             on_delete=models.CASCADE)
 
     def __str__(self):
         return "{}".format(self.status_date)

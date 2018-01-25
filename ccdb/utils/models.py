@@ -14,7 +14,7 @@ class AdminSection(models.Model):
 class AdminEntry(models.Model):
     package = models.CharField(max_length=255)
     model = models.CharField(max_length=255)
-    section = models.ForeignKey(AdminSection)
+    section = models.ForeignKey(AdminSection, on_delete=models.CASCADE)
     sort = models.IntegerField()
 
     def admin_url(self, request=None):

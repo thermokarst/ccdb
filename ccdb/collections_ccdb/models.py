@@ -56,13 +56,17 @@ class ADFGPermit(models.Model):
 
 
 class Collection(models.Model):
-    project = models.ForeignKey('projects.Project', related_name='collections')
+    project = models.ForeignKey('projects.Project', related_name='collections',
+                                on_delete=models.CASCADE)
     study_location = models.ForeignKey('locations.StudyLocation',
-                                       related_name='collections')
+                                       related_name='collections',
+                                       on_delete=models.CASCADE)
     collection_type = models.ForeignKey(CollectionType,
-                                        related_name='collections')
+                                        related_name='collections',
+                                        on_delete=models.CASCADE)
     collection_method = models.ForeignKey(CollectionMethod,
-                                          related_name='collections')
+                                          related_name='collections',
+                                          on_delete=models.CASCADE)
     number_of_traps = models.IntegerField(blank=True, null=True)
     collection_start_date = models.DateField(blank=True, null=True)
     collection_start_time = models.TimeField(blank=True, null=True)
@@ -71,16 +75,21 @@ class Collection(models.Model):
     notes = models.TextField(blank=True, null=False)
     storage_location = models.ForeignKey('locations.StorageLocation',
                                          blank=True, null=True,
-                                         related_name='collections')
+                                         related_name='collections',
+                                         on_delete=models.CASCADE)
     specimen_state = models.CharField(max_length=50, blank=True)
     process_type = models.ForeignKey('processing.ProcessType', blank=True,
-                                     null=True, related_name='collections')
+                                     null=True, related_name='collections',
+                                     on_delete=models.CASCADE)
     reagent = models.ForeignKey('processing.Reagent', blank=True, null=True,
-                                related_name='collections')
+                                related_name='collections',
+                                on_delete=models.CASCADE)
     adfg_permit = models.ForeignKey(ADFGPermit, blank=True, null=True,
-                                    related_name='collections')
+                                    related_name='collections',
+                                    on_delete=models.CASCADE)
     collection_flaw = models.ForeignKey(Flaw, blank=True, null=True,
-                                        related_name='collections')
+                                        related_name='collections',
+                                        on_delete=models.CASCADE)
     display_name = models.CharField(max_length=255, editable=False)
 
     def save(self, *args, **kwargs):
@@ -101,13 +110,15 @@ class Collection(models.Model):
 
 
 class DatasheetAttachment(models.Model):
-    collection = models.ForeignKey(Collection, related_name='datasheets')
+    collection = models.ForeignKey(Collection, related_name='datasheets',
+                                   on_delete=models.CASCADE)
     datasheet = models.FileField("Datasheet",
                                  upload_to='collections/datasheets/%Y/%m/%d')
 
 
 class CollectionTrap(models.Model):
-    collection = models.ForeignKey(Collection, related_name='traps')
+    collection = models.ForeignKey(Collection, related_name='traps',
+                                   on_delete=models.CASCADE)
     number_of_traps = models.IntegerField()
     date_opened = models.DateField()
     time_opened = models.TimeField()
@@ -126,7 +137,8 @@ class CollectionTrap(models.Model):
 
 
 class CollectionMeasurement(models.Model):
-    collection = models.ForeignKey(Collection, related_name='env_measurements')
+    collection = models.ForeignKey(Collection, related_name='env_measurements',
+                                   on_delete=models.CASCADE)
     date_measured = models.DateField()
     time_measured = models.TimeField()
     water_temp_c = models.FloatField(null=True)

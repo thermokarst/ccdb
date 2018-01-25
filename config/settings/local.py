@@ -27,14 +27,6 @@ INTERNAL_IPS = ('127.0.0.1', )
 
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
-# http://stackoverflow.com/a/28560805/313548
-class DisableMigrations(object):
-    def __contains__(self, item):
-        return True
-
-    def __getitem__(self, item):
-        return "notmigrations"
-
 TESTS_IN_PROGRESS = False
 if 'test' in sys.argv[1:] or 'jenkins' in sys.argv[1:]:
     logging.disable(logging.CRITICAL)
@@ -44,7 +36,8 @@ if 'test' in sys.argv[1:] or 'jenkins' in sys.argv[1:]:
     DEBUG = False
     TEMPLATE_DEBUG = False
     TESTS_IN_PROGRESS = True
-    MIGRATION_MODULES = DisableMigrations()
+    MIGRATION_MODULES = {app[app.rfind('.') + 1:]: None
+                         for app in INSTALLED_APPS}
 
 MANIFEST_URL = env('MANIFEST_URL', default=None)
 CORS_ORIGIN_ALLOW_ALL = False

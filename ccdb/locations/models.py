@@ -16,7 +16,7 @@ class Region(models.Model):
 
 class Site(models.Model):
     region = models.ForeignKey(Region, blank=True, null=True,
-                               related_name='sites')
+                               related_name='sites', on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     code = models.CharField(max_length=10, blank=True)
     description = models.CharField(max_length=255, blank=True)
@@ -46,14 +46,16 @@ class MunicipalLocation(models.Model):
 
 
 class StudyLocation(models.Model):
-    site = models.ForeignKey(Site, related_name='study_locations')
+    site = models.ForeignKey(Site, related_name='study_locations',
+                             on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     code = models.CharField(max_length=10)
     study_location_type = models.CharField(max_length=50, blank=True)
     treatment_type = models.CharField(max_length=100, blank=True)
     municipal_location = models.ForeignKey(MunicipalLocation,
                                            blank=True, null=True,
-                                           related_name='study_locations')
+                                           related_name='study_locations',
+                                           on_delete=models.CASCADE)
     collecting_location = models.BooleanField(default=False)
     description = models.CharField(max_length=255, blank=True)
     sort_order = models.IntegerField(blank=True, null=True)

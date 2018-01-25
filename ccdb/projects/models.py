@@ -32,7 +32,8 @@ class Grant(models.Model):
 
 
 class GrantReport(models.Model):
-    grant = models.ForeignKey(Grant, related_name='reports')
+    grant = models.ForeignKey(Grant, related_name='reports',
+                              on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     report_type = models.CharField(max_length=50, blank=True)
     description = models.CharField(max_length=255, blank=True)

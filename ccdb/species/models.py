@@ -19,8 +19,10 @@ class Species(models.Model):
 
 class TrapSpecies(models.Model):
     collection_trap = models.ForeignKey('collections_ccdb.CollectionTrap',
-                                        related_name='trap_species')
-    species = models.ForeignKey(Species, related_name='trap_species')
+                                        related_name='trap_species',
+                                        on_delete=models.CASCADE)
+    species = models.ForeignKey(Species, related_name='trap_species',
+                                on_delete=models.CASCADE)
     sex = models.CharField(max_length=25, blank=True)
     count = models.IntegerField(blank=True, null=True)
     count_estimated = models.BooleanField(default=False)
@@ -34,8 +36,10 @@ class TrapSpecies(models.Model):
 
 class CollectionSpecies(models.Model):
     collection = models.ForeignKey('collections_ccdb.Collection',
-                                   related_name='collection_species')
-    species = models.ForeignKey(Species, related_name='collection_species')
+                                   related_name='collection_species',
+                                   on_delete=models.CASCADE)
+    species = models.ForeignKey(Species, related_name='collection_species',
+                                on_delete=models.CASCADE)
     sex = models.CharField(max_length=25, blank=True)
     count = models.IntegerField(blank=True, null=True)
     count_estimated = models.BooleanField(default=False)
