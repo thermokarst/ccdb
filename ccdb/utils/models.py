@@ -24,3 +24,6 @@ class AdminEntry(models.Model):
 
     def __str__(self):
         return "%s %s" % (self.package, self.model)
+
+    class Meta:
+        verbose_name_plural = 'admin entries'
