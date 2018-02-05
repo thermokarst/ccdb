@@ -58,6 +58,7 @@ EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND',
 
 ADMINS = (
     ("""Matthew Ryan Dillon""", 'matthewrdillon@gmail.com'),
+    ("""Amy Chandos""", 'Amy.Chandos@nau.edu'),
 )
 
 MANAGERS = ADMINS
