@@ -35,6 +35,7 @@ router.register(r'sites', locations_viewsets.SiteViewSet)
 router.register(r'study-locations', locations_viewsets.StudyLocationViewSet)
 # Species
 router.register(r'species', species_viewsets.SpeciesViewSet)
+router.register(r'sexes', species_viewsets.SexViewSet)
 router.register(r'collection-species',
                 species_viewsets.CollectionSpeciesViewSet)
 

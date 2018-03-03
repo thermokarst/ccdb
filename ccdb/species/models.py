@@ -17,13 +17,26 @@ class Species(models.Model):
         verbose_name_plural = 'species'
 
 
+class Sex(models.Model):
+    name = models.CharField(max_length=25, unique=True)
+    sort_order = models.IntegerField(blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ['sort_order']
+        verbose_name_plural = 'sex'
+
+
 class TrapSpecies(models.Model):
     collection_trap = models.ForeignKey('collections_ccdb.CollectionTrap',
                                         related_name='trap_species',
                                         on_delete=models.CASCADE)
     species = models.ForeignKey(Species, related_name='trap_species',
                                 on_delete=models.CASCADE)
-    sex = models.CharField(max_length=25, blank=True)
+    sex = models.ForeignKey(Sex, related_name='trap_species',
+                            on_delete=models.CASCADE, null=True)
     count = models.IntegerField(blank=True, null=True)
     count_estimated = models.BooleanField(default=False)
 
@@ -40,7 +53,8 @@ class CollectionSpecies(models.Model):
                                    on_delete=models.CASCADE)
     species = models.ForeignKey(Species, related_name='collection_species',
                                 on_delete=models.CASCADE)
-    sex = models.CharField(max_length=25, blank=True)
+    sex = models.ForeignKey(Sex, related_name='collection_species',
+                            on_delete=models.CASCADE, null=True)
     count = models.IntegerField(blank=True, null=True)
     count_estimated = models.BooleanField(default=False)
 

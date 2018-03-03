@@ -1,7 +1,7 @@
 from factory import DjangoModelFactory, Sequence, SubFactory
 from factory.fuzzy import FuzzyText, FuzzyChoice, FuzzyInteger
 
-from ..models import Species, TrapSpecies, CollectionSpecies
+from ..models import Species, Sex, TrapSpecies, CollectionSpecies
 from ccdb.collections_ccdb.tests.factories import (CollectionFactory,
                                                    CollectionTrapFactory)
 
@@ -17,13 +17,21 @@ class SpeciesFactory(DjangoModelFactory):
     sort_order = Sequence(lambda n: n)
 
 
+class SexFactory(DjangoModelFactory):
+    class Meta:
+        model = Sex
+
+    name = Sequence(lambda n: 'sex{}'.format(n))
+    sort_order = Sequence(lambda n: n)
+
+
 class TrapSpeciesFactory(DjangoModelFactory):
     class Meta:
         model = TrapSpecies
 
     collection_trap = SubFactory(CollectionTrapFactory)
     species = SubFactory(SpeciesFactory)
-    sex = FuzzyText(length=25)
+    sex = SubFactory(SexFactory)
     count = FuzzyInteger(0)
     count_estimated = FuzzyChoice(choices=[True, False])
 
@@ -34,6 +42,6 @@ class CollectionSpeciesFactory(DjangoModelFactory):
 
     collection = SubFactory(CollectionFactory)
     species = SubFactory(SpeciesFactory)
-    sex = FuzzyText(length=25)
+    sex = SubFactory(SexFactory)
     count = FuzzyInteger(0)
     count_estimated = FuzzyChoice(choices=[True, False])
