@@ -35,11 +35,13 @@ MEDIA_URL = 'https://s3.amazonaws.com/%s/' % AWS_STORAGE_BUCKET_NAME
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
+ANYMAIL = {
+    MAILGUN_API_KEY: env('DJANGO_MAILGUN_API_KEY')
+    MAILGUN_SENDER_DOMAIN: env('DJANGO_MAILGUN_SERVER_NAME')
+}
 DEFAULT_FROM_EMAIL = env('DJANGO_DEFAULT_FROM_EMAIL',
                          default='CCDB Admin <noreply@ccdb.info>')
-EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
-MAILGUN_ACCESS_KEY = env('DJANGO_MAILGUN_API_KEY')
-MAILGUN_SERVER_NAME = env('DJANGO_MAILGUN_SERVER_NAME')
+EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
 EMAIL_SUBJECT_PREFIX = env("DJANGO_EMAIL_SUBJECT_PREFIX", default='[ccdb] ')
 SERVER_EMAIL = env('DJANGO_SERVER_EMAIL', default=DEFAULT_FROM_EMAIL)
 
